@@ -22,7 +22,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('bg_p_1_07af47de.jpg');
+            /* Updated background image URL */
+            background-image: url('/pic/背景.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed; /* Make the background image fixed */
@@ -48,6 +49,12 @@
             padding: 1.5rem;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            cursor: pointer; /* Indicate that the card is clickable */
+            transition: transform 0.3s ease-in-out; /* Add transition for hover effect */
+        }
+
+        .team-member-card:hover {
+            transform: translateY(-5px); /* Subtle lift effect on hover */
         }
 
         .news-card {
@@ -99,21 +106,74 @@
             animation: slideIn 0.3s ease-out;
         }
 
-        .close-button {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
+        /* Specific styles for the member detail modal */
+        #memberDetailModal .modal-content {
+            max-width: 900px; /* Wider for member details */
+            display: flex; /* Use flexbox for left/right layout */
+            gap: 20px; /* Space between left and right sections */
+        }
+
+        #memberDetailModal .member-info {
+            flex: 1; /* Take up available space */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        #memberDetailModal .member-info img {
+             width: 150px; /* Larger image in modal */
+             height: 150px;
+             border-radius: 50%;
+             object-fit: cover; /* Ensure image covers the area */
+             margin-bottom: 15px;
+        }
+
+        #memberDetailModal .member-details {
+            flex: 2; /* Take up more space for description/gif */
+            display: flex;
+            flex-direction: column;
+        }
+
+        #memberDetailModal .toggle-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        #memberDetailModal .toggle-buttons button {
+            background-color: #523e28;
+            color: #f7fafc;
+            padding: 8px 15px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 0.25rem;
+        }
+
+         #memberDetailModal .toggle-buttons button:hover {
+            background-color: #d69e2e;
+        }
+
+        #memberDetailModal .toggle-buttons button.active {
+            background-color: #d69e2e;
+            color: #3d2c1a;
             font-weight: bold;
         }
 
-        .close-button:hover,
-        .close-button:focus {
-            color: white;
-            text-decoration: none;
-            cursor: pointer;
+        #memberDetailModal .content-area {
+            flex-grow: 1; /* Allow content area to fill space */
+            overflow-y: auto; /* Add scroll if content overflows */
         }
 
-        /* Specific styles for the members modal */
+        #memberDetailModal .content-area img {
+            max-width: 100%; /* Ensure GIF fits within container */
+            height: auto;
+            display: block; /* Remove extra space below image */
+            margin: 0 auto; /* Center the GIF */
+        }
+
+
         #membersModal .modal-content {
             max-width: 900px; /* Wider for member grid */
         }
@@ -148,6 +208,20 @@
         .member-name {
             font-size: 0.9rem;
             color: #d69e2e;
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: white;
+            text-decoration: none;
         }
 
         /* Animation Keyframes */
@@ -205,26 +279,31 @@
     <section id="team" class="py-20 glass-effect">
         <div class="container mx-auto px-6">
             <h2 class="text-4xl font-bold text-center mb-12 text-orange-400">战队成员</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="team-member-card">
-                    <img src="zbsnll_ac01f9b4.webp" alt="少偏向" class="mx-auto rounded-full mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="team-member-card" data-member-id="shaopianxiang">
+                    <img src="/pic/少偏向大头照.webp" alt="少偏向" class="mx-auto rounded-full mb-4">
                     <h3 class="text-xl font-semibold mb-2 text-yellow-400">少偏向</h3>
                     <p class="text-gray-400">优势：当团队的人机</p>
                 </div>
-                <div class="team-member-card">
-                    <img src="b_lqzd_b4575b56.webp" alt="背化学" class="mx-auto rounded-full mb-4">
+                <div class="team-member-card" data-member-id="beihuaxue">
+                    <img src="/pic/背化学大头照.webp" alt="背化学" class="mx-auto rounded-full mb-4">
                     <h3 class="text-xl font-semibold mb-2 text-yellow-400">背化学</h3>
                     <p class="text-gray-400">优势：全能</p>
                 </div>
-                <div class="team-member-card">
-                    <img src="b_txbd_7cd02bd5.webp" alt="小妍蝶" class="mx-auto rounded-full mb-4">
+                <div class="team-member-card" data-member-id="xiaoyandie">
+                    <img src="/pic/小妍蝶大头照.webp" alt="小妍蝶" class="mx-auto rounded-full mb-4">
                     <h3 class="text-xl font-semibold mb-2 text-yellow-400">小妍蝶</h3>
                     <p class="text-gray-400">优势：全能</p>
+                </div>
+                 <div class="team-member-card" data-member-id="shifendaishadedan">
+                    <img src="/pic/十分呆傻的蛋大头照.png" alt="十分呆傻的蛋" class="mx-auto rounded-full mb-4">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">十分呆傻的蛋</h3>
+                    <p class="text-gray-400">擅长：当吉祥物</p>
                 </div>
             </div>
             <div class="text-center mt-12">
                 <button id="viewAllMembers" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 rounded-full transition duration-300">
-                    查看其他49人
+                    查看所有成员
                 </button>
             </div>
         </div>
@@ -262,7 +341,7 @@
                 </div>
                 <div class="schedule-card">
                     <h3 class="text-xl font-semibold mb-2 text-yellow-400">队内蛋仔决战（单人）</h3>
-                    <p class="text-gray-400 text-sm mb-2">日期：2025.4.19</p>
+                    <p class="text-400 text-sm mb-2">日期：2025.4.19</p>
                     <p class="text-gray-400 text-sm mb-2">时间：17:00</p>
                     <p class="text-gray-300">状态：已结束</p>
                 </div>
@@ -312,6 +391,29 @@
         </div>
     </div>
 
+    <div id="memberDetailModal" class="modal">
+        <div class="modal-content">
+             <span class="close-button">&times;</span>
+            <div class="member-info">
+                <img id="detailMemberImage" src="" alt="Member Image">
+                <h3 id="detailMemberName" class="text-2xl font-semibold mb-2 text-yellow-400"></h3>
+                <p id="detailMemberSkill" class="text-gray-400 text-lg"></p>
+            </div>
+            <div class="member-details">
+                <div class="toggle-buttons">
+                    <button id="showTextBtn" class="active mr-2">文字简介</button>
+                    <button id="showGifBtn">视频 (GIF)</button>
+                </div>
+                <div class="content-area">
+                    <div id="memberTextDescription" class="text-gray-300 leading-relaxed">
+                        </div>
+                     <img id="memberGif" src="" alt="Member GIF" style="display: none;">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -334,7 +436,6 @@
 
         // News Modal Functionality
         const newsModal = document.getElementById('newsModal');
-        const newsModalContent = newsModal.querySelector('.modal-content'); // Get the content element
         const newsCloseButton = newsModal.querySelector('.close-button');
         const readMoreLinks = document.querySelectorAll('.read-more');
         const modalTitle = document.getElementById('modalTitle');
@@ -383,19 +484,18 @@
 
         // All Members Modal Functionality
         const membersModal = document.getElementById('membersModal');
-        const membersModalContent = membersModal.querySelector('.modal-content'); // Get the content element
         const membersCloseButton = membersModal.querySelector('.close-button');
         const viewAllMembersButton = document.getElementById('viewAllMembers');
         const allMembersList = document.getElementById('allMembersList');
 
-        // List of all members provided by the user
+        // List of all members (updated to include the new member)
         const allMembers = [
             "白蜡", "拌龟", "背化学", "波搜", "c²", "场妈", "纯情天然呆", "clues", "dsnv", "购醉",
             "古煲", "寒炀", "好坏", "喝胖猫", "jang&unyo", "焦颂", "卡拉", "看惯他", "靠靠我的肩膀", "Kcir",
             "leaky", "黎安有景行", "lsta", "萌妹品味", "萌妹肢", "男刁", "#o要开心", "陪陪妹", "拼颖", "钱蔷",
             "青奶皇", "桑宝好困呀！", "x", "售誓", "夙", "讨买", "兔灵篇", "往屹", "诬鸦", "小少爷",
             "小驷", "囍欢", "小妍蝶", "妍", "耀忣", "隐语儿", "阴郁吻痕", "以以", "舆迟", "争吹",
-            "🤗", "十分呆傻的蛋"
+            "🤗", "十分呆傻的蛋" // Added the new member here
         ];
 
         // Function to render members in the modal
@@ -433,6 +533,104 @@
         window.addEventListener('click', (event) => {
             if (event.target === membersModal) {
                 membersModal.style.display = 'none';
+            }
+        });
+
+        // Member Detail Modal Functionality (New)
+        const memberDetailModal = document.getElementById('memberDetailModal');
+        const detailCloseButton = memberDetailModal.querySelector('.close-button');
+        const teamMemberCards = document.querySelectorAll('.team-member-card'); // Select all main member cards
+        const detailMemberImage = document.getElementById('detailMemberImage');
+        const detailMemberName = document.getElementById('detailMemberName');
+        const detailMemberSkill = document.getElementById('detailMemberSkill');
+        const showTextBtn = document.getElementById('showTextBtn');
+        const showGifBtn = document.getElementById('showGifBtn');
+        const memberTextDescription = document.getElementById('memberTextDescription');
+        const memberGif = document.getElementById('memberGif');
+
+        // Detailed data for the four main members (replace with actual image/gif URLs and descriptions)
+        const mainMembersData = {
+            shaopianxiang: {
+                name: "少偏向",
+                skill: "优势：当团队的人机",
+                imageUrl: "/pic/少偏向大头照.webp", // Updated image URL
+                gifUrl: "https://i.giphy.com/media/v1.gifs/l3q2zayB4f2d0R0oE/giphy.gif", // Placeholder GIF
+                description: "少偏向是战队的核心成员之一，以其独特的“人机”风格著称。他在比赛中展现出惊人的稳定性和精确性，尤其在关键时刻的操作常常让对手措手不及。虽然有时会被队友调侃，但这正是他实力的体现。少偏向不仅技术过硬，也是团队中不可或缺的润滑剂，总能带来欢乐的氛围。" // Placeholder description
+            },
+            beihuaxue: {
+                name: "背化学",
+                skill: "优势：全能",
+                imageUrl: "/pic/背化学大头照.webp", // Updated image URL
+                 gifUrl: "https://i.giphy.com/media/v1.gifs/l3q2zayB4f2d0R0oE/giphy.gif", // Placeholder GIF
+                description: "背化学是战队的全能型选手，无论是进攻还是防守，都能游刃有余。他拥有扎实的基本功和出色的游戏理解，总能在比赛中做出正确的判断。背化学是团队的定海神针，在关键时刻总能挺身而出，带领队伍走向胜利。他的存在让少家军的战术更加灵活多变。" // Placeholder description
+            },
+            xiaoyandie: {
+                name: "小妍蝶",
+                skill: "优势：全能",
+                imageUrl: "/pic/小妍蝶大头照.webp", // Updated image URL
+                 gifUrl: "https://i.giphy.com/media/v1.gifs/l3q2zayB4f2d0R0oE/giphy.gif", // Placeholder GIF
+                description: "小妍蝶同样是一位全能型选手，她的游戏风格飘逸灵动，常常能打出令人意想不到的操作。她在团队中扮演着重要的角色，无论是开团还是收割，都能完美执行。小妍蝶是战队的颜值担当，也是实力担当，她的加入让少家军如虎添翼。" // Placeholder description
+            },
+            shifendaishadedan: {
+                name: "十分呆傻的蛋",
+                skill: "擅长：当吉祥物",
+                imageUrl: "/pic/十分呆傻的蛋大头照.png", // Updated image URL
+                 gifUrl: "https://i.giphy.com/media/v1.gifs/l3q2zayB4f2d0R0oE/giphy.gif", // Placeholder GIF
+                description: "十分呆傻的蛋是少家军战队的吉祥物，虽然在竞技场上可能不是最耀眼的存在，但他凭借其独特的魅力和乐观的精神，成为了团队的开心果。无论输赢，他总能带来欢声笑语，缓解队员们的压力。他的存在让少家军更加团结友爱，是战队不可或缺的一部分。" // Placeholder description
+            }
+        };
+
+        // Add click event listeners to the main team member cards
+        teamMemberCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const memberId = card.getAttribute('data-member-id');
+                const memberData = mainMembersData[memberId];
+
+                if (memberData) {
+                    // Populate the detail modal with member data
+                    detailMemberImage.src = memberData.imageUrl;
+                    detailMemberName.textContent = memberData.name;
+                    detailMemberSkill.textContent = memberData.skill;
+                    memberTextDescription.textContent = memberData.description;
+                    memberGif.src = memberData.gifUrl;
+
+                    // Show the text description by default and hide the GIF
+                    memberTextDescription.style.display = 'block';
+                    memberGif.style.display = 'none';
+                    showTextBtn.classList.add('active');
+                    showGifBtn.classList.remove('active');
+
+
+                    memberDetailModal.style.display = 'flex'; // Show the detail modal
+                }
+            });
+        });
+
+        // Add click event listeners for the toggle buttons
+        showTextBtn.addEventListener('click', () => {
+            memberTextDescription.style.display = 'block';
+            memberGif.style.display = 'none';
+            showTextBtn.classList.add('active');
+            showGifBtn.classList.remove('active');
+        });
+
+        showGifBtn.addEventListener('click', () => {
+            memberTextDescription.style.display = 'none';
+            memberGif.style.display = 'block';
+            showTextBtn.classList.remove('active');
+            showGifBtn.classList.add('active');
+        });
+
+
+        // Close the member detail modal
+        detailCloseButton.addEventListener('click', () => {
+            memberDetailModal.style.display = 'none'; // Hide the modal
+        });
+
+        // Close the member detail modal if the user clicks outside of it
+        window.addEventListener('click', (event) => {
+            if (event.target === memberDetailModal) {
+                memberDetailModal.style.display = 'none';
             }
         });
 
