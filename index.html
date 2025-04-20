@@ -52,6 +52,8 @@
             background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
             justify-content: center;
             align-items: center;
+            /* Add fade in animation */
+            animation: fadeIn 0.3s ease-out;
         }
 
         .modal-content {
@@ -63,6 +65,8 @@
             max-width: 700px;
             box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
             color: #f7fafc;
+            /* Add slide in animation */
+            animation: slideIn 0.3s ease-out;
         }
 
         .close-button {
@@ -114,6 +118,17 @@
         .member-name {
             font-size: 0.9rem;
             color: #d69e2e;
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
@@ -288,7 +303,8 @@
 
         // News Modal Functionality
         const newsModal = document.getElementById('newsModal');
-        const newsCloseButton = newsModal.querySelector('.close-button'); // Use querySelector within modal
+        const newsModalContent = newsModal.querySelector('.modal-content'); // Get the content element
+        const newsCloseButton = newsModal.querySelector('.close-button');
         const readMoreLinks = document.querySelectorAll('.read-more');
         const modalTitle = document.getElementById('modalTitle');
         const modalDate = document.getElementById('modalDate');
@@ -317,14 +333,14 @@
                 if (newsItem) {
                     modalTitle.textContent = newsItem.title;
                     modalDate.textContent = newsItem.date;
-                    modalContent.textContent = newsItem.content; // Use textContent for security
-                    newsModal.style.display = 'flex'; // Use flex to center the modal
+                    modalContent.textContent = newsItem.content;
+                    newsModal.style.display = 'flex'; // Show the modal container
                 }
             });
         });
 
         newsCloseButton.addEventListener('click', () => {
-            newsModal.style.display = 'none';
+            newsModal.style.display = 'none'; // Hide the modal
         });
 
         // Close the news modal if the user clicks outside of it
@@ -336,7 +352,8 @@
 
         // All Members Modal Functionality
         const membersModal = document.getElementById('membersModal');
-        const membersCloseButton = membersModal.querySelector('.close-button'); // Use querySelector within modal
+        const membersModalContent = membersModal.querySelector('.modal-content'); // Get the content element
+        const membersCloseButton = membersModal.querySelector('.close-button');
         const viewAllMembersButton = document.getElementById('viewAllMembers');
         const allMembersList = document.getElementById('allMembersList');
 
@@ -374,11 +391,11 @@
 
         viewAllMembersButton.addEventListener('click', () => {
             renderMembers(); // Render members before showing the modal
-            membersModal.style.display = 'flex'; // Use flex to center the modal
+            membersModal.style.display = 'flex'; // Show the modal container
         });
 
         membersCloseButton.addEventListener('click', () => {
-            membersModal.style.display = 'none';
+            membersModal.style.display = 'none'; // Hide the modal
         });
 
         // Close the members modal if the user clicks outside of it
@@ -392,4 +409,3 @@
 
 </body>
 </html>
-
