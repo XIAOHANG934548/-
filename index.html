@@ -78,6 +78,43 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        /* Specific styles for the members modal */
+        #membersModal .modal-content {
+            max-width: 900px; /* Wider for member grid */
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Responsive grid */
+            gap: 15px;
+            text-align: center;
+        }
+
+        .member-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .member-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #523e28; /* Placeholder background */
+            margin-bottom: 5px;
+            display: flex; /* Use flexbox to center content */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            font-size: 1.5rem; /* Adjust font size as needed */
+            color: #f7fafc; /* Text color for the initial */
+            font-weight: bold;
+        }
+
+        .member-name {
+            font-size: 0.9rem;
+            color: #d69e2e;
+        }
     </style>
 </head>
 <body class="leading-normal tracking-normal">
@@ -140,7 +177,7 @@
                 </div>
                 </div>
             <div class="text-center mt-12">
-                <button class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 rounded-full transition duration-300">
+                <button id="viewAllMembers" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 rounded-full transition duration-300">
                     查看其他49人
                 </button>
             </div>
@@ -205,7 +242,7 @@
                 <a href="#" class="text-d69e2e hover:text-white transition duration-300">微博</a>
                 <a href="#" class="text-d69e2e hover:text-white transition duration-300">Bilibili</a>
                 <a href="#" class="text-d69e2e hover:text-white transition duration-300">抖音</a>
-            </div>
+                <span class="text-gray-400">都没有</span> </div>
         </div>
     </footer>
 
@@ -217,6 +254,16 @@
             <div id="modalContent" class="text-gray-300 leading-relaxed"></div>
         </div>
     </div>
+
+    <div id="membersModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 class="text-2xl font-bold mb-4 text-yellow-400 text-center">所有成员</h2>
+            <div id="allMembersList" class="members-grid">
+                </div>
+        </div>
+    </div>
+
 
     <script>
         // Smooth scrolling for navigation links
@@ -240,7 +287,7 @@
 
         // News Modal Functionality
         const newsModal = document.getElementById('newsModal');
-        const closeButton = document.querySelector('.close-button');
+        const newsCloseButton = newsModal.querySelector('.close-button'); // Use querySelector within modal
         const readMoreLinks = document.querySelectorAll('.read-more');
         const modalTitle = document.getElementById('modalTitle');
         const modalDate = document.getElementById('modalDate');
@@ -275,16 +322,72 @@
             });
         });
 
-        closeButton.addEventListener('click', () => {
+        newsCloseButton.addEventListener('click', () => {
             newsModal.style.display = 'none';
         });
 
-        // Close the modal if the user clicks outside of it
+        // Close the news modal if the user clicks outside of it
         window.addEventListener('click', (event) => {
             if (event.target === newsModal) {
                 newsModal.style.display = 'none';
             }
         });
+
+        // All Members Modal Functionality
+        const membersModal = document.getElementById('membersModal');
+        const membersCloseButton = membersModal.querySelector('.close-button'); // Use querySelector within modal
+        const viewAllMembersButton = document.getElementById('viewAllMembers');
+        const allMembersList = document.getElementById('allMembersList');
+
+        // List of all members provided by the user
+        const allMembers = [
+            "白蜡", "拌龟", "背化学", "波搜", "c²", "场妈", "纯情天然呆", "clues", "dsnv", "购醉",
+            "古煲", "寒炀", "好坏", "喝胖猫", "jang&unyo", "焦颂", "卡拉", "看惯他", "靠靠我的肩膀", "Kcir",
+            "leaky", "黎安有景行", "lsta", "萌妹品味", "萌妹肢", "男刁", "#o要开心", "陪陪妹", "拼颖", "钱蔷",
+            "青奶皇", "桑宝好困呀！", "x", "售誓", "夙", "讨买", "兔灵篇", "往屹", "诬鸦", "小少爷",
+            "小驷", "囍欢", "小妍蝶", "妍", "耀忣", "隐语儿", "阴郁吻痕", "以以", "舆迟", "争吹",
+            "🤗", "十分呆傻的蛋"
+        ];
+
+        // Function to render members in the modal
+        function renderMembers() {
+            allMembersList.innerHTML = ''; // Clear current list
+            allMembers.forEach(member => {
+                const memberItem = document.createElement('div');
+                memberItem.classList.add('member-item');
+
+                const memberAvatar = document.createElement('div');
+                memberAvatar.classList.add('member-avatar');
+                // Set the first character of the name as the avatar content
+                memberAvatar.textContent = member.charAt(0);
+
+
+                const memberName = document.createElement('div');
+                memberName.classList.add('member-name');
+                memberName.textContent = member;
+
+                memberItem.appendChild(memberAvatar);
+                memberItem.appendChild(memberName);
+                allMembersList.appendChild(memberItem);
+            });
+        }
+
+        viewAllMembersButton.addEventListener('click', () => {
+            renderMembers(); // Render members before showing the modal
+            membersModal.style.display = 'flex'; // Use flex to center the modal
+        });
+
+        membersCloseButton.addEventListener('click', () => {
+            membersModal.style.display = 'none';
+        });
+
+        // Close the members modal if the user clicks outside of it
+        window.addEventListener('click', (event) => {
+            if (event.target === membersModal) {
+                membersModal.style.display = 'none';
+            }
+        });
+
     </script>
 
 </body>
