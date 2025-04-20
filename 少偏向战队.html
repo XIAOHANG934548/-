@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>少家军电子竞技战队</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #281a0c; /* Dark orange/brown background */
+            color: #f7fafc; /* Off-white text */
+        }
+        .gradient-bg {
+            background: linear-gradient(to right, #3d2c1a, #523e28); /* Orange/brown gradient */
+        }
+        .team-member-card {
+            background-color: #3d2c1a; /* Card background */
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .news-card {
+             background-color: #3d2c1a; /* Card background */
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+         .schedule-card {
+             background-color: #3d2c1a; /* Card background */
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        /* Adjust text color for card content */
+        .team-member-card p, .news-card p, .schedule-card p {
+            color: #d69e2e; /* Muted yellow/orange for details */
+        }
+    </style>
+</head>
+<body class="leading-normal tracking-normal">
+
+    <header class="gradient-bg shadow-lg">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-lg font-bold text-white">少家军</div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="text-yellow-200 hover:text-white transition duration-300">首页</a>
+                    <a href="#team" class="text-yellow-200 hover:text-white transition duration-300">战队成员</a>
+                    <a href="#news" class="text-yellow-200 hover:text-white transition duration-300">新闻</a>
+                    <a href="#schedule" class="text-yellow-200 hover:text-white transition duration-300">赛程</a>
+                    <a href="#about" class="text-yellow-200 hover:text-white transition duration-300">关于我们</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-yellow-200 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="md:hidden mt-4 hidden">
+                <a href="#home" class="block py-2 text-yellow-200 hover:text-white transition duration-300">首页</a>
+                <a href="#team" class="block py-2 text-yellow-200 hover:text-white transition duration-300">战队成员</a>
+                <a href="#news" class="block py-2 text-yellow-200 hover:text-white transition duration-300">新闻</a>
+                <a href="#schedule" class="block py-2 text-yellow-200 hover:text-white transition duration-300">赛程</a>
+                <a href="#about" class="block py-2 text-yellow-200 hover:text-white transition duration-300">关于我们</a>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="relative h-screen flex items-center justify-center text-white overflow-hidden">
+        <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('https://party.res.netease.com/m/gw/20230510172133/img/bg_p_1_07af47de.jpg');"></div>
+        <div class="absolute inset-0 z-10 bg-black opacity-50"></div>
+        <div class="container mx-auto px-6 z-20 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-4">少家军</h1>
+            <p class="text-xl md:text-2xl mb-8">最有实力的蛋仔战队</p>
+            <a href="#team" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition duration-300">了解战队</a>
+        </div>
+    </section>
+
+    <section id="team" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-orange-400">战队成员</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="team-member-card">
+                    <img src="https://party.res.netease.com/m/gw/20230510172133/img/zbsnll_ac01f9b4.png" alt="少偏向" class="mx-auto rounded-full mb-4">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">少偏向</h3>
+                    <p class="text-gray-400">优势：当团队的人机</p>
+                </div>
+                <div class="team-member-card">
+                    <img src="https://party.res.netease.com/m/gw/20230510172133/img/b_lqzd_b4575b56.png" alt="背化学" class="mx-auto rounded-full mb-4">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">背化学</h3>
+                    <p class="text-gray-400">优势：全能</p>
+                </div>
+                <div class="team-member-card">
+                    <img src="https://party.res.netease.com/m/gw/20230510172133/img/b_txbd_7cd02bd5.png" alt="小妍蝶" class="mx-auto rounded-full mb-4">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">小妍蝶</h3>
+                    <p class="text-gray-400">优势：全能</p>
+                </div>
+                </div>
+            <div class="text-center mt-12">
+                <button class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 rounded-full transition duration-300">
+                    查看其他49人
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="news" class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-orange-400">最新新闻</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="news-card">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">少偏向在队内比赛被打破防</h3>
+                    <p class="text-gray-400 text-sm mb-4">发布日期：2025.4.20</p>
+                    <p class="text-gray-300">这里是新闻内容的简要描述。点击阅读更多。</p>
+                    <a href="#" class="text-yellow-400 hover:underline mt-4 inline-block">阅读更多</a>
+                </div>
+                <div class="news-card">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">少偏向被认证为人机</h3>
+                    <p class="text-gray-400 text-sm mb-4">发布日期：2025.4.19</p>
+                    <p class="text-gray-300">这里是新闻内容的简要描述。点击阅读更多。</p>
+                    <a href="#" class="text-yellow-400 hover:underline mt-4 inline-block">阅读更多</a>
+                </div>
+                </div>
+        </div>
+    </section>
+
+    <section id="schedule" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-orange-400">近期赛程</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="schedule-card">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">队内蛋仔决战（双人）</h3>
+                    <p class="text-gray-400 text-sm mb-2">日期：2025.4.20</p>
+                    <p class="text-gray-400 text-sm mb-2">时间：10:00</p>
+                    <p class="text-gray-300">状态：已结束</p>
+                </div>
+                 <div class="schedule-card">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">队内蛋仔决战（单人）</h3>
+                    <p class="text-gray-400 text-sm mb-2">日期：2025.4.19</p>
+                    <p class="text-gray-400 text-sm mb-2">时间：17:00</p>
+                    <p class="text-gray-300">状态：已结束</p>
+                </div>
+                </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-orange-400">关于我们</h2>
+            <div class="text-lg text-gray-300 leading-relaxed">
+                <p class="mb-4">少家军电子竞技战队成立于 2025年，致力于在 蛋仔派对 项目中追求卓越。</p>
+                <p class="mb-4">我们是一支充满激情、团结协作的队伍，不断努力提升竞技水平，争取更高的荣誉。</p>
+                <p>我们的目标是成为顶级的电子竞技战队，为粉丝带来精彩的比赛和难忘的时刻。</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 py-8" style="background-color: #1a1000;">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 少家军电子竞技战队. All rights reserved.</p>
+            <div class="mt-4 space-x-4">
+                <a href="#" class="text-d69e2e hover:text-white transition duration-300">微博</a>
+                <a href="#" class="text-d69e2e hover:text-white transition duration-300">Bilibili</a>
+                <a href="#" class="text-d69e2e hover:text-white transition duration-300">抖音</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+</html>
