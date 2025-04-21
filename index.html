@@ -173,6 +173,14 @@
             margin: 0 auto; /* Center the GIF */
         }
 
+        /* Style for the "暂无" message */
+        .no-gif-message {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #d69e2e;
+            margin-top: 20px;
+        }
+
 
         #membersModal .modal-content {
             max-width: 900px; /* Wider for member grid */
@@ -296,7 +304,7 @@
                     <p class="text-gray-400">优势：全能</p>
                 </div>
                  <div class="team-member-card" data-member-id="shifendaishadedan">
-                    <img src="pic/十分呆傻的蛋大头照.webp" alt="十分呆傻的蛋" class="mx-auto rounded-full mb-4">
+                    <img src="pic/十分呆傻的蛋大头照.png" alt="十分呆傻的蛋" class="mx-auto rounded-full mb-4">
                     <h3 class="text-xl font-semibold mb-2 text-yellow-400">十分呆傻的蛋</h3>
                     <p class="text-gray-400">擅长：当吉祥物</p>
                 </div>
@@ -341,7 +349,7 @@
                 </div>
                 <div class="schedule-card">
                     <h3 class="text-xl font-semibold mb-2 text-yellow-400">队内蛋仔决战（单人）</h3>
-                    <p class="text-400 text-sm mb-2">日期：2025.4.19</p>
+                    <p class="text-gray-400 text-sm mb-2">日期：2025.4.19</p>
                     <p class="text-gray-400 text-sm mb-2">时间：17:00</p>
                     <p class="text-gray-300">状态：已结束</p>
                 </div>
@@ -407,7 +415,8 @@
                 <div class="content-area">
                     <div id="memberTextDescription" class="text-gray-300 leading-relaxed">
                         </div>
-                     <img id="memberGif" src="" alt="Member GIF" style="display: none;">
+                     <img id="memberGif" src="" alt="Member GIF" style="display: none;" onerror="this.style.display='none'; document.getElementById('noGifMessage').style.display='block';">
+                     <div id="noGifMessage" class="no-gif-message" style="display: none;">暂无</div>
                     </div>
             </div>
         </div>
@@ -547,35 +556,36 @@
         const showGifBtn = document.getElementById('showGifBtn');
         const memberTextDescription = document.getElementById('memberTextDescription');
         const memberGif = document.getElementById('memberGif');
+        const noGifMessage = document.getElementById('noGifMessage'); // Get the "暂无" message element
 
         // Detailed data for the four main members (replace with actual image/gif URLs and descriptions)
         const mainMembersData = {
             shaopianxiang: {
                 name: "少偏向",
                 skill: "优势：当团队的人机",
-                imageUrl: "pic/少偏向大头照.webp", // Corrected image URL
-                gifUrl: "https://i.giphy.com/media/v1.gifs/l3q2zayB4f2d0R0oE/giphy.gif", // Placeholder GIF
+                imageUrl: "pic/少偏向大头照.webp",
+                gifUrl: "pic/少偏向介绍.gif", // Updated GIF URL
                 description: "少偏向是战队的核心成员之一，以其独特的“人机”风格著称。他在比赛中展现出惊人的稳定性和精确性，尤其在关键时刻的操作常常让对手措手不及。虽然有时会被队友调侃，但这正是他实力的体现。少偏向不仅技术过硬，也是团队中不可或缺的润滑剂，总能带来欢乐的氛围。" // Placeholder description
             },
             beihuaxue: {
                 name: "背化学",
                 skill: "优势：全能",
-                imageUrl: "pic/背化学大头照.webp", // Corrected image URL
-                 gifUrl: "https://i.giphy.com/media/v1.gifs/l3q2zayB4f2d0R0oE/giphy.gif", // Placeholder GIF
+                imageUrl: "pic/背化学大头照.webp",
+                 gifUrl: "pic/背化学介绍.gif", // Updated GIF URL
                 description: "背化学是战队的全能型选手，无论是进攻还是防守，都能游刃有余。他拥有扎实的基本功和出色的游戏理解，总能在比赛中做出正确的判断。背化学是团队的定海神针，在关键时刻总能挺身而出，带领队伍走向胜利。他的存在让少家军的战术更加灵活多变。" // Placeholder description
             },
             xiaoyandie: {
                 name: "小妍蝶",
                 skill: "优势：全能",
-                imageUrl: "pic/小妍蝶大头照.webp", // Corrected image URL
-                 gifUrl: "https://i.giphy.com/media/v1.gifs/l3q2zayB4f2d0R0oE/giphy.gif", // Placeholder GIF
+                imageUrl: "pic/小妍蝶大头照.webp",
+                 gifUrl: "pic/小妍蝶介绍.gif", // Updated GIF URL
                 description: "小妍蝶同样是一位全能型选手，她的游戏风格飘逸灵动，常常能打出令人意想不到的操作。她在团队中扮演着重要的角色，无论是开团还是收割，都能完美执行。小妍蝶是战队的颜值担当，也是实力担当，她的加入让少家军如虎添翼。" // Placeholder description
             },
             shifendaishadedan: {
                 name: "十分呆傻的蛋",
                 skill: "擅长：当吉祥物",
-                imageUrl: "pic/十分呆傻的蛋大头照.png", // Corrected image URL
-                 gifUrl: "https://i.giphy.com/media/v1.gifs/l3q2zayB4f2d0R0oE/giphy.gif", // Placeholder GIF
+                imageUrl: "pic/十分呆傻的蛋大头照.png",
+                 gifUrl: "pic/十分呆傻的蛋介绍.gif", // Updated GIF URL
                 description: "十分呆傻的蛋是少家军战队的吉祥物，虽然在竞技场上可能不是最耀眼的存在，但他凭借其独特的魅力和乐观的精神，成为了团队的开心果。无论输赢，他总能带来欢声笑语，缓解队员们的压力。他的存在让少家军更加团结友爱，是战队不可或缺的一部分。" // Placeholder description
             }
         };
@@ -592,11 +602,18 @@
                     detailMemberName.textContent = memberData.name;
                     detailMemberSkill.textContent = memberData.skill;
                     memberTextDescription.textContent = memberData.description;
-                    memberGif.src = memberData.gifUrl;
 
-                    // Show the text description by default and hide the GIF
+                    // Set GIF source and handle error
+                    memberGif.src = memberData.gifUrl;
+                    memberGif.onerror = function() {
+                        this.style.display = 'none';
+                        noGifMessage.style.display = 'block';
+                    };
+
+                    // Show the text description by default and hide the GIF/message
                     memberTextDescription.style.display = 'block';
                     memberGif.style.display = 'none';
+                    noGifMessage.style.display = 'none'; // Hide "暂无" initially
                     showTextBtn.classList.add('active');
                     showGifBtn.classList.remove('active');
 
@@ -610,13 +627,23 @@
         showTextBtn.addEventListener('click', () => {
             memberTextDescription.style.display = 'block';
             memberGif.style.display = 'none';
+            noGifMessage.style.display = 'none'; // Hide "暂无" when showing text
             showTextBtn.classList.add('active');
             showGifBtn.classList.remove('active');
         });
 
         showGifBtn.addEventListener('click', () => {
+             // When showing GIF, first hide text and "暂无"
             memberTextDescription.style.display = 'none';
-            memberGif.style.display = 'block';
+            noGifMessage.style.display = 'none';
+
+            // Check if the GIF element has a valid src
+            if (memberGif.src && memberGif.naturalWidth > 0) {
+                 memberGif.style.display = 'block'; // Show the GIF if loaded
+            } else {
+                 noGifMessage.style.display = 'block'; // Show "暂无" if GIF failed to load
+            }
+
             showTextBtn.classList.remove('active');
             showGifBtn.classList.add('active');
         });
