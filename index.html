@@ -242,6 +242,40 @@
             from { transform: translateY(-50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+
+        /* --- Mobile Responsiveness for Member Detail Modal --- */
+        @media (max-width: 768px) {
+            #memberDetailModal .modal-content {
+                flex-direction: column; /* Stack items vertically on smaller screens */
+                max-width: 95%; /* Allow modal to be wider on small screens */
+                padding: 15px; /* Adjust padding */
+            }
+
+            #memberDetailModal .member-info,
+            #memberDetailModal .member-details {
+                flex: none; /* Remove flex grow */
+                width: 100%; /* Take full width */
+            }
+
+            #memberDetailModal .member-info {
+                margin-bottom: 20px; /* Add space below member info */
+            }
+
+            #memberDetailModal .member-info img {
+                width: 100px; /* Smaller image on mobile */
+                height: 100px;
+            }
+
+            #memberDetailModal .toggle-buttons {
+                justify-content: space-around; /* Distribute buttons */
+                margin-bottom: 15px;
+            }
+
+            #memberDetailModal .content-area {
+                overflow-y: visible; /* Allow content to push modal height if needed */
+                height: auto; /* Adjust height */
+            }
+        }
     </style>
 </head>
 <body class="leading-normal tracking-normal">
