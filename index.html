@@ -321,31 +321,41 @@
     <section id="team" class="py-20 glass-effect">
         <div class="container mx-auto px-6">
             <h2 class="text-4xl font-bold text-center mb-12 text-orange-400">战队成员</h2>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
                 <div class="team-member-card" data-member-id="shaopianxiang">
-                    <img src="pic/少偏向大头照.webp" alt="少偏向" class="mx-auto rounded-full mb-4">
+                    <img src="pic/少偏向大头照.webp" onerror="this.onerror=null; this.src='https://placehold.co/150x150/3d2c1a/f7fafc?text=少'" alt="少偏向" class="mx-auto rounded-full mb-4 w-24 h-24 object-cover">
                     <h3 class="text-xl font-semibold mb-2 text-yellow-400">少偏向</h3>
                     <p class="text-gray-400">擅长：精准（人机）走位</p>
                 </div>
                 <div class="team-member-card" data-member-id="beihuaxue">
-                    <img src="pic/背化学大头照.webp" alt="背化学" class="mx-auto rounded-full mb-4">
+                    <img src="pic/背化学大头照.webp" onerror="this.onerror=null; this.src='https://placehold.co/150x150/3d2c1a/f7fafc?text=背'" alt="背化学" class="mx-auto rounded-full mb-4 w-24 h-24 object-cover">
                     <h3 class="text-xl font-semibold mb-2 text-yellow-400">背化学</h3>
                     <p class="text-gray-400">特点：道具大师</p>
                 </div>
                 <div class="team-member-card" data-member-id="xiaoyandie">
-                    <img src="pic/小妍蝶大头照.webp" alt="小妍蝶" class="mx-auto rounded-full mb-4">
+                    <img src="pic/小妍蝶大头照.webp" onerror="this.onerror=null; this.src='https://placehold.co/150x150/3d2c1a/f7fafc?text=小'" alt="小妍蝶" class="mx-auto rounded-full mb-4 w-24 h-24 object-cover">
                     <h3 class="text-xl font-semibold mb-2 text-yellow-400">小妍蝶</h3>
                     <p class="text-gray-400">风格：出奇制胜</p>
                 </div>
                 <div class="team-member-card" data-member-id="shifendaishadedan">
-                    <img src="pic/十分呆傻的蛋大头照.webp" alt="十分呆傻的蛋" class="mx-auto rounded-full mb-4">
+                    <img src="pic/十分呆傻的蛋大头照.webp" onerror="this.onerror=null; this.src='https://placehold.co/150x150/3d2c1a/f7fafc?text=十'" alt="十分呆傻的蛋" class="mx-auto rounded-full mb-4 w-24 h-24 object-cover">
                     <h3 class="text-xl font-semibold mb-2 text-yellow-400">十分呆傻的蛋</h3>
                     <p class="text-gray-400">定位：吉祥物</p>
                 </div>
                  <div class="team-member-card" data-member-id="zhengchui">
-                    <img src="pic/争吹大头照.webp" alt="争吹" class="mx-auto rounded-full mb-4">
+                    <img src="pic/争吹大头照.webp" onerror="this.onerror=null; this.src='https://placehold.co/150x150/3d2c1a/f7fafc?text=争'" alt="争吹" class="mx-auto rounded-full mb-4 w-24 h-24 object-cover">
                     <h3 class="text-xl font-semibold mb-2 text-yellow-400">争吹</h3>
                     <p class="text-gray-400">特长：全能和背锅</p>
+                </div>
+                <div class="team-member-card" data-member-id="lsta">
+                    <img src="pic/Lsta大头照.webp" onerror="this.onerror=null; this.src='https://placehold.co/150x150/3d2c1a/f7fafc?text=L'" alt="Lsta" class="mx-auto rounded-full mb-4 w-24 h-24 object-cover">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">Lsta</h3>
+                    <p class="text-gray-400">擅长：决战</p>
+                </div>
+                <div class="team-member-card" data-member-id="hepangmao">
+                    <img src="pic/喝胖猫大头照.webp" onerror="this.onerror=null; this.src='https://placehold.co/150x150/3d2c1a/f7fafc?text=喝'" alt="喝胖猫" class="mx-auto rounded-full mb-4 w-24 h-24 object-cover">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">喝胖猫</h3>
+                    <p class="text-gray-400">擅长：巅峰派队</p>
                 </div>
             </div>
             <div class="text-center mt-12">
@@ -540,9 +550,9 @@
         const allMembers = [
             "白蜡", "拌龟", "背化学", "波搜", "c²", "场妈", "纯情天然呆", "clues", "dsnv", "购醉",
             "古煲", "寒炀", "好坏", "喝胖猫", "jang&unyo", "焦颂", "卡拉", "看惯他", "靠靠我的肩膀", "Kcir",
-            "leaky", "黎安有景行", "lsta", "萌妹品味", "萌妹肢", "男刁", "#o要开心", "陪陪妹", "拼颖", "钱蔷",
+            "leaky", "黎安有景行", "Lsta", "萌妹品味", "萌妹肢", "男刁", "#o要开心", "陪陪妹", "拼颖", "钱蔷",
             "青奶皇", "桑宝好困呀！", "x", "十分呆傻的蛋", "售誓", "夙", "讨买", "兔灵篇", "往屹", "诬鸦", "小少爷",
-            "小驷", "囍欢", "小妍蝶", "妍", "耀忣", "隐语儿", "阴郁吻痕", "以以", "舆迟", "争吹", // Added the new member here
+            "小驷", "囍欢", "小妍蝶", "妍", "耀忣", "隐语儿", "阴郁吻痕", "以以", "舆迟", "争吹",
             "Dtll"
         ];
 
@@ -597,7 +607,7 @@
         const memberGif = document.getElementById('memberGif');
         const noGifMessage = document.getElementById('noGifMessage'); // Get the "暂无" message element
 
-        // Detailed data for the main members (updated to include the new member)
+        // Detailed data for the main members (updated to include the new members)
         const mainMembersData = {
             shaopianxiang: {
                 name: "少偏向",
@@ -627,13 +637,28 @@
                 gifUrl: "pic/十分呆傻的蛋介绍.gif",
                 description: "十分呆傻的蛋是少家军战队不可或缺的吉祥物和气氛担当。虽然在竞技场上可能不是最顶尖的选手，但他总是带着乐观积极的态度，用他的仁济操作给大家带来欢乐。他的存在让团队氛围轻松愉快，有时还能带来意想不到的幸运，是团队的精神支柱。"
             },
-            // New member data: 争吹
             zhengchui: {
                 name: "争吹",
                 skill: "特长：全能和背锅",
                 imageUrl: "pic/争吹大头照.webp",
-                gifUrl: "pic/争吹介绍.gif", 
+                gifUrl: "pic/争吹介绍.gif",
                 description: "争吹在战队中以其实力强劲著称，几乎精通蛋仔派对的各种玩法和地图。她总能在关键时刻挺身而出，带领队伍走向胜利。然而，有时候队友们在游戏中的对话或表情会莫名其妙地出现在她的头上。尽管如此，她依然是团队中不可或缺的多面手。"
+            },
+            // New member data: Lsta
+            lsta: {
+                name: "Lsta",
+                skill: "擅长：决战",
+                imageUrl: "pic/Lsta大头照.webp", 
+                gifUrl: "pic/Lsta介绍.gif", 
+                description: "Lsta在蛋仔派对的决战模式中展现出非凡的实力。她冷静沉着，擅长利用地图机制和道具进行一对一的对抗，总能在关键时刻击败对手，是队伍在决战环节的定海神针。"
+            },
+            // New member data: 喝胖猫
+            hepangmao: {
+                name: "喝胖猫",
+                skill: "擅长：巅峰派队",
+                imageUrl: "pic/喝胖猫大头照.webp", 
+                gifUrl: "pic/喝胖猫介绍.gif", 
+                description: "喝胖猫是巅峰派对的佼佼者。她对各种关卡有着深刻的理解，能够快速找到最佳路线和策略，在混乱的派对中脱颖而出，为队伍赢得宝贵的积分和排名。"
             }
         };
 
@@ -680,6 +705,7 @@
 
             // Check if the GIF element has a valid src and has loaded successfully
             // We use naturalWidth to check if the image loaded correctly
+            // Also check if the src is not empty
             if (memberGif.src && memberGif.naturalWidth > 0) {
                  memberGif.style.display = 'block'; // Show the GIF if loaded
                  noGifMessage.style.display = 'none'; // Hide "暂无"
