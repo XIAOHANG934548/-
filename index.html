@@ -414,10 +414,10 @@
                 </div>
                 <div class="content-area">
                     <div id="memberTextDescription" class="text-gray-300 leading-relaxed">
-                        </div>
-                     <img id="memberGif" src="" alt="Member GIF" style="display: none;" onerror="this.style.display='none'; document.getElementById('noGifMessage').style.display='block';">
+                         </div>
+                     <img id="memberGif" src="" alt="Member GIF" style="display: none;">
                      <div id="noGifMessage" class="no-gif-message" style="display: none;">暂无</div>
-                    </div>
+                     </div>
             </div>
         </div>
     </div>
@@ -603,12 +603,8 @@
                     detailMemberSkill.textContent = memberData.skill;
                     memberTextDescription.textContent = memberData.description;
 
-                    // Set GIF source and handle error
+                    // Set the GIF source but don't display it yet
                     memberGif.src = memberData.gifUrl;
-                    memberGif.onerror = function() {
-                        this.style.display = 'none';
-                        noGifMessage.style.display = 'block';
-                    };
 
                     // Show the text description by default and hide the GIF/message
                     memberTextDescription.style.display = 'block';
@@ -616,7 +612,6 @@
                     noGifMessage.style.display = 'none'; // Hide "暂无" initially
                     showTextBtn.classList.add('active');
                     showGifBtn.classList.remove('active');
-
 
                     memberDetailModal.style.display = 'flex'; // Show the detail modal
                 }
@@ -633,15 +628,17 @@
         });
 
         showGifBtn.addEventListener('click', () => {
-             // When showing GIF, first hide text and "暂无"
+            // When showing GIF, first hide text
             memberTextDescription.style.display = 'none';
-            noGifMessage.style.display = 'none';
 
-            // Check if the GIF element has a valid src
+            // Check if the GIF element has a valid src and has loaded successfully
+            // We use naturalWidth to check if the image loaded correctly
             if (memberGif.src && memberGif.naturalWidth > 0) {
                  memberGif.style.display = 'block'; // Show the GIF if loaded
+                 noGifMessage.style.display = 'none'; // Hide "暂无"
             } else {
-                 noGifMessage.style.display = 'block'; // Show "暂无" if GIF failed to load
+                 memberGif.style.display = 'none'; // Hide the GIF element
+                 noGifMessage.style.display = 'block'; // Show "暂无" if GIF failed to load or src is empty
             }
 
             showTextBtn.classList.remove('active');
@@ -652,12 +649,16 @@
         // Close the member detail modal
         detailCloseButton.addEventListener('click', () => {
             memberDetailModal.style.display = 'none'; // Hide the modal
+             // Reset GIF src to stop loading if it was in progress
+            memberGif.src = '';
         });
 
         // Close the member detail modal if the user clicks outside of it
         window.addEventListener('click', (event) => {
             if (event.target === memberDetailModal) {
                 memberDetailModal.style.display = 'none';
+                 // Reset GIF src to stop loading if it was in progress
+                memberGif.src = '';
             }
         });
 
