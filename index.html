@@ -3,740 +3,736 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>少家军电子竞技战队</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>少家军电子竞技战队</title> <!-- Updated Title -->
     <style>
+        /* 1. Global Styles & Variables */
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap');
+
+        :root {
+            /* 保留了蛋仔派对模板的配色，你可以在这里修改回你的棕色主题 */
+            --primary-color: #FFD700; /* 主黄/金 */
+            --secondary-color: #4682B4; /* 辅助蓝 */
+            --bg-dark: #282830; /* 深背景 (接近你原来的 #281a0c 但对比度更好) */
+            --bg-light: #3a3a42; /* 稍浅背景 (类似你原来的 #3d2c1a) */
+            --text-color: #f0f0f0; /* 接近你原来的 #f7fafc */
+            --text-muted-color: #aabbcc;
+            --header-height: 70px;
+            --transition-speed: 0.3s;
+            --border-radius: 12px;
+            /* 如果想用你的颜色: */
+            /* --primary-color: #d69e2e; */
+            /* --secondary-color: #FFA500; /* 可以选一个橙色 */
+            /* --bg-dark: #281a0c; */
+            /* --bg-light: #3d2c1a; */
+            /* --text-color: #f7fafc; */
+            /* --text-muted-color: #a0aec0; */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
         body {
-            font-family: 'Inter', sans-serif;
-            color: #f7fafc;
-            background-color: #281a0c;
-            margin: 0;
+            font-family: 'Nunito', sans-serif; /* 或改回 'Inter' */
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            line-height: 1.7;
             overflow-x: hidden;
-        }
-
-        .fixed-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('pic/背景.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            z-index: -1;
-        }
-
-        .gradient-bg {
-            background: linear-gradient(to right, #3d2c1a, #523e28);
-        }
-
-        .glass-effect {
-            background-color: rgba(61, 44, 26, 0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 0.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .team-member-card {
-            background-color: #3d2c1a;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .team-member-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .news-card, .schedule-card {
-            background-color: #3d2c1a;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        .team-member-card p, .news-card p, .schedule-card p {
-            color: #d69e2e;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.8);
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .modal-content {
-            background-color: #3d2c1a;
-            margin: auto;
-            padding: 20px;
-            border-radius: 0.5rem;
-            width: 80%;
-            max-width: 700px;
-            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-            color: #f7fafc;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        #memberDetailModal .modal-content {
-            max-width: 900px;
-            display: flex;
-            gap: 20px;
-        }
-
-        #memberDetailModal .member-info {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        #memberDetailModal .member-info img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-        }
-
-        #memberDetailModal .member-details {
-            flex: 2;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #memberDetailModal .toggle-buttons {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 15px;
-        }
-
-        #memberDetailModal .toggle-buttons button {
-            background-color: #523e28;
-            color: #f7fafc;
-            padding: 8px 15px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            border-radius: 0.25rem;
-        }
-
-        #memberDetailModal .toggle-buttons button:hover {
-            background-color: #d69e2e;
-        }
-
-        #memberDetailModal .toggle-buttons button.active {
-            background-color: #d69e2e;
-            color: #3d2c1a;
-            font-weight: bold;
-        }
-
-        #memberDetailModal .content-area {
-            flex-grow: 1;
-            overflow-y: auto;
             position: relative;
-            min-height: 200px;
+        }
+        body.modal-open { overflow: hidden; }
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; color: var(--primary-color); transition: color var(--transition-speed) ease; }
+        a:hover { filter: brightness(1.2); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 80px 0; overflow: hidden; }
+        h1, h2, h3 { margin-bottom: 25px; line-height: 1.3; font-weight: 800; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+        h1 { font-size: 3.2rem; }
+        h2 { font-size: 2.5rem; color: var(--primary-color); text-align: center; }
+        h3 { font-size: 1.6rem; }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-color), #FFB800);
+            color: #333; padding: 12px 30px; border-radius: 50px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+        .btn:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5); color: #111; }
+
+        /* 2. Preloader */
+        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-dark); z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease, visibility 0.5s ease; }
+        .preloader::after { content: ''; width: 60px; height: 60px; border: 6px solid var(--text-muted-color); border-radius: 50%; border-top-color: var(--primary-color); border-bottom-color: var(--secondary-color); animation: spin 1.2s linear infinite; }
+        .preloader.hidden { opacity: 0; visibility: hidden; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* 3. Header & Navigation */
+        header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; transition: background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease; height: var(--header-height); }
+        header.sticky { background-color: rgba(40, 40, 48, 0.95); /* Adjusted sticky background */ box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4); }
+        nav .container { display: flex; justify-content: space-between; align-items: center; height: 100%; }
+        .logo { font-size: 1.9rem; font-weight: 800; color: white; }
+        .logo span { color: var(--primary-color); }
+        .nav-links { list-style: none; display: flex; }
+        .nav-links li { margin-left: 35px; }
+        .nav-links a { color: var(--text-color); font-weight: 700; padding: 5px 0; position: relative; transition: color var(--transition-speed) ease; font-size: 1rem; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 3px; background-color: var(--primary-color); border-radius: 2px; transition: width var(--transition-speed) ease; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 60%; }
+        .menu-toggle { display: none; background: none; border: none; color: white; font-size: 2rem; cursor: pointer; z-index: 1001; }
+
+        /* 4. Hero Section */
+        #hero { height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; position: relative; color: white; padding: 0 20px; overflow: hidden; }
+        #hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            /* Updated background image path - Make sure 'pic/背景.jpg' is accessible */
+            background: linear-gradient(rgba(40,40,48,0.7), rgba(40,40,48,0.9)), url('pic/背景.jpg') no-repeat center center;
+            background-size: cover; z-index: -1;
+            animation: zoomInOut 25s infinite alternate ease-in-out;
+        }
+        @keyframes zoomInOut { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+        .hero-content { max-width: 850px; animation: fadeInSlideUp 1.5s 0.3s ease-out forwards; opacity: 0; }
+        .hero-content h1 { font-size: 3.8rem; margin-bottom: 20px; font-weight: 800; color: white;}
+        .hero-content h1 span { color: var(--primary-color); }
+        .hero-content p { font-size: 1.3rem; margin-bottom: 35px; font-weight: 400; color: var(--text-muted-color); } /* Updated Tagline */
+        @keyframes fadeInSlideUp { 0% { opacity: 0; transform: translateY(50px); } 100% { opacity: 1; transform: translateY(0); } }
+
+        /* 5. About Section */
+        #about { background-color: var(--bg-light); border-radius: 0 0 var(--border-radius) var(--border-radius); }
+        #about .container { display: flex; flex-direction: column; align-items: center; }
+        /* Optional: Add a team image here if you have one */
+        /* #about img { max-width: 300px; border-radius: 50%; margin-bottom: 30px; border: 5px solid var(--primary-color); box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); } */
+        #about .about-text { max-width: 800px; text-align: center; color: var(--text-color); font-size: 1.1rem; line-height: 1.8;} /* Updated Text Color */
+        #about .about-text p { margin-bottom: 1.2rem; } /* Added spacing between paragraphs */
+
+        /* 6. Team Section */
+        #team { background-color: var(--bg-dark); }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-top: 50px; } /* Adjusted grid slightly */
+        .player-card {
+            background-color: var(--bg-light); border-radius: var(--border-radius);
+            overflow: hidden; text-align: center; box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+            transition: transform var(--transition-speed) cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow var(--transition-speed) cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer; position: relative;
+        }
+        .player-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 3px solid transparent; border-radius: var(--border-radius); transition: border-color var(--transition-speed) ease; pointer-events: none; }
+        .player-card:hover { transform: translateY(-10px) scale(1.03); box-shadow: 0 12px 28px rgba(0,0,0,0.4); }
+        .player-card:hover::before { border-color: var(--primary-color); }
+        .player-card img {
+            width: 100%; height: 220px; /* Adjusted height */
+            object-fit: cover; border-bottom: 3px solid var(--primary-color);
+            transition: transform 0.4s ease;
+        }
+        .player-card:hover img { transform: scale(1.05); }
+        .player-info { padding: 20px 15px; } /* Adjusted padding */
+        .player-info h3 { margin-bottom: 8px; color: var(--primary-color); font-size: 1.3rem;} /* Adjusted size */
+        .player-info p { font-size: 0.9rem; color: var(--text-muted-color); font-weight: 700; } /* Adjusted size */
+
+        /* 7. News Section */
+        #news { background-color: var(--bg-light); border-radius: var(--border-radius) var(--border-radius) 0 0; }
+        .news-list { display: flex; flex-direction: column; gap: 25px; max-width: 850px; margin: 40px auto 0; }
+        .news-item { background-color: var(--bg-dark); padding: 25px 30px; border-radius: var(--border-radius); border-left: 6px solid var(--secondary-color); transition: transform 0.2s ease, background-color var(--transition-speed) ease; }
+        .news-item:hover { transform: translateX(5px); background-color: #404048; }
+        .news-item h3 a { color: var(--text-color); position: relative; display: inline-block; font-size: 1.3rem; cursor: default; } /* Removed hover effect if no modal */
+        /* Optional: remove underline animation if no link action */
+        /* .news-item h3 a::after { ... } */
+        /* .news-item h3 a:hover::after { ... } */
+        .news-item span { display: block; font-size: 0.9rem; color: var(--text-muted-color); margin-bottom: 12px; }
+        .news-item p { font-size: 1rem; color: var(--text-color); }
+
+        /* 8. Sponsors Section */
+        #sponsors { background-color: var(--bg-dark); padding-bottom: 60px; }
+        .sponsors-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 40px 50px; margin-top: 40px; }
+        .sponsor-logo img { max-height: 55px; width: auto; filter: brightness(0.8) grayscale(80%); opacity: 0.7; transition: all var(--transition-speed) ease; }
+        .sponsor-logo img:hover { filter: brightness(1) grayscale(0%); opacity: 1; transform: scale(1.1); }
+
+        /* 9. Footer */
+        footer { background-color: #1e1e24; /* Darker footer */ padding: 40px 0; text-align: center; color: var(--text-muted-color); font-size: 0.95rem; }
+        .social-links a { color: var(--text-muted-color); margin: 0 12px; font-size: 1.6rem; transition: color var(--transition-speed) ease, transform var(--transition-speed) ease; display: inline-block; }
+        .social-links a:hover { color: var(--primary-color); transform: translateY(-3px); }
+        footer p { margin-top: 15px; } /* Adjusted spacing */
+
+        /* 10. Scroll Reveal Animation */
+        .scroll-reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
+        .team-grid .player-card, .news-list .news-item, .sponsor-logo { transition-delay: calc(0.08s * var(--animation-order, 0)); }
+
+        /* 11. Modal Styles */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 1050; display: flex; justify-content: center; align-items: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease; }
+        .modal-content {
+            background-color: var(--bg-light); padding: 25px 30px; /* Adjusted padding */ border-radius: var(--border-radius);
+            max-width: 800px; /* Slightly wider for details */ width: 100%; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transform: scale(0.95) translateY(20px); transition: transform var(--transition-speed) cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; /* Use flex for layout */ gap: 25px; /* Gap between sections */
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
+
+        .modal-close { position: absolute; top: 15px; right: 20px; font-size: 2.5rem; color: var(--text-muted-color); background: none; border: none; cursor: pointer; line-height: 1; padding: 0; transition: color var(--transition-speed) ease, transform 0.2s ease; }
+        .modal-close:hover { color: var(--primary-color); transform: rotate(90deg); }
+
+        /* Modal Layout Sections */
+        .player-modal-info-pane { /* Left side: Image, Name, Skill */
+            flex: 1; /* Takes up less space */
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+        .player-modal-details-pane { /* Right side: Toggle buttons, Content area */
+            flex: 2; /* Takes up more space */
+            display: flex; flex-direction: column;
         }
 
-        #memberDetailModal .content-area img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
+        .player-modal-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 4px solid var(--primary-color); box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);}
+        .player-modal-name { font-size: 1.8rem; font-weight: 800; color: var(--primary-color); margin-bottom: 8px; }
+        .player-modal-skill { font-size: 1rem; color: var(--text-muted-color); margin-bottom: 15px; font-weight: 700; }
 
-        .no-gif-message, .loading-message {
-            text-align: center;
-            font-size: 1.2rem;
-            color: #d69e2e;
-            margin-top: 20px;
+        .modal-toggle-buttons { display: flex; justify-content: center; margin-bottom: 20px; }
+        .modal-toggle-buttons button {
+            background-color: var(--bg-dark); color: var(--text-color); padding: 8px 18px;
+            border: 1px solid var(--primary-color); margin: 0 5px; cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease; border-radius: 20px; /* Rounded buttons */ font-weight: 700;
         }
+        .modal-toggle-buttons button:hover { background-color: var(--secondary-color); border-color: var(--secondary-color); }
+        .modal-toggle-buttons button.active { background-color: var(--primary-color); color: var(--bg-dark); border-color: var(--primary-color); }
 
-        #membersModal .modal-content {
-            max-width: 900px;
+        .modal-content-area {
+            flex-grow: 1; overflow-y: auto; position: relative; min-height: 150px; /* Adjust as needed */
+            padding: 10px; background-color: var(--bg-dark); border-radius: 8px;
         }
+        .modal-player-bio { font-size: 1rem; color: var(--text-color); line-height: 1.8; }
+        .modal-gif-container { text-align: center; }
+        .modal-gif-container img { max-width: 100%; height: auto; display: block; margin: 10px auto; border-radius: 5px; }
+        .loading-message, .no-gif-message { text-align: center; font-size: 1rem; color: var(--text-muted-color); margin-top: 20px; }
+        .loading-spinner { border: 4px solid var(--text-muted-color); border-top: 4px solid var(--primary-color); border-radius: 50%; width: 25px; height: 25px; animation: spin 1s linear infinite; margin: 15px auto 5px; }
 
-        .members-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 15px;
-            text-align: center;
-        }
-
-        .member-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .member-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #523e28;
-            margin-bottom: 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5rem;
-            color: #f7fafc;
-            font-weight: bold;
-        }
-
-        .member-name {
-            font-size: 0.9rem;
-            color: #d69e2e;
-        }
-
-        .close-button {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close-button:hover,
-        .close-button:focus {
-            color: white;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .loading-spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #d69e2e;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
+        /* 12. Responsive Design */
         @media (max-width: 768px) {
-            #memberDetailModal .modal-content {
-                flex-direction: column;
-                max-width: 95%;
-                padding: 15px;
-            }
-
-            #memberDetailModal .member-info,
-            #memberDetailModal .member-details {
-                flex: none;
-                width: 100%;
-            }
-
-            #memberDetailModal .member-info {
-                margin-bottom: 20px;
-            }
-
-            #memberDetailModal .member-info img {
-                width: 100px;
-                height: 100px;
-            }
-
-            #memberDetailModal .toggle-buttons {
-                justify-content: space-around;
-                margin-bottom: 15px;
-            }
+            html { font-size: 15px; }
+            h1 { font-size: 2.8rem; } h2 { font-size: 2.2rem; }
+            .hero-content h1 { font-size: 3rem; } .hero-content p { font-size: 1.1rem; }
+            .nav-links { position: fixed; top: 0; right: -100%; width: 70%; max-width: 300px; height: 100vh; background-color: var(--bg-dark); flex-direction: column; padding-top: calc(var(--header-height) + 40px); padding-left: 30px; transition: right 0.4s ease-in-out; box-shadow: -5px 0 15px rgba(0,0,0,0.5); z-index: 1000; }
+            .nav-links.active { right: 0; }
+            .nav-links li { margin-left: 0; margin-bottom: 30px; } .nav-links a { font-size: 1.2rem; }
+            .menu-toggle { display: block; z-index: 1001; }
+            .team-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; } /* Adjust grid */
+            .player-card img { height: 180px; }
+            .modal-content { flex-direction: column; /* Stack vertically */ max-width: 90%; padding: 20px 15px; }
+            .player-modal-info-pane { margin-bottom: 15px; }
+            .player-modal-img { width: 120px; height: 120px; }
+            .player-modal-name { font-size: 1.5rem; }
+        }
+        @media (max-width: 480px) {
+            html { font-size: 14px; }
+            h1 { font-size: 2.2rem; } h2 { font-size: 1.9rem; }
+            .hero-content h1 { font-size: 2.5rem; } .hero-content p { font-size: 1rem; }
+            .btn { padding: 10px 25px; font-size: 0.9rem;} .container { padding: 0 15px; }
+            section { padding: 60px 0; }
+            .player-card img { height: 160px; }
+            .modal-close { top: 10px; right: 10px; font-size: 2rem; }
+            .player-modal-img { width: 100px; height: 100px; }
+            .player-modal-name { font-size: 1.4rem; }
+            .modal-toggle-buttons button { padding: 6px 12px; font-size: 0.9rem;}
+            .modal-player-bio { font-size: 0.95rem; }
         }
     </style>
 </head>
-<body class="leading-normal tracking-normal">
-    <div class="fixed-bg"></div>
+<body>
 
-    <header class="gradient-bg shadow-lg">
-        <nav class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="text-lg font-bold text-white">少家军</div>
-                <div class="hidden md:flex space-x-6">
-                    <a href="#home" class="text-yellow-200 hover:text-white transition duration-300">首页</a>
-                    <a href="#team" class="text-yellow-200 hover:text-white transition duration-300">战队成员</a>
-                    <a href="#news" class="text-yellow-200 hover:text-white transition duration-300">新闻</a>
-                    <a href="#schedule" class="text-yellow-200 hover:text-white transition duration-300">赛程</a>
-                    <a href="#about" class="text-yellow-200 hover:text-white transition duration-300">关于我们</a>
-                </div>
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-yellow-200 focus:outline-none">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                    </button>
-                </div>
-            </div>
-            <div id="mobile-menu" class="md:hidden mt-4 hidden">
-                <a href="#home" class="block py-2 text-yellow-200 hover:text-white transition duration-300">首页</a>
-                <a href="#team" class="block py-2 text-yellow-200 hover:text-white transition duration-300">战队成员</a>
-                <a href="#news" class="block py-2 text-yellow-200 hover:text-white transition duration-300">新闻</a>
-                <a href="#schedule" class="block py-2 text-yellow-200 hover:text-white transition duration-300">赛程</a>
-                <a href="#about" class="block py-2 text-yellow-200 hover:text-white transition duration-300">关于我们</a>
+    <div class="preloader"></div>
+
+    <header id="main-header">
+        <nav>
+            <div class="container">
+                <a href="#hero" class="logo">少家<span>军</span></a> <!-- Updated Logo -->
+                <ul class="nav-links" id="nav-menu">
+                    <!-- Updated Nav Links based on your HTML -->
+                    <li><a href="#hero" class="nav-link active">首页</a></li>
+                    <li><a href="#team" class="nav-link">战队成员</a></li>
+                    <li><a href="#news" class="nav-link">最新新闻</a></li> <!-- Changed from "战报" -->
+                    <li><a href="#about" class="nav-link">关于我们</a></li>
+                    <li><a href="#sponsors" class="nav-link">合作伙伴</a></li> <!-- Kept Sponsors -->
+                </ul>
+                <button class="menu-toggle" id="menu-toggle" aria-label="切换菜单">☰</button>
             </div>
         </nav>
     </header>
 
-    <section id="home" class="relative h-screen flex items-center justify-center text-white overflow-hidden">
-        <div class="absolute inset-0 z-10 bg-black opacity-50"></div>
-        <div class="container mx-auto px-6 z-20 text-center">
-            <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-4">少家军</h1>
-            <p class="text-xl md:text-2xl mb-8">最有实力的蛋仔战队</p>
-            <a href="#team" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition duration-300">了解战队</a>
-        </div>
-    </section>
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h1>翻滚吧！<span>少家军</span></h1> <!-- Updated H1 -->
+                <p>最有实力的蛋仔战队</p> <!-- Updated Tagline -->
+                <a href="#team" class="btn">了解战队</a> <!-- Updated Button Text -->
+            </div>
+        </section>
 
-    <section id="team" class="py-20 glass-effect">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 text-orange-400">战队成员</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-                <div class="team-member-card" data-member-id="shaopianxiang">
-                    <img src="pic/少偏向大头照.webp" onerror="this.src='https://placehold.co/150x150/3d2c1a/f7fafc?text=少'" alt="少偏向" class="mx-auto rounded-full mb-4 w-24 h-24 object-cover">
-                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">少偏向</h3>
-                    <p class="text-gray-400">擅长：精准（人机）走位</p>
-                </div>
-                <div class="team-member-card" data-member-id="beihuaxue">
-                    <img src="pic/背化学大头照.webp" onerror="this.src='https://placehold.co/150x150/3d2c1a/f7fafc?text=背'" alt="背化学" class="mx-auto rounded-full mb-4 w-24 h-24 object-cover">
-                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">背化学</h3>
-                    <p class="text-gray-400">特点：道具大师</p>
-                </div>
-                <div class="team-member-card" data-member-id="xiaoyandie">
-                    <img src="pic/小妍蝶大头照.webp" onerror="this.src='https://placehold.co/150x150/3d2c1a/f7fafc?text=小'" alt="小妍蝶" class="mx-auto rounded-full mb-4 w-24 h-24 object-cover">
-                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">小妍蝶</h3>
-                    <p class="text-gray-400">风格：出奇制胜</p>
-                </div>
-                <div class="team-member-card" data-member-id="shifendaishadedan">
-                    <img src="pic/十分呆傻的蛋大头照.webp" onerror="this.src='https://placehold.co/150x150/3d2c1a/f7fafc?text=十'" alt="十分呆傻的蛋" class="mx-auto rounded-full mb-4 w-24 h-24 object-cover">
-                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">十分呆傻的蛋</h3>
-                    <p class="text-gray-400">定位：吉祥物</p>
-                </div>
-                <div class="team-member-card" data-member-id="zhengchui">
-                    <img src="pic/争吹大头照.webp" onerror="this.src='https://placehold.co/150x150/3d2c1a/f7fafc?text=争'" alt="争吹" class="mx-auto rounded-full mb-4 w-24 h-24 object-cover">
-                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">争吹</h3>
-                    <p class="text-gray-400">特长：全能和背锅</p>
-                </div>
-                <div class="team-member-card" data-member-id="lsta">
-                    <img src="pic/Lsta大头照.webp" onerror="this.src='https://placehold.co/150x150/3d2c1a/f7fafc?text=L'" alt="Lsta" class="mx-auto rounded-full mb-4 w-24 h-24 object-cover">
-                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">Lsta</h3>
-                    <p class="text-gray-400">擅长：决战</p>
-                </div>
-                <div class="team-member-card" data-member-id="hepangmao">
-                    <img src="pic/喝胖猫大头照.webp" onerror="this.src='https://placehold.co/150x150/3d2c1a/f7fafc?text=喝'" alt="喝胖猫" class="mx-auto rounded-full mb-4 w-24 h-24 object-cover">
-                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">喝胖猫</h3>
-                    <p class="text-gray-400">擅长：巅峰派队</p>
+        <section id="about" class="scroll-reveal">
+            <div class="container">
+                <h2>关于我们</h2>
+                <!-- Optional team image here -->
+                <div class="about-text scroll-reveal">
+                    <!-- Updated About Text -->
+                    <p>少家军电子竞技战队成立于 2025年，致力于在 蛋仔派对 项目中追求卓越。</p>
+                    <p>我们是一支充满激情、团结协作的队伍，不断努力提升竞技水平，争取更高的荣誉。</p>
+                    <p>我们的目标是成为顶级的电子竞技战队，为粉丝带来精彩的比赛和难忘的时刻。</p>
                 </div>
             </div>
-            <div class="text-center mt-12">
-                <button id="viewAllMembers" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 rounded-full transition duration-300">
-                    查看所有成员
-                </button>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="news" class="py-20 glass-effect">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 text-orange-400">最新新闻</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="news-card">
-                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">少偏向在队内比赛被打破防</h3>
-                    <p class="text-gray-400 text-sm mb-4">发布日期：2025.4.20</p>
-                    <p class="text-gray-300">在最近的队内比赛中，少偏向遭遇了前所未有的挑战，表现出乎意料，引发了广泛讨论。</p>
-                    <a href="#" class="text-yellow-400 hover:underline mt-4 inline-block read-more" data-news-id="news1">阅读更多</a>
-                </div>
-                <div class="news-card">
-                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">少偏向被认证为人机</h3>
-                    <p class="text-gray-400 text-sm mb-4">发布日期：2025.4.19</p>
-                    <p class="text-gray-300">经过严格的队内评估，少偏向的某些游戏行为模式与人工智能高度相似，与队友戏称为“人机”。</p>
-                    <a href="#" class="text-yellow-400 hover:underline mt-4 inline-block read-more" data-news-id="news2">阅读更多</a>
-                </div>
-            </div>
-        </div>
-    </section>
+        <section id="team" class="scroll-reveal">
+            <div class="container">
+                <h2>战队成员</h2>
+                <div class="team-grid">
+                    <!-- Player Card 1: 少偏向 -->
+                    <div class="player-card scroll-reveal"
+                         data-player-id="shaopianxiang"
+                         data-player-name="少偏向"
+                         data-player-skill="擅长：精准（人机）走位"
+                         data-player-image="pic/少偏向大头照.webp"
+                         data-player-gif="pic/少偏向介绍.gif"
+                         data-player-bio="少偏向在蛋仔岛上以其人机的操作闻名，但她总能在最危险的时刻巧妙躲开各种陷阱和炸弹。她对地图的理解深入骨髓，擅长利用地形优势，是团队中不可多得的生存专家。虽然有时会被戏称“人机”，但这恰恰是她稳定且精准操作的体现，总能让对手摸不着头脑。">
+                        <img src="pic/少偏向大头照.webp" alt="少偏向" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=少'"> <!-- Added onerror placeholder -->
+                        <div class="player-info">
+                            <h3>少偏向</h3>
+                            <p>擅长：精准（人机）走位</p>
+                        </div>
+                    </div>
 
-    <section id="schedule" class="py-20 glass-effect">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 text-orange-400">近期赛程</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="schedule-card">
-                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">队内蛋仔决战（双人）</h3>
-                    <p class="text-gray-400 text-sm mb-2">日期：2025.4.20</p>
-                    <p class="text-gray-400 text-sm mb-2">时间：10:00</p>
-                    <p class="text-gray-300">状态：已结束</p>
-                </div>
-                <div class="schedule-card">
-                    <h3 class="text-xl font-semibold mb-2 text-yellow-400">队内蛋仔决战（单人）</h3>
-                    <p class="text-gray-400 text-sm mb-2">日期：2025.4.19</p>
-                    <p class="text-gray-400 text-sm mb-2">时间：17:00</p>
-                    <p class="text-gray-300">状态：已结束</p>
-                </div>
-            </div>
-        </div>
-    </section>
+                    <!-- Player Card 2: 背化学 -->
+                    <div class="player-card scroll-reveal"
+                         data-player-id="beihuaxue"
+                         data-player-name="背化学"
+                         data-player-skill="特点：道具大师"
+                         data-player-image="pic/背化学大头照.webp"
+                         data-player-gif="pic/背化学介绍.gif"
+                         data-player-bio="背化学是蛋仔派对里的道具魔法师，各种道具在她手里都能发挥出意想不到的效果。无论是传送球的精准投放，还是弹簧的巧妙运用，她总能找到最佳时机帮助自己和队友。她的游戏风格灵活多变，总能根据场上情况快速调整策略，是团队中的战术大脑。">
+                        <img src="pic/背化学大头照.webp" alt="背化学" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=背'">
+                        <div class="player-info">
+                            <h3>背化学</h3>
+                            <p>特点：道具大师</p>
+                        </div>
+                    </div>
 
-    <section id="about" class="py-20 glass-effect">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 text-orange-400">关于我们</h2>
-            <div class="text-lg text-gray-300 leading-relaxed">
-                <p class="mb-4">少家军电子竞技战队成立于 2025年，致力于在 蛋仔派对 项目中追求卓越。</p>
-                <p class="mb-4">我们是一支充满激情、团结协作的队伍，不断努力提升竞技水平，争取更高的荣誉。</p>
-                <p>我们的目标是成为顶级的电子竞技战队，为粉丝带来精彩的比赛和难忘的时刻。</p>
-            </div>
-        </div>
-    </section>
+                    <!-- Player Card 3: 小妍蝶 -->
+                    <div class="player-card scroll-reveal"
+                         data-player-id="xiaoyandie"
+                         data-player-name="小妍蝶"
+                         data-player-skill="风格：出奇制胜"
+                         data-player-image="pic/小妍蝶大头照.webp"
+                         data-player-gif="pic/小妍蝶介绍.gif"
+                         data-player-bio="小妍蝶是蛋仔岛上的神奇精灵，她的游戏风格充满创意和变数。她不按常理出牌，总能找到独特的路线和方法绕过障碍，给对手带来惊喜（或惊吓）。她在关键时刻的总能出奇制胜，是团队中带来突破的关键人物。">
+                         <img src="pic/小妍蝶大头照.webp" alt="小妍蝶" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=小'">
+                         <div class="player-info">
+                             <h3>小妍蝶</h3>
+                             <p>风格：出奇制胜</p>
+                         </div>
+                    </div>
 
-    <footer class="bg-gray-900 text-gray-400 py-8" style="background-color: #1a1000;">
-        <div class="container mx-auto px-6 text-center">
-            <p>© 2025 少家军电子竞技战队. All rights reserved.</p>
-            <p>本网页由十分呆傻的蛋制作</p>
-            <div class="mt-4 space-x-4">
-                <a href="#" class="text-d69e2e hover:text-white transition duration-300">微博</a>
-                <a href="#" class="text-d69e2e hover:text-white transition duration-300">Bilibili</a>
-                <a href="#" class="text-d69e2e hover:text-white transition duration-300">抖音</a>
-                <span class="text-gray-400">都没有</span>
+                    <!-- Player Card 4: 十分呆傻的蛋 -->
+                    <div class="player-card scroll-reveal"
+                         data-player-id="shifendaishadedan"
+                         data-player-name="十分呆傻的蛋"
+                         data-player-skill="定位：吉祥物"
+                         data-player-image="pic/十分呆傻的蛋大头照.webp"
+                         data-player-gif="pic/十分呆傻的蛋介绍.gif"
+                         data-player-bio="十分呆傻的蛋是少家军战队不可或缺的吉祥物和气氛担当。虽然在竞技场上可能不是最顶尖的选手，但他总是带着乐观积极的态度，用他的仁济操作给大家带来欢乐。他的存在让团队氛围轻松愉快，有时还能带来意想不到的幸运，是团队的精神支柱。">
+                         <img src="pic/十分呆傻的蛋大头照.webp" alt="十分呆傻的蛋" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=十'">
+                         <div class="player-info">
+                             <h3>十分呆傻的蛋</h3>
+                             <p>定位：吉祥物</p>
+                         </div>
+                    </div>
+
+                     <!-- Player Card 5: 争吹 -->
+                     <div class="player-card scroll-reveal"
+                         data-player-id="zhengchui"
+                         data-player-name="争吹"
+                         data-player-skill="特长：全能和背锅"
+                         data-player-image="pic/争吹大头照.webp"
+                         data-player-gif="pic/争吹介绍.gif"
+                         data-player-bio="争吹在战队中以其实力强劲著称，几乎精通蛋仔派对的各种玩法和地图。她总能在关键时刻挺身而出，带领队伍走向胜利。然而，有时候队友们在游戏中的对话或表情会莫名其妙地出现在她的头上。尽管如此，她依然是团队中不可或缺的多面手。">
+                         <img src="pic/争吹大头照.webp" alt="争吹" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=争'">
+                         <div class="player-info">
+                             <h3>争吹</h3>
+                             <p>特长：全能和背锅</p>
+                         </div>
+                     </div>
+
+                     <!-- Player Card 6: Lsta -->
+                     <div class="player-card scroll-reveal"
+                         data-player-id="lsta"
+                         data-player-name="Lsta"
+                         data-player-skill="擅长：决战"
+                         data-player-image="pic/Lsta大头照.webp"
+                         data-player-gif="pic/Lsta介绍.gif"
+                         data-player-bio="Lsta在蛋仔派对的决战模式中展现出非凡的实力。她冷静沉着，擅长利用地图机制和道具进行一对一的对抗，总能在关键时刻击败对手，是队伍在决战环节的定海神针。">
+                         <img src="pic/Lsta大头照.webp" alt="Lsta" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=L'">
+                         <div class="player-info">
+                             <h3>Lsta</h3>
+                             <p>擅长：决战</p>
+                         </div>
+                     </div>
+
+                      <!-- Player Card 7: 喝胖猫 -->
+                     <div class="player-card scroll-reveal"
+                         data-player-id="hepangmao"
+                         data-player-name="喝胖猫"
+                         data-player-skill="擅长：巅峰派队"
+                         data-player-image="pic/喝胖猫大头照.webp"
+                         data-player-gif="pic/喝胖猫介绍.gif"
+                         data-player-bio="喝胖猫是巅峰派对的佼佼者。她对各种关卡有着深刻的理解，能够快速找到最佳路线和策略，在混乱的派对中脱颖而出，为队伍赢得宝贵的积分和排名。">
+                         <img src="pic/喝胖猫大头照.webp" alt="喝胖猫" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=喝'">
+                         <div class="player-info">
+                             <h3>喝胖猫</h3>
+                             <p>擅长：巅峰派队</p>
+                         </div>
+                     </div>
+                     <!-- 你可以在这里添加更多队员卡片 -->
+                </div>
+                 <!-- Removed "View All Members" button -->
             </div>
+        </section>
+
+        <section id="news" class="scroll-reveal">
+            <div class="container">
+                <h2>最新新闻</h2> <!-- Changed from 战报 -->
+                <div class="news-list">
+                    <!-- News Item 1 -->
+                    <article class="news-item scroll-reveal">
+                        <span>发布日期：2025.4.20</span> <!-- Updated Date -->
+                        <h3><a>少偏向在队内比赛被打破防</a></h3> <!-- Updated Title, removed link action -->
+                        <p>在最近的队内比赛中，少偏向遭遇了前所未有的挑战，表现出乎意料，引发了广泛讨论。</p> <!-- Updated Short Desc -->
+                    </article>
+                    <!-- News Item 2 -->
+                    <article class="news-item scroll-reveal">
+                         <span>发布日期：2025.4.19</span> <!-- Updated Date -->
+                        <h3><a>少偏向被认证为人机</a></h3> <!-- Updated Title, removed link action -->
+                        <p>经过严格的队内评估，少偏向的某些游戏行为模式与人工智能高度相似，与队友戏称为“人机”。</p> <!-- Updated Short Desc -->
+                    </article>
+                    <!-- Add more news items if needed -->
+                </div>
+            </div>
+        </section>
+
+         <section id="sponsors" class="scroll-reveal">
+            <div class="container">
+                <h2>合作伙伴</h2>
+                <div class="sponsors-grid">
+                    <!-- Placeholder Logos - Replace with actual sponsors -->
+                    <div class="sponsor-logo scroll-reveal"> <a href="#"><img src="https://via.placeholder.com/150x60/dddddd/555555?text=Sponsor+A" alt="赞助商A"></a> </div>
+                    <div class="sponsor-logo scroll-reveal"> <a href="#"><img src="https://via.placeholder.com/150x60/dddddd/555555?text=Sponsor+B" alt="赞助商B"></a> </div>
+                    <div class="sponsor-logo scroll-reveal"> <a href="#"><img src="https://via.placeholder.com/150x60/dddddd/555555?text=Sponsor+C" alt="赞助商C"></a> </div>
+                    <div class="sponsor-logo scroll-reveal"> <a href="#"><img src="https://via.placeholder.com/150x60/dddddd/555555?text=Sponsor+D" alt="赞助商D"></a> </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <!-- Updated Social Links (Placeholders as per your comment) -->
+                <a href="#" target="_blank" aria-label="微博">WB</a>
+                <a href="#" target="_blank" aria-label="Bilibili">BI</a>
+                <a href="#" target="_blank" aria-label="抖音">DY</a>
+                <!-- Removed "都没有" span -->
+            </div>
+            <p>© 2025 少家军电子竞技战队. All rights reserved.</p> <!-- Updated Copyright -->
+            <p>本网页由十分呆傻的蛋制作</p> <!-- Added Credit -->
         </div>
     </footer>
 
-    <div id="newsModal" class="modal" role="dialog" aria-labelledby="modalTitle">
+    <!-- Updated Modal Structure -->
+    <div class="modal-overlay" id="playerModal">
         <div class="modal-content">
-            <span class="close-button" role="button" aria-label="关闭新闻模态框">×</span>
-            <h2 id="modalTitle" class="text-2xl font-bold mb-4 text-yellow-400"></h2>
-            <p id="modalDate" class="text-gray-400 text-sm mb-4"></p>
-            <div id="modalContent" class="text-gray-300 leading-relaxed"></div>
-        </div>
-    </div>
+            <button class="modal-close" aria-label="关闭模态框">×</button>
 
-    <div id="membersModal" class="modal" role="dialog" aria-labelledby="membersModalTitle">
-        <div class="modal-content">
-            <span class="close-button" role="button" aria-label="关闭成员列表模态框">×</span>
-            <h2 id="membersModalTitle" class="text-2xl font-bold mb-4 text-yellow-400 text-center">所有成员</h2>
-            <div id="allMembersList" class="members-grid"></div>
-        </div>
-    </div>
-
-    <div id="memberDetailModal" class="modal" role="dialog" aria-labelledby="detailMemberName">
-        <div class="modal-content">
-            <span class="close-button" role="button" aria-label="关闭成员详情模态框">×</span>
-            <div class="member-info">
-                <img id="detailMemberImage" src="" alt="成员头像" aria-hidden="true">
-                <h3 id="detailMemberName" class="text-2xl font-semibold mb-2 text-yellow-400"></h3>
-                <p id="detailMemberSkill" class="text-gray-400 text-lg"></p>
+            <!-- Left Pane: Info -->
+            <div class="player-modal-info-pane">
+                 <img src="https://via.placeholder.com/150x150/cccccc/333333?text=头像" alt="队员头像" id="modalPlayerImage" class="player-modal-img">
+                 <h3 id="modalPlayerName" class="player-modal-name">[蛋仔ID]</h3>
+                 <p id="modalPlayerSkill" class="player-modal-skill">[擅长/特点]</p>
             </div>
-            <div class="member-details">
-                <div class="toggle-buttons">
-                    <button id="showTextBtn" class="active mr-2" aria-pressed="true">文字简介</button>
+
+            <!-- Right Pane: Details -->
+            <div class="player-modal-details-pane">
+                <div class="modal-toggle-buttons">
+                    <button id="showTextBtn" class="active" aria-pressed="true">文字简介</button>
                     <button id="showGifBtn" aria-pressed="false">主页</button>
                 </div>
-                <div class="content-area">
-                    <div id="memberTextDescription" class="text-gray-300 leading-relaxed"></div>
-                    <div id="gifContainer" style="display: none;">
+                <div class="modal-content-area">
+                    <!-- Text Description -->
+                    <div id="modalPlayerBioContainer" class="modal-player-bio">
+                        <p id="modalPlayerBioText"></p>
+                    </div>
+                    <!-- GIF Container -->
+                    <div id="modalGifContainer" class="modal-gif-container" style="display: none;">
                         <div id="loadingMessage" class="loading-message" style="display: none;">
                             <div class="loading-spinner"></div>
                             正在加载...
                         </div>
-                        <img id="memberGif" src="" alt="成员主页GIF" style="display: none;">
-                        <div id="noGifMessage" class="no-gif-message" style="display: none;">暂无</div>
+                        <img id="modalPlayerGif" src="" alt="成员主页GIF" style="display: none;">
+                        <div id="noGifMessage" class="no-gif-message" style="display: none;">
+                            暂无主页信息
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Preloader --- (Keep as is)
+            const preloader = document.querySelector('.preloader');
+            window.addEventListener('load', () => {
+                preloader.classList.add('hidden');
+                preloader.addEventListener('transitionend', () => {
+                   if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+                }, { once: true });
+            });
+
+            // --- Sticky Header --- (Keep as is)
+            const header = document.getElementById('main-header');
+            const heroSection = document.getElementById('hero');
+            const headerHeight = header.offsetHeight;
+            const stickyNav = () => {
+                if (window.scrollY > heroSection.offsetHeight - headerHeight) header.classList.add('sticky');
+                else header.classList.remove('sticky');
+            };
+            window.addEventListener('scroll', stickyNav);
+
+            // --- Mobile Menu Toggle --- (Keep as is)
+            const menuToggle = document.getElementById('menu-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            const navLinks = navMenu.querySelectorAll('.nav-link');
+            const body = document.body;
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', () => {
+                    const isActive = navMenu.classList.toggle('active');
+                    menuToggle.textContent = isActive ? '✕' : '☰';
+                    menuToggle.setAttribute('aria-expanded', isActive);
+                    body.style.overflow = isActive ? 'hidden' : '';
+                });
+                navLinks.forEach(link => { /* ... close logic ... */
+                    link.addEventListener('click', () => {
+                        if (navMenu.classList.contains('active')) {
+                             navMenu.classList.remove('active');
+                             menuToggle.textContent = '☰';
+                             menuToggle.setAttribute('aria-expanded', 'false');
+                             body.style.overflow = '';
+                        }
+                    });
+                });
+                 document.addEventListener('click', (event) => { /* ... close logic ... */
+                     const isClickInsideNav = navMenu.contains(event.target);
+                     const isClickOnToggle = menuToggle.contains(event.target);
+                     if (!isClickInsideNav && !isClickOnToggle && navMenu.classList.contains('active')) {
+                          navMenu.classList.remove('active');
+                          menuToggle.textContent = '☰';
+                          menuToggle.setAttribute('aria-expanded', 'false');
+                          body.style.overflow = '';
+                     }
+                 });
+            }
+
+            // --- Active Nav Link Highlighting --- (Keep as is)
+            const sections = document.querySelectorAll('section[id]');
+            const highlightNav = () => { /* ... highlighting logic ... */
+                 let currentSectionId = 'hero';
+                 const scrollPosition = window.scrollY;
+                 sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const headerOffset = header.classList.contains('sticky') ? headerHeight : 0;
+                    const triggerPoint = sectionTop - headerOffset - 80;
+                    if (scrollPosition >= triggerPoint && scrollPosition < sectionTop + sectionHeight - headerOffset - 80) {
+                        currentSectionId = section.getAttribute('id');
+                    }
+                 });
+                 if (scrollPosition < heroSection.offsetHeight / 2) { currentSectionId = 'hero'; }
+                 navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSectionId}`) { link.classList.add('active'); }
+                 });
+            };
+            window.addEventListener('scroll', highlightNav);
+            highlightNav();
+
+            // --- Scroll Reveal Animation --- (Keep as is)
+            const revealElements = document.querySelectorAll('.scroll-reveal');
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.setProperty('--animation-order', index);
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // --- Player Modal Logic --- (Updated with GIF toggle)
+            const playerModal = document.getElementById('playerModal');
+            const modalCloseButton = playerModal.querySelector('.modal-close');
+            const playerCards = document.querySelectorAll('.player-card');
+
+            // Modal Content Elements
+            const modalPlayerName = document.getElementById('modalPlayerName');
+            const modalPlayerImage = document.getElementById('modalPlayerImage');
+            const modalPlayerSkill = document.getElementById('modalPlayerSkill');
+            const showTextBtn = document.getElementById('showTextBtn');
+            const showGifBtn = document.getElementById('showGifBtn');
+            const modalPlayerBioContainer = document.getElementById('modalPlayerBioContainer');
+            const modalPlayerBioText = document.getElementById('modalPlayerBioText');
+            const modalGifContainer = document.getElementById('modalGifContainer');
+            const modalPlayerGif = document.getElementById('modalPlayerGif');
+            const loadingMessage = document.getElementById('loadingMessage');
+            const noGifMessage = document.getElementById('noGifMessage');
+
+            let currentGifUrl = '';
+            let isGifLoading = false;
+            let isGifLoaded = false;
+
+            const openModal = (playerData) => {
+                // Populate basic info
+                modalPlayerName.textContent = playerData.name || "[蛋仔ID]";
+                modalPlayerImage.src = playerData.image || "https://via.placeholder.com/150x150/cccccc/333333?text=头像";
+                modalPlayerImage.alt = `${playerData.name || '队员'}头像`;
+                modalPlayerSkill.textContent = playerData.skill || "[擅长/特点]";
+                modalPlayerBioText.textContent = playerData.bio || "[暂无简介]";
+                currentGifUrl = playerData.gif || '';
+
+                // Reset state before opening
+                resetContentArea();
+                isGifLoading = false;
+                isGifLoaded = false;
+
+                playerModal.classList.add('active');
+                body.classList.add('modal-open');
+                modalCloseButton.focus();
+
+                // Preload GIF if URL exists, but don't show yet
+                if (currentGifUrl) {
+                    preloadGif(currentGifUrl);
+                }
+            };
+
+            const closeModal = () => {
+                playerModal.classList.remove('active');
+                body.classList.remove('modal-open');
+                // Stop any potential GIF loading/display
+                modalPlayerGif.src = '';
+                currentGifUrl = '';
+            };
+
+            const resetContentArea = () => {
+                modalPlayerBioContainer.style.display = 'block'; // Show text by default
+                modalGifContainer.style.display = 'none';
+                showTextBtn.classList.add('active');
+                showGifBtn.classList.remove('active');
+                showTextBtn.setAttribute('aria-pressed', 'true');
+                showGifBtn.setAttribute('aria-pressed', 'false');
+                 // Hide loading/error messages initially
+                 loadingMessage.style.display = 'none';
+                 noGifMessage.style.display = 'none';
+                 modalPlayerGif.style.display = 'none';
+            };
+
+            const preloadGif = (gifUrl) => {
+                isGifLoading = true;
+                isGifLoaded = false;
+                const img = new Image();
+                img.src = gifUrl;
+                img.onload = () => {
+                    isGifLoading = false;
+                    isGifLoaded = true;
+                    // If the GIF tab is already active when loading finishes, show it
+                    if (showGifBtn.classList.contains('active')) {
+                        showGifContent();
+                    }
+                };
+                img.onerror = () => {
+                    isGifLoading = false;
+                    isGifLoaded = false;
+                    console.error("Failed to load GIF:", gifUrl);
+                    if (showGifBtn.classList.contains('active')) {
+                        showGifContent(); // Will show the 'no gif' message
+                    }
+                };
+            };
+
+            const showTextContent = () => {
+                resetContentArea(); // Resets to text view
+            };
+
+             const showGifContent = () => {
+                 modalPlayerBioContainer.style.display = 'none';
+                 modalGifContainer.style.display = 'block';
+                 showTextBtn.classList.remove('active');
+                 showGifBtn.classList.add('active');
+                 showTextBtn.setAttribute('aria-pressed', 'false');
+                 showGifBtn.setAttribute('aria-pressed', 'true');
+
+                 if (isGifLoading) {
+                     loadingMessage.style.display = 'block';
+                     modalPlayerGif.style.display = 'none';
+                     noGifMessage.style.display = 'none';
+                 } else if (isGifLoaded && currentGifUrl) {
+                     modalPlayerGif.src = currentGifUrl; // Ensure src is set
+                     loadingMessage.style.display = 'none';
+                     modalPlayerGif.style.display = 'block';
+                     noGifMessage.style.display = 'none';
+                 } else { // Not loading and not loaded (or no URL)
+                     loadingMessage.style.display = 'none';
+                     modalPlayerGif.style.display = 'none';
+                     noGifMessage.style.display = 'block';
+                 }
+             };
+
+
+            // Add click listener to each player card
+            playerCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const playerData = {
+                        name: card.dataset.playerName,
+                        skill: card.dataset.playerSkill,
+                        image: card.dataset.playerImage,
+                        bio: card.dataset.playerBio,
+                        gif: card.dataset.playerGif // Get the GIF URL
+                    };
+                    openModal(playerData);
+                });
+                card.setAttribute('tabindex', '0');
+                 card.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                         const playerData = { /* ... get data ... */
+                             name: card.dataset.playerName,
+                             skill: card.dataset.playerSkill,
+                             image: card.dataset.playerImage,
+                             bio: card.dataset.playerBio,
+                             gif: card.dataset.playerGif
+                         };
+                        openModal(playerData);
+                    }
                 });
             });
-        });
 
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => {
-            const isHidden = mobileMenu.classList.toggle('hidden');
-            mobileMenuButton.setAttribute('aria-expanded', !isHidden);
-        });
+             // Toggle Button Listeners
+             showTextBtn.addEventListener('click', showTextContent);
+             showGifBtn.addEventListener('click', showGifContent);
 
-        // Modal close utility
-        function closeModal(modal, gifElement = null) {
-            modal.style.display = 'none';
-            if (gifElement) gifElement.src = ''; // Stop GIF loading
-        }
 
-        // News Modal Functionality
-        const newsModal = document.getElementById('newsModal');
-        const newsCloseButton = newsModal.querySelector('.close-button');
-        const readMoreLinks = document.querySelectorAll('.read-more');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalDate = document.getElementById('modalDate');
-        const modalContent = document.getElementById('modalContent');
-
-        const newsData = {
-            news1: {
-                title: "少偏向在队内比赛被打破防",
-                date: "发布日期：2025.4.20",
-                content: "在最近一场激烈的队内训练赛中，选手少偏向遭遇了意料之外的失利，其一贯稳定的心态受到了冲击，出现了罕见的“打破防”情况。赛后，少偏向表示将认真复盘，调整状态，争取在后续的训练中找回最佳手感。这次小插曲也展现了队内竞争的激烈程度，有助于队员们共同进步。"
-            },
-            news2: {
-                title: "少偏向被认证为人机",
-                date: "发布日期：2025.4.19",
-                content: "近日，在少家军战队的内部训练和数据分析中，有队员戏称少偏向在某些特定场景下的操作过于精准和机械，与游戏中的AI（人机）行为模式高度吻合。这一说法迅速在队内传开，成为了大家调侃少偏向的新梗。尽管是玩笑，但也从侧面反映了少偏向在某些技术层面的稳定性和精确性。"
-            }
-        };
-
-        readMoreLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const newsId = link.getAttribute('data-news-id');
-                const newsItem = newsData[newsId];
-                if (newsItem) {
-                    modalTitle.textContent = newsItem.title;
-                    modalDate.textContent = newsItem.date;
-                    modalContent.textContent = newsItem.content;
-                    newsModal.style.display = 'flex';
-                }
+            // Close modal listeners
+            modalCloseButton.addEventListener('click', closeModal);
+            playerModal.addEventListener('click', (event) => {
+                if (event.target === playerModal) closeModal();
             });
-        });
-
-        newsCloseButton.addEventListener('click', () => closeModal(newsModal));
-        window.addEventListener('click', (e) => {
-            if (e.target === newsModal) closeModal(newsModal);
-        });
-
-        // All Members Modal Functionality
-        const membersModal = document.getElementById('membersModal');
-        const membersCloseButton = membersModal.querySelector('.close-button');
-        const viewAllMembersButton = document.getElementById('viewAllMembers');
-        const allMembersList = document.getElementById('allMembersList');
-
-        const allMembers = [
-            "白蜡", "拌龟", "背化学", "波搜", "c²", "场妈", "纯情天然呆", "clues", "dsnv", "购醉",
-            "古煲", "寒炀", "好坏", "喝胖猫", "jang&unyo", "焦颂", "卡拉", "看惯他", "靠靠我的肩膀", "Kcir",
-            "leaky", "黎安有景行", "Lsta", "萌妹品味", "萌妹肢", "男刁", "#o要开心", "陪陪妹", "拼颖", "钱蔷",
-            "青奶皇", "桑宝好困呀！", "x", "十分呆傻的蛋", "售誓", "夙", "讨买", "兔灵篇", "往屹", "诬鸦", "小少爷",
-            "小驷", "囍欢", "小妍蝶", "妍", "耀忣", "隐语儿", "阴郁吻痕", "以以", "舆迟", "争吹", "Dtll"
-        ];
-
-        function renderMembers() {
-            allMembersList.innerHTML = '';
-            allMembers.forEach(member => {
-                const memberItem = document.createElement('div');
-                memberItem.classList.add('member-item');
-                const memberAvatar = document.createElement('div');
-                memberAvatar.classList.add('member-avatar');
-                memberAvatar.textContent = member.charAt(0);
-                const memberName = document.createElement('div');
-                memberName.classList.add('member-name');
-                memberName.textContent = member;
-                memberItem.appendChild(memberAvatar);
-                memberItem.appendChild(memberName);
-                allMembersList.appendChild(memberItem);
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && playerModal.classList.contains('active')) closeModal();
             });
-        }
 
-        viewAllMembersButton.addEventListener('click', () => {
-            renderMembers();
-            membersModal.style.display = 'flex';
-        });
-
-        membersCloseButton.addEventListener('click', () => closeModal(membersModal));
-        window.addEventListener('click', (e) => {
-            if (e.target === membersModal) closeModal(membersModal);
-        });
-
-        // Member Detail Modal Functionality
-        const memberDetailModal = document.getElementById('memberDetailModal');
-        const detailCloseButton = memberDetailModal.querySelector('.close-button');
-        const teamMemberCards = document.querySelectorAll('.team-member-card');
-        const detailMemberImage = document.getElementById('detailMemberImage');
-        const detailMemberName = document.getElementById('detailMemberName');
-        const detailMemberSkill = document.getElementById('detailMemberSkill');
-        const showTextBtn = document.getElementById('showTextBtn');
-        const showGifBtn = document.getElementById('showGifBtn');
-        const memberTextDescription = document.getElementById('memberTextDescription');
-        const memberGif = document.getElementById('memberGif');
-        const noGifMessage = document.getElementById('noGifMessage');
-        const loadingMessage = document.getElementById('loadingMessage');
-        const gifContainer = document.getElementById('gifContainer');
-
-        const mainMembersData = {
-            shaopianxiang: {
-                name: "少偏向",
-                skill: "擅长：精准（人机）走位",
-                imageUrl: "pic/少偏向大头照.webp",
-                gifUrl: "pic/少偏向介绍.gif",
-                description: "少偏向在蛋仔岛上以其人机的操作闻名，但她总能在最危险的时刻巧妙躲开各种陷阱和炸弹。她对地图的理解深入骨髓，擅长利用地形优势，是团队中不可多得的生存专家。虽然有时会被戏称“人机”，但这恰恰是她稳定且精准操作的体现，总能让对手摸不着头脑。"
-            },
-            beihuaxue: {
-                name: "背化学",
-                skill: "特点：道具大师",
-                imageUrl: "pic/背化学大头照.webp",
-                gifUrl: "pic/背化学介绍.gif",
-                description: "背化学是蛋仔派对里的道具魔法师，各种道具在她手里都能发挥出意想不到的效果。无论是传送球的精准投放，还是弹簧的巧妙运用，她总能找到最佳时机帮助自己和队友。她的游戏风格灵活多变，总能根据场上情况快速调整策略，是团队中的战术大脑。"
-            },
-            xiaoyandie: {
-                name: "小妍蝶",
-                skill: "风格：出奇制胜",
-                imageUrl: "pic/小妍蝶大头照.webp",
-                gifUrl: "pic/小妍蝶介绍.gif",
-                description: "小妍蝶是蛋仔岛上的神奇精灵，她的游戏风格充满创意和变数。她不按常理出牌，总能找到独特的路线和方法绕过障碍，给对手带来惊喜（或惊吓）。她在关键时刻的总能出奇制胜，是团队中带来突破的关键人物。"
-            },
-            shifendaishadedan: {
-                name: "十分呆傻的蛋",
-                skill: "定位：吉祥物",
-                imageUrl: "pic/十分呆傻的蛋大头照.webp",
-                gifUrl: "pic/十分呆傻的蛋介绍.gif",
-                description: "十分呆傻的蛋是少家军战队不可或缺的吉祥物和气氛担当。虽然在竞技场上可能不是最顶尖的选手，但他总是带着乐观积极的态度，用他的仁济操作给大家带来欢乐。他的存在让团队氛围轻松愉快，有时还能带来意想不到的幸运，是团队的精神支柱。"
-            },
-            zhengchui: {
-                name: "争吹",
-                skill: "特长：全能和背锅",
-                imageUrl: "pic/争吹大头照.webp",
-                gifUrl: "pic/争吹介绍.gif",
-                description: "争吹在战队中以其实力强劲著称，几乎精通蛋仔派对的各种玩法和地图。她总能在关键时刻挺身而出，带领队伍走向胜利。然而，有时候队友们在游戏中的对话或表情会莫名其妙地出现在她的头上。尽管如此，她依然是团队中不可或缺的多面手。"
-            },
-            lsta: {
-                name: "Lsta",
-                skill: "擅长：决战",
-                imageUrl: "pic/Lsta大头照.webp",
-                gifUrl: "pic/Lsta介绍.gif",
-                description: "Lsta在蛋仔派对的决战模式中展现出非凡的实力。她冷静沉着，擅长利用地图机制和道具进行一对一的对抗，总能在关键时刻击败对手，是队伍在决战环节的定海神针。"
-            },
-            hepangmao: {
-                name: "喝胖猫",
-                skill: "擅长：巅峰派队",
-                imageUrl: "pic/喝胖猫大头照.webp",
-                gifUrl: "pic/喝胖猫介绍.gif",
-                description: "喝胖猫是巅峰派对的佼佼者。她对各种关卡有着深刻的理解，能够快速找到最佳路线和策略，在混乱的派对中脱颖而出，为队伍赢得宝贵的积分和排名。"
-            }
-        };
-
-        let isGifTabActive = false;
-        let isGifLoaded = false;
-
-        function resetContentArea() {
-            memberTextDescription.style.display = 'block';
-            gifContainer.style.display = 'none';
-            memberGif.style.display = 'none';
-            noGifMessage.style.display = 'none';
-            loadingMessage.style.display = 'none';
-            showTextBtn.classList.add('active');
-            showGifBtn.classList.remove('active');
-            showTextBtn.setAttribute('aria-pressed', 'true');
-            showGifBtn.setAttribute('aria-pressed', 'false');
-            isGifTabActive = false;
-            isGifLoaded = false;
-        }
-
-        function loadGif(gifUrl) {
-            loadingMessage.style.display = 'block';
-            memberGif.src = ''; // Reset src to avoid displaying old GIF
-            const img = new Image();
-            img.src = gifUrl;
-            img.onload = () => {
-                isGifLoaded = true;
-                memberGif.src = gifUrl;
-                if (isGifTabActive) {
-                    gifContainer.style.display = 'block';
-                    memberGif.style.display = 'block';
-                    loadingMessage.style.display = 'none';
-                    noGifMessage.style.display = 'none';
-                }
-            };
-            img.onerror = () => {
-                isGifLoaded = false;
-                if (isGifTabActive) {
-                    gifContainer.style.display = 'block';
-                    memberGif.style.display = 'none';
-                    loadingMessage.style.display = 'none';
-                    noGifMessage.style.display = 'block';
-                }
-            };
-        }
-
-        teamMemberCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const memberId = card.getAttribute('data-member-id');
-                const memberData = mainMembersData[memberId];
-                if (memberData) {
-                    detailMemberImage.src = memberData.imageUrl;
-                    detailMemberName.textContent = memberData.name;
-                    detailMemberSkill.textContent = memberData.skill;
-                    memberTextDescription.textContent = memberData.description;
-                    resetContentArea();
-                    loadGif(memberData.gifUrl); // Start loading GIF
-                    memberDetailModal.style.display = 'flex';
-                }
-            });
-        });
-
-        showTextBtn.addEventListener('click', () => {
-            resetContentArea();
-        });
-
-        showGifBtn.addEventListener('click', () => {
-            memberTextDescription.style.display = 'none';
-            gifContainer.style.display = 'block';
-            showTextBtn.classList.remove('active');
-            showGifBtn.classList.add('active');
-            showTextBtn.setAttribute('aria-pressed', 'false');
-            showGifBtn.setAttribute('aria-pressed', 'true');
-            isGifTabActive = true;
-
-            if (isGifLoaded) {
-                memberGif.style.display = 'block';
-                loadingMessage.style.display = 'none';
-                noGifMessage.style.display = 'none';
-            } else if (!memberGif.src) {
-                loadingMessage.style.display = 'block';
-                noGifMessage.style.display = 'none';
-            } else {
-                loadingMessage.style.display = 'none';
-                noGifMessage.style.display = 'block';
-            }
-        });
-
-        detailCloseButton.addEventListener('click', () => closeModal(memberDetailModal, memberGif));
-        window.addEventListener('click', (e) => {
-            if (e.target === memberDetailModal) closeModal(memberDetailModal, memberGif);
-        });
-
-        // Keyboard accessibility for modals
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeModal(newsModal);
-                closeModal(membersModal);
-                closeModal(memberDetailModal, memberGif);
-            }
-        });
+        }); // End DOMContentLoaded
     </script>
+
 </body>
 </html>
