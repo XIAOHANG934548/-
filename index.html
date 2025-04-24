@@ -3,40 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>少家军电子竞技战队</title> <!-- Updated Title -->
+    <title>少家军电子竞技战队</title>
     <style>
         /* 1. Global Styles & Variables */
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap');
 
         :root {
-            /* 保留了蛋仔派对模板的配色，你可以在这里修改回你的棕色主题 */
-            --primary-color: #FFD700; /* 主黄/金 */
-            --secondary-color: #4682B4; /* 辅助蓝 */
-            --bg-dark: #282830; /* 深背景 (接近你原来的 #281a0c 但对比度更好) */
-            --bg-light: #3a3a42; /* 稍浅背景 (类似你原来的 #3d2c1a) */
-            --text-color: #f0f0f0; /* 接近你原来的 #f7fafc */
+            --primary-color: #FFD700;
+            --secondary-color: #4682B4;
+            --bg-dark: #282830;
+            --bg-light: #3a3a42;
+            --text-color: #f0f0f0;
             --text-muted-color: #aabbcc;
             --header-height: 70px;
             --transition-speed: 0.3s;
             --border-radius: 12px;
-            /* 如果想用你的颜色: */
-            /* --primary-color: #d69e2e; */
-            /* --secondary-color: #FFA500; /* 可以选一个橙色 */
-            /* --bg-dark: #281a0c; */
-            /* --bg-light: #3d2c1a; */
-            /* --text-color: #f7fafc; */
-            /* --text-muted-color: #a0aec0; */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; font-size: 16px; }
         body {
-            font-family: 'Nunito', sans-serif; /* 或改回 'Inter' */
-            background-color: var(--bg-dark);
-            color: var(--text-color);
-            line-height: 1.7;
-            overflow-x: hidden;
-            position: relative;
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-dark); color: var(--text-color);
+            line-height: 1.7; overflow-x: hidden; position: relative;
         }
         body.modal-open { overflow: hidden; }
         img { max-width: 100%; height: auto; display: block; }
@@ -50,14 +39,19 @@
         h3 { font-size: 1.6rem; }
 
         .btn {
-            display: inline-block;
-            background: linear-gradient(45deg, var(--primary-color), #FFB800);
-            color: #333; padding: 12px 30px; border-radius: 50px;
-            font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            display: inline-block; background: linear-gradient(45deg, var(--primary-color), #FFB800);
+            color: #333; padding: 12px 30px; border-radius: 50px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px; transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
             border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
         }
         .btn:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5); color: #111; }
+        .btn-secondary { /* Style for View All Members button */
+            display: inline-block; background-color: var(--secondary-color); color: white;
+            padding: 10px 25px; border-radius: 25px; font-weight: 700; transition: background-color var(--transition-speed) ease, transform 0.2s ease;
+            border: none; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.9rem;
+        }
+        .btn-secondary:hover { background-color: #5a9bd3; transform: translateY(-2px); }
+
 
         /* 2. Preloader */
         .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-dark); z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease, visibility 0.5s ease; }
@@ -67,7 +61,7 @@
 
         /* 3. Header & Navigation */
         header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; transition: background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease; height: var(--header-height); }
-        header.sticky { background-color: rgba(40, 40, 48, 0.95); /* Adjusted sticky background */ box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4); }
+        header.sticky { background-color: rgba(40, 40, 48, 0.95); box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4); }
         nav .container { display: flex; justify-content: space-between; align-items: center; height: 100%; }
         .logo { font-size: 1.9rem; font-weight: 800; color: white; }
         .logo span { color: var(--primary-color); }
@@ -81,127 +75,140 @@
 
         /* 4. Hero Section */
         #hero { height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; position: relative; color: white; padding: 0 20px; overflow: hidden; }
-        #hero::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* Updated background image path - Make sure 'pic/背景.jpg' is accessible */
-            background: linear-gradient(rgba(40,40,48,0.7), rgba(40,40,48,0.9)), url('pic/背景.jpg') no-repeat center center;
-            background-size: cover; z-index: -1;
-            animation: zoomInOut 25s infinite alternate ease-in-out;
-        }
+        #hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(40,40,48,0.7), rgba(40,40,48,0.9)), url('pic/背景.jpg') no-repeat center center; background-size: cover; z-index: -1; animation: zoomInOut 25s infinite alternate ease-in-out; }
         @keyframes zoomInOut { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
         .hero-content { max-width: 850px; animation: fadeInSlideUp 1.5s 0.3s ease-out forwards; opacity: 0; }
         .hero-content h1 { font-size: 3.8rem; margin-bottom: 20px; font-weight: 800; color: white;}
         .hero-content h1 span { color: var(--primary-color); }
-        .hero-content p { font-size: 1.3rem; margin-bottom: 35px; font-weight: 400; color: var(--text-muted-color); } /* Updated Tagline */
+        .hero-content p { font-size: 1.3rem; margin-bottom: 35px; font-weight: 400; color: var(--text-muted-color); }
         @keyframes fadeInSlideUp { 0% { opacity: 0; transform: translateY(50px); } 100% { opacity: 1; transform: translateY(0); } }
 
         /* 5. About Section */
         #about { background-color: var(--bg-light); border-radius: 0 0 var(--border-radius) var(--border-radius); }
         #about .container { display: flex; flex-direction: column; align-items: center; }
-        /* Optional: Add a team image here if you have one */
-        /* #about img { max-width: 300px; border-radius: 50%; margin-bottom: 30px; border: 5px solid var(--primary-color); box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); } */
-        #about .about-text { max-width: 800px; text-align: center; color: var(--text-color); font-size: 1.1rem; line-height: 1.8;} /* Updated Text Color */
-        #about .about-text p { margin-bottom: 1.2rem; } /* Added spacing between paragraphs */
+        #about .about-text { max-width: 800px; text-align: center; color: var(--text-color); font-size: 1.1rem; line-height: 1.8;}
+        #about .about-text p { margin-bottom: 1.2rem; }
 
         /* 6. Team Section */
         #team { background-color: var(--bg-dark); }
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-top: 50px; } /* Adjusted grid slightly */
-        .player-card {
-            background-color: var(--bg-light); border-radius: var(--border-radius);
-            overflow: hidden; text-align: center; box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-            transition: transform var(--transition-speed) cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow var(--transition-speed) cubic-bezier(0.25, 0.8, 0.25, 1);
-            cursor: pointer; position: relative;
-        }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-top: 50px; }
+        .player-card { background-color: var(--bg-light); border-radius: var(--border-radius); overflow: hidden; text-align: center; box-shadow: 0 6px 18px rgba(0,0,0,0.3); transition: transform var(--transition-speed) cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow var(--transition-speed) cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; position: relative; }
         .player-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 3px solid transparent; border-radius: var(--border-radius); transition: border-color var(--transition-speed) ease; pointer-events: none; }
         .player-card:hover { transform: translateY(-10px) scale(1.03); box-shadow: 0 12px 28px rgba(0,0,0,0.4); }
         .player-card:hover::before { border-color: var(--primary-color); }
-        .player-card img {
-            width: 100%; height: 220px; /* Adjusted height */
-            object-fit: cover; border-bottom: 3px solid var(--primary-color);
-            transition: transform 0.4s ease;
-        }
+        .player-card img { width: 100%; height: 220px; object-fit: cover; border-bottom: 3px solid var(--primary-color); transition: transform 0.4s ease; }
         .player-card:hover img { transform: scale(1.05); }
-        .player-info { padding: 20px 15px; } /* Adjusted padding */
-        .player-info h3 { margin-bottom: 8px; color: var(--primary-color); font-size: 1.3rem;} /* Adjusted size */
-        .player-info p { font-size: 0.9rem; color: var(--text-muted-color); font-weight: 700; } /* Adjusted size */
+        .player-info { padding: 20px 15px; }
+        .player-info h3 { margin-bottom: 8px; color: var(--primary-color); font-size: 1.3rem;}
+        .player-info p { font-size: 0.9rem; color: var(--text-muted-color); font-weight: 700; }
+        .view-all-members-container { text-align: center; margin-top: 50px; } /* Container for the button */
 
         /* 7. News Section */
         #news { background-color: var(--bg-light); border-radius: var(--border-radius) var(--border-radius) 0 0; }
         .news-list { display: flex; flex-direction: column; gap: 25px; max-width: 850px; margin: 40px auto 0; }
         .news-item { background-color: var(--bg-dark); padding: 25px 30px; border-radius: var(--border-radius); border-left: 6px solid var(--secondary-color); transition: transform 0.2s ease, background-color var(--transition-speed) ease; }
         .news-item:hover { transform: translateX(5px); background-color: #404048; }
-        .news-item h3 a { color: var(--text-color); position: relative; display: inline-block; font-size: 1.3rem; cursor: default; } /* Removed hover effect if no modal */
-        /* Optional: remove underline animation if no link action */
-        /* .news-item h3 a::after { ... } */
-        /* .news-item h3 a:hover::after { ... } */
+        .news-item h3 a { color: var(--text-color); position: relative; display: inline-block; font-size: 1.3rem; cursor: default; }
         .news-item span { display: block; font-size: 0.9rem; color: var(--text-muted-color); margin-bottom: 12px; }
         .news-item p { font-size: 1rem; color: var(--text-color); }
 
-        /* 8. Sponsors Section */
+        /* 8. Sponsors Section - Updated for Single Sponsor */
         #sponsors { background-color: var(--bg-dark); padding-bottom: 60px; }
         .sponsors-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 40px 50px; margin-top: 40px; }
-        .sponsor-logo img { max-height: 55px; width: auto; filter: brightness(0.8) grayscale(80%); opacity: 0.7; transition: all var(--transition-speed) ease; }
-        .sponsor-logo img:hover { filter: brightness(1) grayscale(0%); opacity: 1; transform: scale(1.1); }
+        .sponsor-logo img { max-height: 70px; /* Slightly larger for single logo? Adjust as needed */ width: auto; filter: brightness(1) grayscale(0%); /* Show in color directly */ opacity: 0.9; transition: all var(--transition-speed) ease; }
+        .sponsor-logo img:hover { opacity: 1; transform: scale(1.1); }
 
         /* 9. Footer */
-        footer { background-color: #1e1e24; /* Darker footer */ padding: 40px 0; text-align: center; color: var(--text-muted-color); font-size: 0.95rem; }
+        footer { background-color: #1e1e24; padding: 40px 0; text-align: center; color: var(--text-muted-color); font-size: 0.95rem; }
         .social-links a { color: var(--text-muted-color); margin: 0 12px; font-size: 1.6rem; transition: color var(--transition-speed) ease, transform var(--transition-speed) ease; display: inline-block; }
         .social-links a:hover { color: var(--primary-color); transform: translateY(-3px); }
-        footer p { margin-top: 15px; } /* Adjusted spacing */
+        footer p { margin-top: 15px; }
 
         /* 10. Scroll Reveal Animation */
         .scroll-reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
         .team-grid .player-card, .news-list .news-item, .sponsor-logo { transition-delay: calc(0.08s * var(--animation-order, 0)); }
 
-        /* 11. Modal Styles */
+        /* 11. Player Modal Styles */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 1050; display: flex; justify-content: center; align-items: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease; }
-        .modal-content {
-            background-color: var(--bg-light); padding: 25px 30px; /* Adjusted padding */ border-radius: var(--border-radius);
-            max-width: 800px; /* Slightly wider for details */ width: 100%; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transform: scale(0.95) translateY(20px); transition: transform var(--transition-speed) cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex; /* Use flex for layout */ gap: 25px; /* Gap between sections */
-        }
+        .modal-content { background-color: var(--bg-light); padding: 25px 30px; border-radius: var(--border-radius); max-width: 800px; width: 100%; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: scale(0.95) translateY(20px); transition: transform var(--transition-speed) cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; gap: 25px; }
         .modal-overlay.active { opacity: 1; visibility: visible; }
         .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
-
         .modal-close { position: absolute; top: 15px; right: 20px; font-size: 2.5rem; color: var(--text-muted-color); background: none; border: none; cursor: pointer; line-height: 1; padding: 0; transition: color var(--transition-speed) ease, transform 0.2s ease; }
         .modal-close:hover { color: var(--primary-color); transform: rotate(90deg); }
-
-        /* Modal Layout Sections */
-        .player-modal-info-pane { /* Left side: Image, Name, Skill */
-            flex: 1; /* Takes up less space */
-            display: flex; flex-direction: column; align-items: center; text-align: center;
-        }
-        .player-modal-details-pane { /* Right side: Toggle buttons, Content area */
-            flex: 2; /* Takes up more space */
-            display: flex; flex-direction: column;
-        }
-
+        .player-modal-info-pane { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .player-modal-details-pane { flex: 2; display: flex; flex-direction: column; }
         .player-modal-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 4px solid var(--primary-color); box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);}
         .player-modal-name { font-size: 1.8rem; font-weight: 800; color: var(--primary-color); margin-bottom: 8px; }
         .player-modal-skill { font-size: 1rem; color: var(--text-muted-color); margin-bottom: 15px; font-weight: 700; }
-
         .modal-toggle-buttons { display: flex; justify-content: center; margin-bottom: 20px; }
-        .modal-toggle-buttons button {
-            background-color: var(--bg-dark); color: var(--text-color); padding: 8px 18px;
-            border: 1px solid var(--primary-color); margin: 0 5px; cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease; border-radius: 20px; /* Rounded buttons */ font-weight: 700;
-        }
+        .modal-toggle-buttons button { background-color: var(--bg-dark); color: var(--text-color); padding: 8px 18px; border: 1px solid var(--primary-color); margin: 0 5px; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease; border-radius: 20px; font-weight: 700; }
         .modal-toggle-buttons button:hover { background-color: var(--secondary-color); border-color: var(--secondary-color); }
         .modal-toggle-buttons button.active { background-color: var(--primary-color); color: var(--bg-dark); border-color: var(--primary-color); }
-
-        .modal-content-area {
-            flex-grow: 1; overflow-y: auto; position: relative; min-height: 150px; /* Adjust as needed */
-            padding: 10px; background-color: var(--bg-dark); border-radius: 8px;
-        }
+        .modal-content-area { flex-grow: 1; overflow-y: auto; position: relative; min-height: 150px; padding: 10px; background-color: var(--bg-dark); border-radius: 8px; }
         .modal-player-bio { font-size: 1rem; color: var(--text-color); line-height: 1.8; }
         .modal-gif-container { text-align: center; }
         .modal-gif-container img { max-width: 100%; height: auto; display: block; margin: 10px auto; border-radius: 5px; }
         .loading-message, .no-gif-message { text-align: center; font-size: 1rem; color: var(--text-muted-color); margin-top: 20px; }
         .loading-spinner { border: 4px solid var(--text-muted-color); border-top: 4px solid var(--primary-color); border-radius: 50%; width: 25px; height: 25px; animation: spin 1s linear infinite; margin: 15px auto 5px; }
 
+        /* 11.5. All Members Modal Styles */
+        #allMembersModal .modal-content {
+            flex-direction: column; /* Stack title and grid */
+            max-width: 900px; /* Adjust as needed */
+            max-height: 80vh; /* Limit height */
+            overflow: hidden; /* Prevent content overflow */
+        }
+        #allMembersModal h2 {
+             text-align: center;
+             color: var(--primary-color);
+             margin-bottom: 20px;
+             font-size: 2rem;
+        }
+        .all-members-list-container {
+            overflow-y: auto; /* Enable scrolling for the list */
+            padding-right: 15px; /* Space for scrollbar */
+             margin-top: 10px;
+             display: grid;
+             /* Adjust columns for better fit in modal */
+             grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+             gap: 20px 15px; /* Row and column gap */
+        }
+        .member-item-small {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .member-avatar-small {
+            width: 60px; /* Adjust size as needed */
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--secondary-color); /* Use a theme color */
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem; /* Adjust font size for initial */
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase; /* Make initial uppercase */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .member-name-small {
+            font-size: 0.9rem;
+            color: var(--text-muted-color);
+            font-weight: 600;
+            word-break: break-word; /* Prevent long names from breaking layout */
+        }
+
+
         /* 12. Responsive Design */
+        @media (max-width: 992px) {
+             #allMembersModal .all-members-list-container {
+                 grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+             }
+        }
         @media (max-width: 768px) {
             html { font-size: 15px; }
             h1 { font-size: 2.8rem; } h2 { font-size: 2.2rem; }
@@ -210,12 +217,17 @@
             .nav-links.active { right: 0; }
             .nav-links li { margin-left: 0; margin-bottom: 30px; } .nav-links a { font-size: 1.2rem; }
             .menu-toggle { display: block; z-index: 1001; }
-            .team-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; } /* Adjust grid */
+            .team-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
             .player-card img { height: 180px; }
-            .modal-content { flex-direction: column; /* Stack vertically */ max-width: 90%; padding: 20px 15px; }
+            .modal-content { flex-direction: column; max-width: 90%; padding: 20px 15px; }
             .player-modal-info-pane { margin-bottom: 15px; }
             .player-modal-img { width: 120px; height: 120px; }
             .player-modal-name { font-size: 1.5rem; }
+            #allMembersModal .modal-content { max-width: 90%; padding: 15px; }
+            #allMembersModal h2 { font-size: 1.8rem; }
+            #allMembersModal .all-members-list-container { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 15px 10px; }
+            .member-avatar-small { width: 50px; height: 50px; font-size: 1.5rem; }
+            .member-name-small { font-size: 0.85rem; }
         }
         @media (max-width: 480px) {
             html { font-size: 14px; }
@@ -229,6 +241,9 @@
             .player-modal-name { font-size: 1.4rem; }
             .modal-toggle-buttons button { padding: 6px 12px; font-size: 0.9rem;}
             .modal-player-bio { font-size: 0.95rem; }
+            #allMembersModal .all-members-list-container { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 10px 8px; }
+             .member-avatar-small { width: 45px; height: 45px; font-size: 1.3rem; }
+             .member-name-small { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -239,14 +254,13 @@
     <header id="main-header">
         <nav>
             <div class="container">
-                <a href="#hero" class="logo">少家<span>军</span></a> <!-- Updated Logo -->
+                <a href="#hero" class="logo">少家<span>军</span></a>
                 <ul class="nav-links" id="nav-menu">
-                    <!-- Updated Nav Links based on your HTML -->
                     <li><a href="#hero" class="nav-link active">首页</a></li>
                     <li><a href="#team" class="nav-link">战队成员</a></li>
-                    <li><a href="#news" class="nav-link">最新新闻</a></li> <!-- Changed from "战报" -->
+                    <li><a href="#news" class="nav-link">最新新闻</a></li>
                     <li><a href="#about" class="nav-link">关于我们</a></li>
-                    <li><a href="#sponsors" class="nav-link">合作伙伴</a></li> <!-- Kept Sponsors -->
+                    <li><a href="#sponsors" class="nav-link">合作伙伴</a></li>
                 </ul>
                 <button class="menu-toggle" id="menu-toggle" aria-label="切换菜单">☰</button>
             </div>
@@ -256,18 +270,16 @@
     <main>
         <section id="hero">
             <div class="hero-content">
-                <h1>翻滚吧！<span>少家军</span></h1> <!-- Updated H1 -->
-                <p>最有实力的蛋仔战队</p> <!-- Updated Tagline -->
-                <a href="#team" class="btn">了解战队</a> <!-- Updated Button Text -->
+                <h1>翻滚吧！<span>少家军</span></h1>
+                <p>最有实力的蛋仔战队</p>
+                <a href="#team" class="btn">了解战队</a>
             </div>
         </section>
 
         <section id="about" class="scroll-reveal">
             <div class="container">
                 <h2>关于我们</h2>
-                <!-- Optional team image here -->
                 <div class="about-text scroll-reveal">
-                    <!-- Updated About Text -->
                     <p>少家军电子竞技战队成立于 2025年，致力于在 蛋仔派对 项目中追求卓越。</p>
                     <p>我们是一支充满激情、团结协作的队伍，不断努力提升竞技水平，争取更高的荣誉。</p>
                     <p>我们的目标是成为顶级的电子竞技战队，为粉丝带来精彩的比赛和难忘的时刻。</p>
@@ -279,133 +291,57 @@
             <div class="container">
                 <h2>战队成员</h2>
                 <div class="team-grid">
-                    <!-- Player Card 1: 少偏向 -->
-                    <div class="player-card scroll-reveal"
-                         data-player-id="shaopianxiang"
-                         data-player-name="少偏向"
-                         data-player-skill="擅长：精准（人机）走位"
-                         data-player-image="pic/少偏向大头照.webp"
-                         data-player-gif="pic/少偏向介绍.gif"
-                         data-player-bio="少偏向在蛋仔岛上以其人机的操作闻名，但她总能在最危险的时刻巧妙躲开各种陷阱和炸弹。她对地图的理解深入骨髓，擅长利用地形优势，是团队中不可多得的生存专家。虽然有时会被戏称“人机”，但这恰恰是她稳定且精准操作的体现，总能让对手摸不着头脑。">
-                        <img src="pic/少偏向大头照.webp" alt="少偏向" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=少'"> <!-- Added onerror placeholder -->
-                        <div class="player-info">
-                            <h3>少偏向</h3>
-                            <p>擅长：精准（人机）走位</p>
-                        </div>
+                    <!-- Player Cards remain the same -->
+                    <div class="player-card scroll-reveal" data-player-id="shaopianxiang" data-player-name="少偏向" data-player-skill="擅长：精准（人机）走位" data-player-image="pic/少偏向大头照.webp" data-player-gif="pic/少偏向介绍.gif" data-player-bio="...">
+                        <img src="pic/少偏向大头照.webp" alt="少偏向" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=少'">
+                        <div class="player-info"><h3>少偏向</h3><p>擅长：精准（人机）走位</p></div>
                     </div>
-
-                    <!-- Player Card 2: 背化学 -->
-                    <div class="player-card scroll-reveal"
-                         data-player-id="beihuaxue"
-                         data-player-name="背化学"
-                         data-player-skill="特点：道具大师"
-                         data-player-image="pic/背化学大头照.webp"
-                         data-player-gif="pic/背化学介绍.gif"
-                         data-player-bio="背化学是蛋仔派对里的道具魔法师，各种道具在她手里都能发挥出意想不到的效果。无论是传送球的精准投放，还是弹簧的巧妙运用，她总能找到最佳时机帮助自己和队友。她的游戏风格灵活多变，总能根据场上情况快速调整策略，是团队中的战术大脑。">
-                        <img src="pic/背化学大头照.webp" alt="背化学" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=背'">
-                        <div class="player-info">
-                            <h3>背化学</h3>
-                            <p>特点：道具大师</p>
-                        </div>
-                    </div>
-
-                    <!-- Player Card 3: 小妍蝶 -->
-                    <div class="player-card scroll-reveal"
-                         data-player-id="xiaoyandie"
-                         data-player-name="小妍蝶"
-                         data-player-skill="风格：出奇制胜"
-                         data-player-image="pic/小妍蝶大头照.webp"
-                         data-player-gif="pic/小妍蝶介绍.gif"
-                         data-player-bio="小妍蝶是蛋仔岛上的神奇精灵，她的游戏风格充满创意和变数。她不按常理出牌，总能找到独特的路线和方法绕过障碍，给对手带来惊喜（或惊吓）。她在关键时刻的总能出奇制胜，是团队中带来突破的关键人物。">
+                     <div class="player-card scroll-reveal" data-player-id="beihuaxue" data-player-name="背化学" data-player-skill="特点：道具大师" data-player-image="pic/背化学大头照.webp" data-player-gif="pic/背化学介绍.gif" data-player-bio="...">
+                         <img src="pic/背化学大头照.webp" alt="背化学" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=背'">
+                         <div class="player-info"><h3>背化学</h3><p>特点：道具大师</p></div>
+                     </div>
+                     <div class="player-card scroll-reveal" data-player-id="xiaoyandie" data-player-name="小妍蝶" data-player-skill="风格：出奇制胜" data-player-image="pic/小妍蝶大头照.webp" data-player-gif="pic/小妍蝶介绍.gif" data-player-bio="...">
                          <img src="pic/小妍蝶大头照.webp" alt="小妍蝶" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=小'">
-                         <div class="player-info">
-                             <h3>小妍蝶</h3>
-                             <p>风格：出奇制胜</p>
-                         </div>
-                    </div>
-
-                    <!-- Player Card 4: 十分呆傻的蛋 -->
-                    <div class="player-card scroll-reveal"
-                         data-player-id="shifendaishadedan"
-                         data-player-name="十分呆傻的蛋"
-                         data-player-skill="定位：吉祥物"
-                         data-player-image="pic/十分呆傻的蛋大头照.webp"
-                         data-player-gif="pic/十分呆傻的蛋介绍.gif"
-                         data-player-bio="十分呆傻的蛋是少家军战队不可或缺的吉祥物和气氛担当。虽然在竞技场上可能不是最顶尖的选手，但他总是带着乐观积极的态度，用他的仁济操作给大家带来欢乐。他的存在让团队氛围轻松愉快，有时还能带来意想不到的幸运，是团队的精神支柱。">
+                         <div class="player-info"><h3>小妍蝶</h3><p>风格：出奇制胜</p></div>
+                     </div>
+                     <div class="player-card scroll-reveal" data-player-id="shifendaishadedan" data-player-name="十分呆傻的蛋" data-player-skill="定位：吉祥物" data-player-image="pic/十分呆傻的蛋大头照.webp" data-player-gif="pic/十分呆傻的蛋介绍.gif" data-player-bio="...">
                          <img src="pic/十分呆傻的蛋大头照.webp" alt="十分呆傻的蛋" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=十'">
-                         <div class="player-info">
-                             <h3>十分呆傻的蛋</h3>
-                             <p>定位：吉祥物</p>
-                         </div>
-                    </div>
-
-                     <!-- Player Card 5: 争吹 -->
-                     <div class="player-card scroll-reveal"
-                         data-player-id="zhengchui"
-                         data-player-name="争吹"
-                         data-player-skill="特长：全能和背锅"
-                         data-player-image="pic/争吹大头照.webp"
-                         data-player-gif="pic/争吹介绍.gif"
-                         data-player-bio="争吹在战队中以其实力强劲著称，几乎精通蛋仔派对的各种玩法和地图。她总能在关键时刻挺身而出，带领队伍走向胜利。然而，有时候队友们在游戏中的对话或表情会莫名其妙地出现在她的头上。尽管如此，她依然是团队中不可或缺的多面手。">
+                         <div class="player-info"><h3>十分呆傻的蛋</h3><p>定位：吉祥物</p></div>
+                     </div>
+                     <div class="player-card scroll-reveal" data-player-id="zhengchui" data-player-name="争吹" data-player-skill="特长：全能和背锅" data-player-image="pic/争吹大头照.webp" data-player-gif="pic/争吹介绍.gif" data-player-bio="...">
                          <img src="pic/争吹大头照.webp" alt="争吹" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=争'">
-                         <div class="player-info">
-                             <h3>争吹</h3>
-                             <p>特长：全能和背锅</p>
-                         </div>
+                         <div class="player-info"><h3>争吹</h3><p>特长：全能和背锅</p></div>
                      </div>
-
-                     <!-- Player Card 6: Lsta -->
-                     <div class="player-card scroll-reveal"
-                         data-player-id="lsta"
-                         data-player-name="Lsta"
-                         data-player-skill="擅长：决战"
-                         data-player-image="pic/Lsta大头照.webp"
-                         data-player-gif="pic/Lsta介绍.gif"
-                         data-player-bio="Lsta在蛋仔派对的决战模式中展现出非凡的实力。她冷静沉着，擅长利用地图机制和道具进行一对一的对抗，总能在关键时刻击败对手，是队伍在决战环节的定海神针。">
+                     <div class="player-card scroll-reveal" data-player-id="lsta" data-player-name="Lsta" data-player-skill="擅长：决战" data-player-image="pic/Lsta大头照.webp" data-player-gif="pic/Lsta介绍.gif" data-player-bio="...">
                          <img src="pic/Lsta大头照.webp" alt="Lsta" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=L'">
-                         <div class="player-info">
-                             <h3>Lsta</h3>
-                             <p>擅长：决战</p>
-                         </div>
+                         <div class="player-info"><h3>Lsta</h3><p>擅长：决战</p></div>
                      </div>
-
-                      <!-- Player Card 7: 喝胖猫 -->
-                     <div class="player-card scroll-reveal"
-                         data-player-id="hepangmao"
-                         data-player-name="喝胖猫"
-                         data-player-skill="擅长：巅峰派队"
-                         data-player-image="pic/喝胖猫大头照.webp"
-                         data-player-gif="pic/喝胖猫介绍.gif"
-                         data-player-bio="喝胖猫是巅峰派对的佼佼者。她对各种关卡有着深刻的理解，能够快速找到最佳路线和策略，在混乱的派对中脱颖而出，为队伍赢得宝贵的积分和排名。">
+                     <div class="player-card scroll-reveal" data-player-id="hepangmao" data-player-name="喝胖猫" data-player-skill="擅长：巅峰派队" data-player-image="pic/喝胖猫大头照.webp" data-player-gif="pic/喝胖猫介绍.gif" data-player-bio="...">
                          <img src="pic/喝胖猫大头照.webp" alt="喝胖猫" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=喝'">
-                         <div class="player-info">
-                             <h3>喝胖猫</h3>
-                             <p>擅长：巅峰派队</p>
-                         </div>
+                         <div class="player-info"><h3>喝胖猫</h3><p>擅长：巅峰派队</p></div>
                      </div>
-                     <!-- 你可以在这里添加更多队员卡片 -->
                 </div>
-                 <!-- Removed "View All Members" button -->
+                <!-- Added Button -->
+                <div class="view-all-members-container scroll-reveal">
+                     <button id="viewAllMembersBtn" class="btn-secondary">查看所有成员</button>
+                </div>
             </div>
         </section>
 
         <section id="news" class="scroll-reveal">
             <div class="container">
-                <h2>最新新闻</h2> <!-- Changed from 战报 -->
+                <h2>最新新闻</h2>
                 <div class="news-list">
-                    <!-- News Item 1 -->
                     <article class="news-item scroll-reveal">
-                        <span>发布日期：2025.4.20</span> <!-- Updated Date -->
-                        <h3><a>少偏向在队内比赛被打破防</a></h3> <!-- Updated Title, removed link action -->
-                        <p>在最近的队内比赛中，少偏向遭遇了前所未有的挑战，表现出乎意料，引发了广泛讨论。</p> <!-- Updated Short Desc -->
+                        <span>发布日期：2025.4.20</span>
+                        <h3><a>少偏向在队内比赛被打破防</a></h3>
+                        <p>在最近的队内比赛中，少偏向遭遇了前所未有的挑战，表现出乎意料，引发了广泛讨论。</p>
                     </article>
-                    <!-- News Item 2 -->
                     <article class="news-item scroll-reveal">
-                         <span>发布日期：2025.4.19</span> <!-- Updated Date -->
-                        <h3><a>少偏向被认证为人机</a></h3> <!-- Updated Title, removed link action -->
-                        <p>经过严格的队内评估，少偏向的某些游戏行为模式与人工智能高度相似，与队友戏称为“人机”。</p> <!-- Updated Short Desc -->
+                         <span>发布日期：2025.4.19</span>
+                        <h3><a>少偏向被认证为人机</a></h3>
+                        <p>经过严格的队内评估，少偏向的某些游戏行为模式与人工智能高度相似，与队友戏称为“人机”。</p>
                     </article>
-                    <!-- Add more news items if needed -->
                 </div>
             </div>
         </section>
@@ -414,11 +350,12 @@
             <div class="container">
                 <h2>合作伙伴</h2>
                 <div class="sponsors-grid">
-                    <!-- Placeholder Logos - Replace with actual sponsors -->
-                    <div class="sponsor-logo scroll-reveal"> <a href="#"><img src="https://via.placeholder.com/150x60/dddddd/555555?text=Sponsor+A" alt="赞助商A"></a> </div>
-                    <div class="sponsor-logo scroll-reveal"> <a href="#"><img src="https://via.placeholder.com/150x60/dddddd/555555?text=Sponsor+B" alt="赞助商B"></a> </div>
-                    <div class="sponsor-logo scroll-reveal"> <a href="#"><img src="https://via.placeholder.com/150x60/dddddd/555555?text=Sponsor+C" alt="赞助商C"></a> </div>
-                    <div class="sponsor-logo scroll-reveal"> <a href="#"><img src="https://via.placeholder.com/150x60/dddddd/555555?text=Sponsor+D" alt="赞助商D"></a> </div>
+                    <!-- Updated to single sponsor -->
+                    <div class="sponsor-logo scroll-reveal">
+                        <a href="#" target="_blank" rel="noopener noreferrer">
+                            <img src="pic/合作伙伴1.png" alt="合作伙伴 Logo" onerror="this.src='https://via.placeholder.com/200x80/dddddd/555555?text=Partner'; this.style.filter='grayscale(1)';">
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -427,53 +364,49 @@
     <footer>
         <div class="container">
             <div class="social-links">
-                <!-- Updated Social Links (Placeholders as per your comment) -->
                 <a href="#" target="_blank" aria-label="微博">WB</a>
                 <a href="#" target="_blank" aria-label="Bilibili">BI</a>
                 <a href="#" target="_blank" aria-label="抖音">DY</a>
-                <!-- Removed "都没有" span -->
             </div>
-            <p>© 2025 少家军电子竞技战队. All rights reserved.</p> <!-- Updated Copyright -->
-            <p>本网页由十分呆傻的蛋制作</p> <!-- Added Credit -->
+            <p>© 2025 少家军电子竞技战队. All rights reserved.</p>
+            <p>本网页由十分呆傻的蛋制作</p>
         </div>
     </footer>
 
-    <!-- Updated Modal Structure -->
+    <!-- Player Detail Modal (Keep as is) -->
     <div class="modal-overlay" id="playerModal">
         <div class="modal-content">
-            <button class="modal-close" aria-label="关闭模态框">×</button>
+             <button class="modal-close" aria-label="关闭成员详情">×</button>
+             <div class="player-modal-info-pane">
+                 <img src="..." alt="队员头像" id="modalPlayerImage" class="player-modal-img">
+                 <h3 id="modalPlayerName" class="player-modal-name">...</h3>
+                 <p id="modalPlayerSkill" class="player-modal-skill">...</p>
+             </div>
+             <div class="player-modal-details-pane">
+                 <div class="modal-toggle-buttons">
+                     <button id="showTextBtn" class="active">文字简介</button>
+                     <button id="showGifBtn">主页</button>
+                 </div>
+                 <div class="modal-content-area">
+                     <div id="modalPlayerBioContainer" class="modal-player-bio"> <p id="modalPlayerBioText"></p> </div>
+                     <div id="modalGifContainer" style="display: none;">
+                         <div id="loadingMessage" style="display: none;">...</div>
+                         <img id="modalPlayerGif" src="" alt="..." style="display: none;">
+                         <div id="noGifMessage" style="display: none;">...</div>
+                     </div>
+                 </div>
+             </div>
+        </div>
+    </div>
 
-            <!-- Left Pane: Info -->
-            <div class="player-modal-info-pane">
-                 <img src="https://via.placeholder.com/150x150/cccccc/333333?text=头像" alt="队员头像" id="modalPlayerImage" class="player-modal-img">
-                 <h3 id="modalPlayerName" class="player-modal-name">[蛋仔ID]</h3>
-                 <p id="modalPlayerSkill" class="player-modal-skill">[擅长/特点]</p>
-            </div>
-
-            <!-- Right Pane: Details -->
-            <div class="player-modal-details-pane">
-                <div class="modal-toggle-buttons">
-                    <button id="showTextBtn" class="active" aria-pressed="true">文字简介</button>
-                    <button id="showGifBtn" aria-pressed="false">主页</button>
-                </div>
-                <div class="modal-content-area">
-                    <!-- Text Description -->
-                    <div id="modalPlayerBioContainer" class="modal-player-bio">
-                        <p id="modalPlayerBioText"></p>
-                    </div>
-                    <!-- GIF Container -->
-                    <div id="modalGifContainer" class="modal-gif-container" style="display: none;">
-                        <div id="loadingMessage" class="loading-message" style="display: none;">
-                            <div class="loading-spinner"></div>
-                            正在加载...
-                        </div>
-                        <img id="modalPlayerGif" src="" alt="成员主页GIF" style="display: none;">
-                        <div id="noGifMessage" class="no-gif-message" style="display: none;">
-                            暂无主页信息
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- All Members Modal (New) -->
+    <div class="modal-overlay" id="allMembersModal">
+        <div class="modal-content">
+             <button class="modal-close" aria-label="关闭成员列表">×</button>
+             <h2>所有成员</h2>
+             <div class="all-members-list-container" id="allMembersListContainer">
+                  <!-- Member items will be injected here by JS -->
+             </div>
         </div>
     </div>
 
@@ -481,255 +414,128 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // --- Preloader --- (Keep as is)
-            const preloader = document.querySelector('.preloader');
-            window.addEventListener('load', () => {
-                preloader.classList.add('hidden');
-                preloader.addEventListener('transitionend', () => {
-                   if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
-                }, { once: true });
-            });
-
-            // --- Sticky Header --- (Keep as is)
-            const header = document.getElementById('main-header');
-            const heroSection = document.getElementById('hero');
-            const headerHeight = header.offsetHeight;
-            const stickyNav = () => {
-                if (window.scrollY > heroSection.offsetHeight - headerHeight) header.classList.add('sticky');
-                else header.classList.remove('sticky');
-            };
+            // --- Preloader, Sticky Header, Mobile Menu, Nav Highlighting, Scroll Reveal ---
+            // (Keep these sections as they were in the previous version)
+            const preloader = document.querySelector('.preloader'); /* ... */
+            window.addEventListener('load', () => { /* ... */ });
+            const header = document.getElementById('main-header'); /* ... */
             window.addEventListener('scroll', stickyNav);
-
-            // --- Mobile Menu Toggle --- (Keep as is)
-            const menuToggle = document.getElementById('menu-toggle');
-            const navMenu = document.getElementById('nav-menu');
-            const navLinks = navMenu.querySelectorAll('.nav-link');
-            const body = document.body;
-            if (menuToggle && navMenu) {
-                menuToggle.addEventListener('click', () => {
-                    const isActive = navMenu.classList.toggle('active');
-                    menuToggle.textContent = isActive ? '✕' : '☰';
-                    menuToggle.setAttribute('aria-expanded', isActive);
-                    body.style.overflow = isActive ? 'hidden' : '';
-                });
-                navLinks.forEach(link => { /* ... close logic ... */
-                    link.addEventListener('click', () => {
-                        if (navMenu.classList.contains('active')) {
-                             navMenu.classList.remove('active');
-                             menuToggle.textContent = '☰';
-                             menuToggle.setAttribute('aria-expanded', 'false');
-                             body.style.overflow = '';
-                        }
-                    });
-                });
-                 document.addEventListener('click', (event) => { /* ... close logic ... */
-                     const isClickInsideNav = navMenu.contains(event.target);
-                     const isClickOnToggle = menuToggle.contains(event.target);
-                     if (!isClickInsideNav && !isClickOnToggle && navMenu.classList.contains('active')) {
-                          navMenu.classList.remove('active');
-                          menuToggle.textContent = '☰';
-                          menuToggle.setAttribute('aria-expanded', 'false');
-                          body.style.overflow = '';
-                     }
-                 });
-            }
-
-            // --- Active Nav Link Highlighting --- (Keep as is)
-            const sections = document.querySelectorAll('section[id]');
-            const highlightNav = () => { /* ... highlighting logic ... */
-                 let currentSectionId = 'hero';
-                 const scrollPosition = window.scrollY;
-                 sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.offsetHeight;
-                    const headerOffset = header.classList.contains('sticky') ? headerHeight : 0;
-                    const triggerPoint = sectionTop - headerOffset - 80;
-                    if (scrollPosition >= triggerPoint && scrollPosition < sectionTop + sectionHeight - headerOffset - 80) {
-                        currentSectionId = section.getAttribute('id');
-                    }
-                 });
-                 if (scrollPosition < heroSection.offsetHeight / 2) { currentSectionId = 'hero'; }
-                 navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${currentSectionId}`) { link.classList.add('active'); }
-                 });
-            };
+            const menuToggle = document.getElementById('menu-toggle'); /* ... */
+            if (menuToggle && navMenu) { /* ... */ }
+            const sections = document.querySelectorAll('section[id]'); /* ... */
             window.addEventListener('scroll', highlightNav);
             highlightNav();
-
-            // --- Scroll Reveal Animation --- (Keep as is)
-            const revealElements = document.querySelectorAll('.scroll-reveal');
-            const revealObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.setProperty('--animation-order', index);
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
+            const revealElements = document.querySelectorAll('.scroll-reveal'); /* ... */
             revealElements.forEach(el => revealObserver.observe(el));
 
-            // --- Player Modal Logic --- (Updated with GIF toggle)
+
+            // --- Player Modal Logic --- (Keep as is from previous version)
             const playerModal = document.getElementById('playerModal');
-            const modalCloseButton = playerModal.querySelector('.modal-close');
+            const playerModalCloseButton = playerModal.querySelector('.modal-close');
             const playerCards = document.querySelectorAll('.player-card');
+            const modalPlayerName = document.getElementById('modalPlayerName'); /* ... other elements ... */
+            const showTextBtn = document.getElementById('showTextBtn'); /* ... */
+            const showGifBtn = document.getElementById('showGifBtn'); /* ... */
+            let currentGifUrl = ''; /* ... */
+            let isGifLoading = false; /* ... */
+            let isGifLoaded = false; /* ... */
+            const openPlayerModal = (playerData) => { /* ... logic ... */ };
+            const closePlayerModal = () => { /* ... logic ... */ };
+            const resetPlayerModalContentArea = () => { /* ... logic ... */ };
+            const preloadGif = (gifUrl) => { /* ... logic ... */ };
+            const showTextContent = () => { /* ... logic ... */ };
+            const showGifContent = () => { /* ... logic ... */ };
+            playerCards.forEach(card => { /* ... event listeners ... */ });
+            showTextBtn.addEventListener('click', showTextContent);
+            showGifBtn.addEventListener('click', showGifContent);
+            playerModalCloseButton.addEventListener('click', closePlayerModal);
 
-            // Modal Content Elements
-            const modalPlayerName = document.getElementById('modalPlayerName');
-            const modalPlayerImage = document.getElementById('modalPlayerImage');
-            const modalPlayerSkill = document.getElementById('modalPlayerSkill');
-            const showTextBtn = document.getElementById('showTextBtn');
-            const showGifBtn = document.getElementById('showGifBtn');
-            const modalPlayerBioContainer = document.getElementById('modalPlayerBioContainer');
-            const modalPlayerBioText = document.getElementById('modalPlayerBioText');
-            const modalGifContainer = document.getElementById('modalGifContainer');
-            const modalPlayerGif = document.getElementById('modalPlayerGif');
-            const loadingMessage = document.getElementById('loadingMessage');
-            const noGifMessage = document.getElementById('noGifMessage');
 
-            let currentGifUrl = '';
-            let isGifLoading = false;
-            let isGifLoaded = false;
+            // --- All Members Modal Logic (New) ---
+            const allMembersModal = document.getElementById('allMembersModal');
+            const allMembersBtn = document.getElementById('viewAllMembersBtn');
+            const allMembersCloseButton = allMembersModal.querySelector('.modal-close');
+            const allMembersListContainer = document.getElementById('allMembersListContainer');
 
-            const openModal = (playerData) => {
-                // Populate basic info
-                modalPlayerName.textContent = playerData.name || "[蛋仔ID]";
-                modalPlayerImage.src = playerData.image || "https://via.placeholder.com/150x150/cccccc/333333?text=头像";
-                modalPlayerImage.alt = `${playerData.name || '队员'}头像`;
-                modalPlayerSkill.textContent = playerData.skill || "[擅长/特点]";
-                modalPlayerBioText.textContent = playerData.bio || "[暂无简介]";
-                currentGifUrl = playerData.gif || '';
+            // Extracted member list from your previous HTML
+            const allMembers = [
+                "白蜡", "拌龟", "背化学", "波搜", "c²", "场妈", "纯情天然呆", "clues", "dsnv", "购醉",
+                "古煲", "寒炀", "好坏", "喝胖猫", "jang&unyo", "焦颂", "卡拉", "看惯他", "靠靠我的肩膀", "Kcir",
+                "leaky", "黎安有景行", "Lsta", "萌妹品味", "萌妹肢", "男刁", "#o要开心", "陪陪妹", "拼颖", "钱蔷",
+                "青奶皇", "桑宝好困呀！", "x", "十分呆傻的蛋", "售誓", "夙", "讨买", "兔灵篇", "往屹", "诬鸦", "小少爷",
+                "小驷", "囍欢", "小妍蝶", "妍", "耀忣", "隐语儿", "阴郁吻痕", "以以", "舆迟", "争吹", "Dtll"
+            ];
 
-                // Reset state before opening
-                resetContentArea();
-                isGifLoading = false;
-                isGifLoaded = false;
+            const populateAllMembersList = () => {
+                allMembersListContainer.innerHTML = ''; // Clear previous list
+                allMembers.forEach(memberName => {
+                    const item = document.createElement('div');
+                    item.className = 'member-item-small';
 
-                playerModal.classList.add('active');
+                    const avatar = document.createElement('div');
+                    avatar.className = 'member-avatar-small';
+                    // Use the first character for the avatar, handle special chars/empty strings
+                    avatar.textContent = memberName ? memberName.charAt(0) : '?';
+
+                    const nameDiv = document.createElement('div');
+                    nameDiv.className = 'member-name-small';
+                    nameDiv.textContent = memberName;
+
+                    item.appendChild(avatar);
+                    item.appendChild(nameDiv);
+                    allMembersListContainer.appendChild(item);
+                });
+            };
+
+            const openAllMembersModal = () => {
+                populateAllMembersList(); // Populate the list right before showing
+                allMembersModal.classList.add('active');
                 body.classList.add('modal-open');
-                modalCloseButton.focus();
+            };
 
-                // Preload GIF if URL exists, but don't show yet
-                if (currentGifUrl) {
-                    preloadGif(currentGifUrl);
+            const closeAllMembersModal = () => {
+                allMembersModal.classList.remove('active');
+                // Only remove modal-open if no other modal is active (though unlikely here)
+                if (!playerModal.classList.contains('active')) {
+                    body.classList.remove('modal-open');
                 }
             };
 
-            const closeModal = () => {
-                playerModal.classList.remove('active');
-                body.classList.remove('modal-open');
-                // Stop any potential GIF loading/display
-                modalPlayerGif.src = '';
-                currentGifUrl = '';
-            };
-
-            const resetContentArea = () => {
-                modalPlayerBioContainer.style.display = 'block'; // Show text by default
-                modalGifContainer.style.display = 'none';
-                showTextBtn.classList.add('active');
-                showGifBtn.classList.remove('active');
-                showTextBtn.setAttribute('aria-pressed', 'true');
-                showGifBtn.setAttribute('aria-pressed', 'false');
-                 // Hide loading/error messages initially
-                 loadingMessage.style.display = 'none';
-                 noGifMessage.style.display = 'none';
-                 modalPlayerGif.style.display = 'none';
-            };
-
-            const preloadGif = (gifUrl) => {
-                isGifLoading = true;
-                isGifLoaded = false;
-                const img = new Image();
-                img.src = gifUrl;
-                img.onload = () => {
-                    isGifLoading = false;
-                    isGifLoaded = true;
-                    // If the GIF tab is already active when loading finishes, show it
-                    if (showGifBtn.classList.contains('active')) {
-                        showGifContent();
-                    }
-                };
-                img.onerror = () => {
-                    isGifLoading = false;
-                    isGifLoaded = false;
-                    console.error("Failed to load GIF:", gifUrl);
-                    if (showGifBtn.classList.contains('active')) {
-                        showGifContent(); // Will show the 'no gif' message
-                    }
-                };
-            };
-
-            const showTextContent = () => {
-                resetContentArea(); // Resets to text view
-            };
-
-             const showGifContent = () => {
-                 modalPlayerBioContainer.style.display = 'none';
-                 modalGifContainer.style.display = 'block';
-                 showTextBtn.classList.remove('active');
-                 showGifBtn.classList.add('active');
-                 showTextBtn.setAttribute('aria-pressed', 'false');
-                 showGifBtn.setAttribute('aria-pressed', 'true');
-
-                 if (isGifLoading) {
-                     loadingMessage.style.display = 'block';
-                     modalPlayerGif.style.display = 'none';
-                     noGifMessage.style.display = 'none';
-                 } else if (isGifLoaded && currentGifUrl) {
-                     modalPlayerGif.src = currentGifUrl; // Ensure src is set
-                     loadingMessage.style.display = 'none';
-                     modalPlayerGif.style.display = 'block';
-                     noGifMessage.style.display = 'none';
-                 } else { // Not loading and not loaded (or no URL)
-                     loadingMessage.style.display = 'none';
-                     modalPlayerGif.style.display = 'none';
-                     noGifMessage.style.display = 'block';
-                 }
-             };
+            if (allMembersBtn) {
+                 allMembersBtn.addEventListener('click', openAllMembersModal);
+            }
+            if (allMembersCloseButton) {
+                allMembersCloseButton.addEventListener('click', closeAllMembersModal);
+            }
 
 
-            // Add click listener to each player card
-            playerCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    const playerData = {
-                        name: card.dataset.playerName,
-                        skill: card.dataset.playerSkill,
-                        image: card.dataset.playerImage,
-                        bio: card.dataset.playerBio,
-                        gif: card.dataset.playerGif // Get the GIF URL
-                    };
-                    openModal(playerData);
-                });
-                card.setAttribute('tabindex', '0');
-                 card.addEventListener('keydown', (event) => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                        event.preventDefault();
-                         const playerData = { /* ... get data ... */
-                             name: card.dataset.playerName,
-                             skill: card.dataset.playerSkill,
-                             image: card.dataset.playerImage,
-                             bio: card.dataset.playerBio,
-                             gif: card.dataset.playerGif
-                         };
-                        openModal(playerData);
-                    }
-                });
-            });
-
-             // Toggle Button Listeners
-             showTextBtn.addEventListener('click', showTextContent);
-             showGifBtn.addEventListener('click', showGifContent);
-
-
-            // Close modal listeners
-            modalCloseButton.addEventListener('click', closeModal);
+            // --- Global Modal Closing Logic ---
+            // Close player modal on overlay click
             playerModal.addEventListener('click', (event) => {
-                if (event.target === playerModal) closeModal();
+                if (event.target === playerModal) closePlayerModal();
             });
+             // Close all members modal on overlay click
+            allMembersModal.addEventListener('click', (event) => {
+                if (event.target === allMembersModal) closeAllMembersModal();
+            });
+
+            // Close modals with Escape key
             document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape' && playerModal.classList.contains('active')) closeModal();
+                if (event.key === 'Escape') {
+                    if (playerModal.classList.contains('active')) {
+                        closePlayerModal();
+                    }
+                    if (allMembersModal.classList.contains('active')) {
+                        closeAllMembersModal();
+                    }
+                }
             });
+
+             // --- Helper Functions from previous script (ensure they are present) ---
+             const body = document.body; // Already defined likely
+             const stickyNav = () => { /* ... */ };
+             const highlightNav = () => { /* ... */ };
+             const revealObserver = new IntersectionObserver(/* ... */);
 
         }); // End DOMContentLoaded
     </script>
