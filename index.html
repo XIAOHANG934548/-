@@ -53,42 +53,197 @@
         <section id="team" class="scroll-reveal">
             <div class="container">
                 <h2>战队成员</h2>
-                <div class="team-grid">
-                    <!-- Player Cards - Image and GIF paths updated -->
-                    <div class="player-card scroll-reveal" data-player-id="shaopianxiang" data-player-name="少偏向" data-player-skill="擅长：精准（人机）走位" data-player-image="pic/成员信息/少偏向大头照.webp" data-player-gif="pic/成员信息/少偏向介绍.gif" data-player-bio="少偏向在蛋仔岛上以其人机的操作闻名，但她总能在最危险的时刻巧妙躲开各种陷阱和炸弹。她对地图的理解深入骨髓，擅长利用地形优势，是团队中不可多得的生存专家。虽然有时会被戏称“人机”，但这恰恰是她稳定且精准操作的体现，总能让对手摸不着头脑。">
-                        <span class="captain-badge">队长</span> <!-- Captain Badge -->
-                        <img src="pic/成员信息/少偏向大头照.webp" alt="少偏向" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=少'">
-                        <div class="player-info"><h3>少偏向</h3><p>擅长：精准（人机）走位</p></div>
+                <div class="team-carousel-viewport">
+                    <div class="team-carousel-track">
+                        <!-- Player Carousel Items -->
+                        <div class="player-carousel-item" data-player-id="shaopianxiang">
+                            <div class="player-item-wrapper">
+                                <img src="pic/成员信息/少偏向大头照.webp" alt="少偏向" class="carousel-player-avatar" onerror="this.src='https://via.placeholder.com/180x180/3a3a42/FFD700?text=少'; this.onerror=null;">
+                                <div class="carousel-player-content-box">
+                                    <span class="captain-badge-carousel">队长</span>
+                                    <h3 class="carousel-player-name">少偏向</h3>
+                                    <p class="carousel-player-skill">擅长：精准（人机）走位</p>
+                                    <div class="carousel-content-toggle modal-toggle-buttons">
+                                        <button class="toggle-bio active" aria-pressed="true">文字简介</button>
+                                        <button class="toggle-gif" aria-pressed="false">主页</button>
+                                    </div>
+                                    <div class="carousel-dynamic-content-area modal-content-area">
+                                        <div class="carousel-bio-area" style="display: block;">
+                                            <p>少偏向在蛋仔岛上以其人机的操作闻名，但她总能在最危险的时刻巧妙躲开各种陷阱和炸弹。她对地图的理解深入骨髓，擅长利用地形优势，是团队中不可多得的生存专家。虽然有时会被戏称“人机”，但这恰恰是她稳定且精准操作的体现，总能让对手摸不着头脑。</p>
+                                        </div>
+                                        <div class="carousel-gif-area" style="display: none;">
+                                            <div class="loading-message-carousel loading-message" style="display: none;">
+                                                <div class="loading-spinner"></div>正在加载...
+                                            </div>
+                                            <img class="carousel-player-gif-main" data-gif-src="pic/成员信息/少偏向介绍.gif" alt="少偏向 主页GIF" style="display: none;">
+                                            <div class="no-gif-message-carousel no-gif-message" style="display: none;">暂无主页信息</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="player-carousel-item" data-player-id="beihuaxue">
+                            <div class="player-item-wrapper">
+                                <img src="pic/成员信息/背化学大头照.webp" alt="背化学" class="carousel-player-avatar" onerror="this.src='https://via.placeholder.com/180x180/3a3a42/FFD700?text=背'; this.onerror=null;">
+                                <div class="carousel-player-content-box">
+                                    <h3 class="carousel-player-name">背化学</h3>
+                                    <p class="carousel-player-skill">特点：道具大师</p>
+                                    <div class="carousel-content-toggle modal-toggle-buttons">
+                                        <button class="toggle-bio active" aria-pressed="true">文字简介</button>
+                                        <button class="toggle-gif" aria-pressed="false">主页</button>
+                                    </div>
+                                    <div class="carousel-dynamic-content-area modal-content-area">
+                                        <div class="carousel-bio-area" style="display: block;">
+                                            <p>背化学是蛋仔派对里的道具魔法师，各种道具在她手里都能发挥出意想不到的效果。无论是传送球的精准投放，还是弹簧的巧妙运用，她总能找到最佳时机帮助自己和队友。她的游戏风格灵活多变，总能根据场上情况快速调整策略，是团队中的战术大脑。</p>
+                                        </div>
+                                        <div class="carousel-gif-area" style="display: none;">
+                                            <div class="loading-message-carousel loading-message" style="display: none;">
+                                                <div class="loading-spinner"></div>正在加载...
+                                            </div>
+                                            <img class="carousel-player-gif-main" data-gif-src="pic/成员信息/背化学介绍.gif" alt="背化学 主页GIF" style="display: none;">
+                                            <div class="no-gif-message-carousel no-gif-message" style="display: none;">暂无主页信息</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="player-carousel-item" data-player-id="xiaoyandie">
+                            <div class="player-item-wrapper">
+                                <img src="pic/成员信息/小妍蝶大头照.webp" alt="小妍蝶" class="carousel-player-avatar" onerror="this.src='https://via.placeholder.com/180x180/3a3a42/FFD700?text=小'; this.onerror=null;">
+                                <div class="carousel-player-content-box">
+                                    <h3 class="carousel-player-name">小妍蝶</h3>
+                                    <p class="carousel-player-skill">风格：出奇制胜</p>
+                                    <div class="carousel-content-toggle modal-toggle-buttons">
+                                        <button class="toggle-bio active" aria-pressed="true">文字简介</button>
+                                        <button class="toggle-gif" aria-pressed="false">主页</button>
+                                    </div>
+                                    <div class="carousel-dynamic-content-area modal-content-area">
+                                        <div class="carousel-bio-area" style="display: block;">
+                                            <p>小妍蝶是蛋仔岛上的神奇精灵，她的游戏风格充满创意和变数。她不按常理出牌，总能找到独特的路线和方法绕过障碍，给对手带来惊喜（或惊吓）。她在关键时刻的总能出奇制胜，是团队中带来突破的关键人物。</p>
+                                        </div>
+                                        <div class="carousel-gif-area" style="display: none;">
+                                            <div class="loading-message-carousel loading-message" style="display: none;">
+                                                <div class="loading-spinner"></div>正在加载...
+                                            </div>
+                                            <img class="carousel-player-gif-main" data-gif-src="pic/成员信息/小妍蝶介绍.gif" alt="小妍蝶 主页GIF" style="display: none;">
+                                            <div class="no-gif-message-carousel no-gif-message" style="display: none;">暂无主页信息</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="player-carousel-item" data-player-id="shifendaishadedan">
+                            <div class="player-item-wrapper">
+                                <img src="pic/成员信息/十分呆傻的蛋大头照.webp" alt="十分呆傻的蛋" class="carousel-player-avatar" onerror="this.src='https://via.placeholder.com/180x180/3a3a42/FFD700?text=十'; this.onerror=null;">
+                                <div class="carousel-player-content-box">
+                                    <h3 class="carousel-player-name">十分呆傻的蛋</h3>
+                                    <p class="carousel-player-skill">定位：吉祥物</p>
+                                    <div class="carousel-content-toggle modal-toggle-buttons">
+                                        <button class="toggle-bio active" aria-pressed="true">文字简介</button>
+                                        <button class="toggle-gif" aria-pressed="false">主页</button>
+                                    </div>
+                                    <div class="carousel-dynamic-content-area modal-content-area">
+                                        <div class="carousel-bio-area" style="display: block;">
+                                            <p>十分呆傻的蛋是少家军战队不可或缺的吉祥物和气氛担当。虽然在竞技场上可能不是最顶尖的选手，但他总是带着乐观积极的态度，用他的仁济操作给大家带来欢乐。他的存在让团队氛围轻松愉快，有时还能带来意想不到的幸运，是团队的精神支柱。</p>
+                                        </div>
+                                        <div class="carousel-gif-area" style="display: none;">
+                                            <div class="loading-message-carousel loading-message" style="display: none;">
+                                                <div class="loading-spinner"></div>正在加载...
+                                            </div>
+                                            <img class="carousel-player-gif-main" data-gif-src="pic/成员信息/十分呆傻的蛋介绍.gif" alt="十分呆傻的蛋 主页GIF" style="display: none;">
+                                            <div class="no-gif-message-carousel no-gif-message" style="display: none;">暂无主页信息</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="player-carousel-item" data-player-id="zhengchui">
+                            <div class="player-item-wrapper">
+                                <img src="pic/成员信息/争吹大头照.webp" alt="争吹" class="carousel-player-avatar" onerror="this.src='https://via.placeholder.com/180x180/3a3a42/FFD700?text=争'; this.onerror=null;">
+                                <div class="carousel-player-content-box">
+                                    <h3 class="carousel-player-name">争吹</h3>
+                                    <p class="carousel-player-skill">特长：全能和背锅</p>
+                                    <div class="carousel-content-toggle modal-toggle-buttons">
+                                        <button class="toggle-bio active" aria-pressed="true">文字简介</button>
+                                        <button class="toggle-gif" aria-pressed="false">主页</button>
+                                    </div>
+                                    <div class="carousel-dynamic-content-area modal-content-area">
+                                        <div class="carousel-bio-area" style="display: block;">
+                                            <p>争吹在战队中以其实力强劲著称，几乎精通蛋仔派对的各种玩法和地图。她总能在关键时刻挺身而出，带领队伍走向胜利。然而，有时候队友们在游戏中的对话或表情会莫名其妙地出现在她的头上。尽管如此，她依然是团队中不可或缺的多面手。</p>
+                                        </div>
+                                        <div class="carousel-gif-area" style="display: none;">
+                                            <div class="loading-message-carousel loading-message" style="display: none;">
+                                                <div class="loading-spinner"></div>正在加载...
+                                            </div>
+                                            <img class="carousel-player-gif-main" data-gif-src="pic/成员信息/争吹介绍.gif" alt="争吹 主页GIF" style="display: none;">
+                                            <div class="no-gif-message-carousel no-gif-message" style="display: none;">暂无主页信息</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="player-carousel-item" data-player-id="mengmeipinwei">
+                            <div class="player-item-wrapper">
+                                <img src="pic/成员信息/萌妹品味大头照.webp" alt="萌妹品味" class="carousel-player-avatar" onerror="this.src='https://via.placeholder.com/180x180/3a3a42/FFD700?text=L'; this.onerror=null;">
+                                <div class="carousel-player-content-box">
+                                    <h3 class="carousel-player-name">萌妹品味</h3>
+                                    <p class="carousel-player-skill">擅长：全能</p> <!-- Original said "决战", card said "全能". Using card version. -->
+                                    <div class="carousel-content-toggle modal-toggle-buttons">
+                                        <button class="toggle-bio active" aria-pressed="true">文字简介</button>
+                                        <button class="toggle-gif" aria-pressed="false">主页</button>
+                                    </div>
+                                    <div class="carousel-dynamic-content-area modal-content-area">
+                                        <div class="carousel-bio-area" style="display: block;">
+                                            <p>萌妹品味不仅操作呆呆的人也萌萌的，经常做出意想不到的举动，精通各种高难度炫技图，超级细节控，水平未知，遇强则强。</p>
+                                        </div>
+                                        <div class="carousel-gif-area" style="display: none;">
+                                            <div class="loading-message-carousel loading-message" style="display: none;">
+                                                <div class="loading-spinner"></div>正在加载...
+                                            </div>
+                                            <img class="carousel-player-gif-main" data-gif-src="pic/成员信息/萌妹品味介绍.gif" alt="萌妹品味 主页GIF" style="display: none;">
+                                            <div class="no-gif-message-carousel no-gif-message" style="display: none;">暂无主页信息</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="player-carousel-item" data-player-id="hepangmao">
+                            <div class="player-item-wrapper">
+                                <img src="pic/成员信息/喝胖猫大头照.webp" alt="喝胖猫" class="carousel-player-avatar" onerror="this.src='https://via.placeholder.com/180x180/3a3a42/FFD700?text=喝'; this.onerror=null;">
+                                <div class="carousel-player-content-box">
+                                    <h3 class="carousel-player-name">喝胖猫</h3>
+                                    <p class="carousel-player-skill">擅长：巅峰派对</p>
+                                    <div class="carousel-content-toggle modal-toggle-buttons">
+                                        <button class="toggle-bio active" aria-pressed="true">文字简介</button>
+                                        <button class="toggle-gif" aria-pressed="false">主页</button>
+                                    </div>
+                                    <div class="carousel-dynamic-content-area modal-content-area">
+                                        <div class="carousel-bio-area" style="display: block;">
+                                            <p>喝胖猫是巅峰派对的佼佼者。她对各种关卡有着深刻的理解，能够快速找到最佳路线和策略，在混乱的派对中脱颖而出，为队伍赢得宝贵的积分和排名。</p>
+                                        </div>
+                                        <div class="carousel-gif-area" style="display: none;">
+                                            <div class="loading-message-carousel loading-message" style="display: none;">
+                                                <div class="loading-spinner"></div>正在加载...
+                                            </div>
+                                            <img class="carousel-player-gif-main" data-gif-src="pic/成员信息/喝胖猫介绍.gif" alt="喝胖猫 主页GIF" style="display: none;">
+                                            <div class="no-gif-message-carousel no-gif-message" style="display: none;">暂无主页信息</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Player Carousel Items -->
                     </div>
-                     <div class="player-card scroll-reveal" data-player-id="beihuaxue" data-player-name="背化学" data-player-skill="特点：道具大师" data-player-image="pic/成员信息/背化学大头照.webp" data-player-gif="pic/成员信息/背化学介绍.gif" data-player-bio="背化学是蛋仔派对里的道具魔法师，各种道具在她手里都能发挥出意想不到的效果。无论是传送球的精准投放，还是弹簧的巧妙运用，她总能找到最佳时机帮助自己和队友。她的游戏风格灵活多变，总能根据场上情况快速调整策略，是团队中的战术大脑。">
-                         <img src="pic/成员信息/背化学大头照.webp" alt="背化学" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=背'">
-                         <div class="player-info"><h3>背化学</h3><p>特点：道具大师</p></div>
-                     </div>
-                     <div class="player-card scroll-reveal" data-player-id="xiaoyandie" data-player-name="小妍蝶" data-player-skill="风格：出奇制胜" data-player-image="pic/成员信息/小妍蝶大头照.webp" data-player-gif="pic/成员信息/小妍蝶介绍.gif" data-player-bio="小妍蝶是蛋仔岛上的神奇精灵，她的游戏风格充满创意和变数。她不按常理出牌，总能找到独特的路线和方法绕过障碍，给对手带来惊喜（或惊吓）。她在关键时刻的总能出奇制胜，是团队中带来突破的关键人物。">
-                         <img src="pic/成员信息/小妍蝶大头照.webp" alt="小妍蝶" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=小'">
-                         <div class="player-info"><h3>小妍蝶</h3><p>风格：出奇制胜</p></div>
-                     </div>
-                     <div class="player-card scroll-reveal" data-player-id="shifendaishadedan" data-player-name="十分呆傻的蛋" data-player-skill="定位：吉祥物" data-player-image="pic/成员信息/十分呆傻的蛋大头照.webp" data-player-gif="pic/成员信息/十分呆傻的蛋介绍.gif" data-player-bio="十分呆傻的蛋是少家军战队不可或缺的吉祥物和气氛担当。虽然在竞技场上可能不是最顶尖的选手，但他总是带着乐观积极的态度，用他的仁济操作给大家带来欢乐。他的存在让团队氛围轻松愉快，有时还能带来意想不到的幸运，是团队的精神支柱。">
-                         <img src="pic/成员信息/十分呆傻的蛋大头照.webp" alt="十分呆傻的蛋" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=十'">
-                         <div class="player-info"><h3>十分呆傻的蛋</h3><p>定位：吉祥物</p></div>
-                     </div>
-                     <div class="player-card scroll-reveal" data-player-id="zhengchui" data-player-name="争吹" data-player-skill="特长：全能和背锅" data-player-image="pic/成员信息/争吹大头照.webp" data-player-gif="pic/成员信息/争吹介绍.gif" data-player-bio="争吹在战队中以其实力强劲著称，几乎精通蛋仔派对的各种玩法和地图。她总能在关键时刻挺身而出，带领队伍走向胜利。然而，有时候队友们在游戏中的对话或表情会莫名其妙地出现在她的头上。尽管如此，她依然是团队中不可或缺的多面手。">
-                         <img src="pic/成员信息/争吹大头照.webp" alt="争吹" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=争'">
-                         <div class="player-info"><h3>争吹</h3><p>特长：全能和背锅</p></div>
-                     </div>
-                     <div class="player-card scroll-reveal" data-player-id="mengmeipinwei" data-player-name="萌妹品味" data-player-skill="擅长：决战" data-player-image="pic/成员信息/萌妹品味大头照.webp" data-player-gif="pic/成员信息/萌妹品味介绍.gif" data-player-bio="萌妹品味不仅操作呆呆的人也萌萌的，经常做出意想不到的举动，精通各种高难度炫技图，超级细节控，水平未知，遇强则强。">
-                         <img src="pic/成员信息/萌妹品味大头照.webp" alt="萌妹品味" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=L'">
-                         <div class="player-info"><h3>萌妹品味</h3><p>擅长：全能</p></div>
-                     </div>
-                     <div class="player-card scroll-reveal" data-player-id="hepangmao" data-player-name="喝胖猫" data-player-skill="擅长：巅峰派队" data-player-image="pic/成员信息/喝胖猫大头照.webp" data-player-gif="pic/成员信息/喝胖猫介绍.gif" data-player-bio="喝胖猫是巅峰派对的佼佼者。她对各种关卡有着深刻的理解，能够快速找到最佳路线和策略，在混乱的派对中脱颖而出，为队伍赢得宝贵的积分和排名。">
-                         <img src="pic/成员信息/喝胖猫大头照.webp" alt="喝胖猫" onerror="this.src='https://via.placeholder.com/220x220/3a3a42/FFD700?text=喝'">
-                         <div class="player-info"><h3>喝胖猫</h3><p>擅长：巅峰派对</p></div>
-                     </div>
+                    <button class="carousel-control prev" aria-label="上一位成员">‹</button>
+                    <button class="carousel-control next" aria-label="下一位成员">›</button>
                 </div>
-                <!-- Added Button -->
-                <div class="view-all-members-container scroll-reveal">
-                     <button id="viewAllMembersBtn" class="btn-secondary">查看所有成员</button>
-                </div>
+                 <div class="carousel-dots-container"></div>
             </div>
         </section>
 
@@ -176,46 +331,7 @@
         </div>
     </footer>
 
-    <!-- Player Detail Modal -->
-    <div class="modal-overlay" id="playerModal">
-        <div class="modal-content">
-             <button class="modal-close" aria-label="关闭成员详情">×</button>
-             <div class="player-modal-info-pane">
-                 <img src="https://via.placeholder.com/150x150/cccccc/333333?text=头像" alt="队员头像" id="modalPlayerImage" class="player-modal-img">
-                 <h3 id="modalPlayerName" class="player-modal-name">[蛋仔ID]</h3>
-                 <p id="modalPlayerSkill" class="player-modal-skill">[擅长/特点]</p>
-             </div>
-             <div class="player-modal-details-pane">
-                 <div class="modal-toggle-buttons">
-                     <button id="showTextBtn" class="active" aria-pressed="true">文字简介</button>
-                     <button id="showGifBtn" aria-pressed="false">主页</button>
-                 </div>
-                 <div class="modal-content-area">
-                     <div id="modalPlayerBioContainer" class="modal-player-bio">
-                         <p id="modalPlayerBioText">[简介]</p>
-                     </div>
-                     <div id="modalGifContainer" class="modal-gif-container" style="display: none;">
-                         <div id="loadingMessage" class="loading-message" style="display: none;">
-                             <div class="loading-spinner"></div>正在加载...
-                         </div>
-                         <img id="modalPlayerGif" src="" alt="成员主页GIF" style="display: none;">
-                         <div id="noGifMessage" class="no-gif-message" style="display: none;">暂无主页信息</div>
-                     </div>
-                 </div>
-             </div>
-        </div>
-    </div>
-
-    <!-- All Members Modal -->
-    <div class="modal-overlay" id="allMembersModal">
-        <div class="modal-content">
-             <button class="modal-close" aria-label="关闭成员列表">×</button>
-             <h2>所有成员</h2>
-             <div class="all-members-list-container" id="allMembersListContainer">
-                  <!-- Member items will be injected here by JS -->
-             </div>
-        </div>
-    </div>
+    <!-- Removed Player Detail Modal and All Members Modal -->
 
     <!-- Link to external JavaScript file -->
     <script src="script.js"></script>
