@@ -1,4 +1,3 @@
-/* 1. Global Styles & Variables */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap');
 
 :root {
@@ -15,6 +14,10 @@
     --color-loss: #f5222d; /* Red */
     --color-live: #ff4d4d; /* Bright Red */
     --color-draw: #999999; /* Neutral Grey for Draw */
+    --slide-width-sm: 100px; /* For mobile */
+    --slide-width-md: 150px; /* For tablet */
+    --slide-width-lg: 180px; /* For desktop */
+
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,7 +27,7 @@ body {
     background-color: var(--bg-dark); color: var(--text-color);
     line-height: 1.7; overflow-x: hidden; position: relative;
 }
-body.modal-open { overflow: hidden; } /* Kept for potential future modals */
+body.modal-open { overflow: hidden; }
 img { max-width: 100%; height: auto; display: block; }
 a { text-decoration: none; color: var(--primary-color); transition: color var(--transition-speed) ease; }
 a:hover { filter: brightness(1.2); }
@@ -90,70 +93,124 @@ nav .container { display: flex; justify-content: space-between; align-items: cen
 
 /* 6. Team Section - Carousel Styles */
 #team { background-color: var(--bg-dark); }
-.team-carousel-viewport {
+.team-carousel-wrapper {
     position: relative;
+    margin-top: 30px;
+    margin-bottom: 50px; /* Space for focused player details */
+    padding: 0 40px; /* Space for arrows */
+}
+.team-carousel-slides-container {
     overflow: hidden;
-    width: 100%;
-    margin-top: 50px;
-    padding: 20px 0; /* Allow space for scaled items if they go outside a bit */
-}
-.team-carousel-track {
-    display: flex;
-    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Adjusted easing */
-    align-items: center; /* Vertically align items if heights vary slightly */
-}
-.player-carousel-item {
-    flex-shrink: 0;
-    /* width is set by JS */
-    padding: 0 10px; /* Spacing between items, useful when scaled */
-    box-sizing: content-box; /* Ensure padding doesn't add to JS calculated width */
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    transform: scale(0.80); /* Default non-active scale */
-    opacity: 0.6;        /* Default non-active opacity */
-    cursor: grab;
-}
-.player-carousel-item.active-slide {
-    transform: scale(1);
-    opacity: 1;
-    z-index: 10;
-    cursor: default;
-}
-.player-item-wrapper {
     position: relative;
+    height: 280px; /* Adjust as needed for slide height + peek effect */
+    perspective: 1000px; /* For 3D effect on side slides */
+}
+.team-carousel-slides {
     display: flex;
-    align-items: flex-end; /* Aligns avatar bottom-left relative to content box */
-    background-color: transparent; /* Wrapper itself is transparent */
-    min-height: 420px; /* Ensure consistent height for items */
+    align-items: center; /* Vertically align slides */
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
 }
-.carousel-player-avatar {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid var(--primary-color);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    margin-right: -60px; /* Negative margin for overlap with content box */
-    margin-bottom: 20px; /* Push up from bottom edge of wrapper */
-    z-index: 5; /* Avatar on top of content box edge */
-    position: relative; /* Needed for z-index and precise positioning */
-    transition: transform 0.3s ease;
-}
-.player-carousel-item.active-slide .carousel-player-avatar {
-    transform: translateY(-10px); /* Slight lift for active avatar */
-}
-.carousel-player-content-box {
-    flex: 1;
+.player-slide {
+    min-width: var(--slide-width-lg); /* Desktop first */
+    flex-shrink: 0;
+    margin: 0 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
+    opacity: 0.5;
+    transform: scale(0.8) translateZ(-100px);
+    position: relative; /* For captain badge */
     background-color: var(--bg-light);
     border-radius: var(--border-radius);
-    padding: 25px;
-    padding-left: 80px; /* Account for avatar overlap (60px) + 20px spacing */
-    min-height: 380px; /* Height of the content box itself */
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.player-slide.active {
+    opacity: 1;
+    transform: scale(1.15) translateZ(0); /* Center slide is larger and 'closer' */
+    z-index: 10;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3), 0 0 0 3px var(--primary-color);
+}
+.player-slide.prev-slide, .player-slide.next-slide {
+    opacity: 0.7;
+    transform: scale(0.9) translateZ(-50px);
+    z-index: 5;
+}
+.player-slide img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio based on width */
+    max-height: 180px; /* Limit image height inside slide */
+    object-fit: cover;
+    border-bottom: 3px solid var(--primary-color);
+}
+.player-slide-info {
+    padding: 10px 5px;
+    background-color: rgba(0,0,0,0.3);
+}
+.player-slide-info h3 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.player-slide-info p {
+    font-size: 0.8rem;
+    color: var(--text-muted-color);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(40, 40, 48, 0.7);
+    color: white;
+    border: none;
+    font-size: 2.5rem;
+    padding: 5px 10px;
+    cursor: pointer;
+    z-index: 20;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    line-height: 35px;
+    text-align: center;
+    transition: background-color var(--transition-speed) ease;
+}
+.carousel-control:hover { background-color: var(--primary-color); color: var(--bg-dark); }
+.carousel-control.prev { left: -10px; }
+.carousel-control.next { right: -10px; }
+
+/* Focused Player Display Area */
+.focused-player-display {
+    margin-top: 40px;
+    padding: 30px;
+    background-color: var(--bg-light);
+    border-radius: var(--border-radius);
     display: flex;
-    flex-direction: column;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    gap: 30px;
+    align-items: flex-start;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+.focused-player-visuals {
+    flex-shrink: 0;
     position: relative; /* For captain badge */
 }
-.captain-badge-carousel {
+.focused-player-img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid var(--primary-color);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+.focused-captain-badge { /* Re-style if needed, or use existing captain-badge */
     position: absolute;
     top: 15px;
     right: 15px;
@@ -161,119 +218,96 @@ nav .container { display: flex; justify-content: space-between; align-items: cen
     color: var(--bg-dark);
     padding: 5px 10px;
     border-radius: 6px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 700;
-    z-index: 6; /* Above content box, below avatar if it overlaps badge */
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    z-index: 5;
 }
-.carousel-player-name {
-    font-size: 1.8rem;
+
+.focused-player-info-content {
+    flex-grow: 1;
+}
+#focusedPlayerName {
+    font-size: 2.2rem;
+    font-weight: 800;
     color: var(--primary-color);
-    margin-bottom: 8px;
-    margin-top: 5px;
+    margin-bottom: 10px;
 }
-.carousel-player-skill {
-    font-size: 1rem;
+#focusedPlayerSkill {
+    font-size: 1.1rem;
     color: var(--text-muted-color);
     margin-bottom: 20px;
     font-weight: 700;
 }
-/* Re-using modal toggle button styles - prefix with .carousel- if needed for specificity */
-.carousel-content-toggle { /* Alias for modal-toggle-buttons */
+.focused-player-toggle-buttons {
     display: flex;
-    justify-content: flex-start; /* Align to left */
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
-.carousel-content-toggle button {
+.focused-player-toggle-buttons button {
     background-color: var(--bg-dark);
     color: var(--text-color);
-    padding: 8px 18px;
+    padding: 10px 20px;
     border: 1px solid var(--primary-color);
-    margin-right: 10px; /* Spacing between buttons */
+    margin-right: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
-    border-radius: 20px;
+    border-radius: 25px;
     font-weight: 700;
-    font-size: 0.9rem;
 }
-.carousel-content-toggle button:hover {
+.focused-player-toggle-buttons button:hover {
     background-color: var(--secondary-color);
     border-color: var(--secondary-color);
 }
-.carousel-content-toggle button.active {
+.focused-player-toggle-buttons button.active {
     background-color: var(--primary-color);
     color: var(--bg-dark);
     border-color: var(--primary-color);
 }
-.carousel-dynamic-content-area { /* Alias for modal-content-area */
-    flex-grow: 1;
-    overflow-y: auto;
-    position: relative;
+.focused-player-content-area {
     min-height: 120px; /* Adjust as needed */
-    padding: 10px;
     background-color: var(--bg-dark);
+    padding: 15px;
     border-radius: 8px;
-    font-size: 0.95rem;
-    line-height: 1.7;
+    overflow-y: auto;
+    max-height: 250px; /* Limit height for long bios */
 }
-.carousel-bio-area p { color: var(--text-color); }
-.carousel-gif-area { text-align: center; }
-.carousel-player-gif-main {
+#focusedPlayerBioContainer p {
+    font-size: 1rem;
+    color: var(--text-color);
+    line-height: 1.8;
+}
+#focusedGifContainer img {
     max-width: 100%;
-    max-height: 250px; /* Limit GIF height inside content area */
     height: auto;
     display: block;
     margin: 0 auto;
     border-radius: 5px;
+    max-height: 220px; /* Limit GIF height */
 }
-.loading-message-carousel, .no-gif-message-carousel { /* Alias for modal messages */
+.loading-message, .no-gif-message {
     text-align: center; font-size: 1rem; color: var(--text-muted-color); margin-top: 20px;
 }
-.loading-spinner { /* Shared style */
-    border: 4px solid var(--text-muted-color); border-top: 4px solid var(--primary-color); border-radius: 50%; width: 25px; height: 25px; animation: spin 1s linear infinite; margin: 15px auto 5px;
+.loading-spinner {
+    border: 4px solid var(--text-muted-color); border-top: 4px solid var(--primary-color);
+    border-radius: 50%; width: 25px; height: 25px; animation: spin 1s linear infinite; margin: 15px auto 5px;
 }
 
-/* Carousel Controls (Arrows) */
-.carousel-control {
+.view-all-members-container { text-align: center; margin-top: 50px; }
+
+/* Captain Badge Style (used on slides) */
+.captain-badge {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(var(--bg-light), 0.7);
-    color: white;
-    border: none;
-    font-size: 2.5rem;
-    padding: 5px 12px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 20;
-    transition: background-color 0.3s ease;
-    line-height: 1; /* Ensure text is centered */
-}
-.carousel-control:hover { background-color: var(--primary-color); color: var(--bg-dark); }
-.carousel-control.prev { left: -10px; }
-.carousel-control.next { right: -10px; }
-
-/* Carousel Dots */
-.carousel-dots-container {
-    text-align: center;
-    margin-top: 30px;
-}
-.carousel-dot {
-    background-color: var(--text-muted-color);
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    border: none;
-    margin: 0 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    padding: 0;
-}
-.carousel-dot.active {
+    top: 8px;
+    right: 8px;
     background-color: var(--primary-color);
-    transform: scale(1.2);
+    color: var(--bg-dark);
+    padding: 3px 7px;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    z-index: 5;
+    pointer-events: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
-
 
 /* 7. News Section */
 #news { background-color: var(--bg-light); }
@@ -389,29 +423,77 @@ footer p { margin-top: 15px; }
 /* 11. Scroll Reveal Animation */
 .scroll-reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
 .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
-/* .team-grid .player-card, - Removed as player-card is gone */
-.news-list .news-item, .schedule-list .schedule-item, .sponsor-logo { transition-delay: calc(0.08s * var(--animation-order, 0)); }
+/* .team-grid .player-card, NO LONGER NEEDED */
+.news-list .news-item, .schedule-list .schedule-item, .sponsor-logo, .focused-player-display { transition-delay: calc(0.08s * var(--animation-order, 0)); }
 
-/* 12. Modal Styles (Removed Player Modal and All Members Modal specific styles) */
-/* General modal overlay if needed for other modals */
+/* 12. Player Modal Styles - REMOVED as requested */
+
+/* 12.5. All Members Modal Styles */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 1050; display: flex; justify-content: center; align-items: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease; }
-.modal-content { background-color: var(--bg-light); padding: 25px 30px; border-radius: var(--border-radius); max-width: 800px; width: 100%; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: scale(0.95) translateY(20px); transition: transform var(--transition-speed) cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.modal-content { background-color: var(--bg-light); padding: 25px 30px; border-radius: var(--border-radius); max-width: 800px; width: 100%; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: scale(0.95) translateY(20px); transition: transform var(--transition-speed) cubic-bezier(0.175, 0.885, 0.32, 1.275); /* display: flex; gap: 25px; - Removed to not conflict with allMembersModal */ }
 .modal-overlay.active { opacity: 1; visibility: visible; }
 .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
 .modal-close { position: absolute; top: 15px; right: 20px; font-size: 2.5rem; color: var(--text-muted-color); background: none; border: none; cursor: pointer; line-height: 1; padding: 0; transition: color var(--transition-speed) ease, transform 0.2s ease; }
 .modal-close:hover { color: var(--primary-color); transform: rotate(90deg); }
 
-/* 13. Responsive Design */
-@media (max-width: 992px) {
-    .carousel-player-avatar { width: 150px; height: 150px; margin-right: -50px; margin-bottom: 15px; }
-    .carousel-player-content-box { padding-left: 70px; min-height: 360px; }
-    .player-item-wrapper { min-height: 390px; }
-    .carousel-player-name { font-size: 1.6rem; }
-    .carousel-player-skill { font-size: 0.95rem; }
-    .carousel-control.prev { left: 0px; }
-    .carousel-control.next { right: 0px; }
+#allMembersModal .modal-content {
+    flex-direction: column;
+    max-width: 900px;
+    max-height: 80vh;
+    overflow: hidden;
+}
+#allMembersModal h2 {
+     text-align: center;
+     color: var(--primary-color);
+     margin-bottom: 20px;
+     font-size: 2rem;
+}
+.all-members-list-container {
+    overflow-y: auto;
+    padding-right: 15px;
+     margin-top: 10px;
+     display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+     gap: 20px 15px;
+}
+.member-item-small {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.member-avatar-small {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.member-name-small {
+    font-size: 0.9rem;
+    color: var(--text-muted-color);
+    font-weight: 600;
+    word-break: break-word;
 }
 
+
+/* 13. Responsive Design */
+@media (max-width: 992px) {
+     .player-slide { min-width: var(--slide-width-md); }
+     .focused-player-img { width: 180px; height: 180px;}
+     #focusedPlayerName { font-size: 2rem; }
+     #allMembersModal .all-members-list-container {
+         grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+     }
+}
 @media (max-width: 768px) {
     html { font-size: 15px; }
     h1 { font-size: 2.8rem; } h2 { font-size: 2.2rem; }
@@ -421,45 +503,31 @@ footer p { margin-top: 15px; }
     .nav-links li { margin-left: 0; margin-bottom: 30px; } .nav-links a { font-size: 1.2rem; }
     .menu-toggle { display: block; z-index: 1001; }
 
-    /* Team Carousel Mobile */
-    .player-carousel-item {
-        transform: scale(1); /* Mobile shows one item clearly */
-        opacity: 1;
-        padding: 0 5px; /* Minimal padding */
-    }
-    .player-carousel-item:not(.active-slide) {
-        /* Still allow a slight scale/opacity for transitions or if viewport is wider than item */
-        transform: scale(0.95); 
-        opacity: 0.8;
-    }
-    .player-item-wrapper {
-        flex-direction: column; /* Stack avatar on top of content */
-        align-items: center;
-        min-height: auto; /* Adjust for stacked layout */
-        padding: 15px; /* Padding for the whole wrapper */
-    }
-    .carousel-player-avatar {
-        width: 120px;
-        height: 120px;
-        margin-right: 0; /* No overlap needed */
-        margin-bottom: 15px; /* Space between avatar and content box */
-        transform: translateY(0); /* Reset active lift */
-    }
-    .carousel-player-content-box {
-        padding: 20px; /* Full padding */
-        min-height: auto;
-        width: 100%;
-        text-align: center;
-    }
-    .carousel-content-toggle { justify-content: center; }
-    .carousel-dynamic-content-area { min-height: 100px; font-size: 0.9rem; }
-    .carousel-control { font-size: 2rem; padding: 3px 8px; }
-    .carousel-control.prev { left: 5px; }
-    .carousel-control.next { right: 5px; }
+    .player-slide { min-width: var(--slide-width-sm); margin: 0 10px; }
+    .player-slide.active { transform: scale(1.1) translateZ(0); } /* Slightly smaller active slide on mobile */
+    .player-slide img { max-height: 120px; }
+    .player-slide-info h3 { font-size: 0.9rem; }
+    .player-slide-info p { font-size: 0.7rem; }
+    .carousel-control { font-size: 2rem; width: 35px; height: 35px; line-height: 27px; }
+    .carousel-control.prev { left: 0px; }
+    .carousel-control.next { right: 0px; }
+    .team-carousel-slides-container { height: 220px; }
 
+
+    .focused-player-display { flex-direction: column; align-items: center; text-align: center; padding: 20px;}
+    .focused-player-visuals { margin-bottom: 20px; }
+    .focused-player-img { width: 150px; height: 150px; }
+    #focusedPlayerName { font-size: 1.8rem; }
+    #focusedPlayerSkill { font-size: 1rem; }
+    .focused-player-toggle-buttons { justify-content: center; }
+
+    #allMembersModal .modal-content { max-width: 90%; padding: 15px; }
+    #allMembersModal h2 { font-size: 1.8rem; }
+    #allMembersModal .all-members-list-container { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 15px 10px; }
+    .member-avatar-small { width: 50px; height: 50px; font-size: 1.5rem; }
+    .member-name-small { font-size: 0.85rem; }
     .schedule-item { padding: 15px 20px; }
 }
-
 @media (max-width: 480px) {
     html { font-size: 14px; }
     h1 { font-size: 2.2rem; } h2 { font-size: 1.9rem; }
@@ -467,13 +535,24 @@ footer p { margin-top: 15px; }
     .btn { padding: 10px 25px; font-size: 0.9rem;} .container { padding: 0 15px; }
     section { padding: 60px 0; }
 
-    .carousel-player-avatar { width: 100px; height: 100px; }
-    .carousel-player-name { font-size: 1.4rem; }
-    .carousel-content-toggle button { padding: 6px 12px; font-size: 0.9rem;}
-    
+    .player-slide { min-width: calc(var(--slide-width-sm) - 10px) ; margin: 0 5px; }
+    .player-slide img { max-height: 100px; }
+    .team-carousel-slides-container { height: 190px; }
+    .team-carousel-wrapper { padding: 0 30px; }
+
+
+    .focused-player-img { width: 120px; height: 120px; }
+    #focusedPlayerName { font-size: 1.5rem; }
+    .focused-player-toggle-buttons button { padding: 8px 15px; font-size: 0.9rem;}
+    #focusedPlayerBioContainer p { font-size: 0.9rem; }
+
+
+    #allMembersModal .all-members-list-container { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 10px 8px; }
+     .member-avatar-small { width: 45px; height: 45px; font-size: 1.3rem; }
+     .member-name-small { font-size: 0.8rem; }
     .schedule-item { padding: 15px; }
     .schedule-item h3 { font-size: 1.1rem; }
     .schedule-item p { font-size: 0.9rem; }
     .schedule-links { width: 100%; text-align: right; margin-top: 10px; }
-    .schedule-links .btn-secondary { padding: 5px 12px; font-size: 0.8rem; }
+    .schedule-links .btn-secondary { padding: 5px 12px; font-size: 0.8rem; } /* Adjust schedule button */
 }

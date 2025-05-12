@@ -122,265 +122,281 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Team Carousel Logic ---
-    const teamCarouselViewport = document.querySelector('.team-carousel-viewport');
-    const carouselTrack = document.querySelector('.team-carousel-track');
-    const carouselItems = document.querySelectorAll('.player-carousel-item');
-    const prevButton = document.querySelector('.carousel-control.prev');
-    const nextButton = document.querySelector('.carousel-control.next');
-    const dotsContainer = document.querySelector('.carousel-dots-container');
+    const carouselSlidesContainer = document.getElementById('teamCarouselSlides');
+    const slides = carouselSlidesContainer ? Array.from(carouselSlidesContainer.querySelectorAll('.player-slide')) : [];
+    const prevButton = document.getElementById('teamCarouselPrev');
+    const nextButton = document.getElementById('teamCarouselNext');
 
+    const focusedPlayerImage = document.getElementById('focusedPlayerImage');
+    const focusedPlayerName = document.getElementById('focusedPlayerName');
+    const focusedPlayerSkill = document.getElementById('focusedPlayerSkill');
+    const focusedCaptainBadge = document.querySelector('.focused-captain-badge');
+
+    const focusedShowTextBtn = document.getElementById('focusedShowTextBtn');
+    const focusedShowGifBtn = document.getElementById('focusedShowGifBtn');
+    const focusedPlayerBioContainer = document.getElementById('focusedPlayerBioContainer');
+    const focusedPlayerBioText = document.getElementById('focusedPlayerBioText');
+    const focusedGifContainer = document.getElementById('focusedGifContainer');
+    const focusedPlayerGif = document.getElementById('focusedPlayerGif');
+    const focusedLoadingMessage = document.getElementById('focusedLoadingMessage');
+    const focusedNoGifMessage = document.getElementById('focusedNoGifMessage');
+
+    let currentFocusedGifUrl = '';
+    let isFocusedGifLoading = false;
+    let isFocusedGifLoaded = false;
     let currentIndex = 0;
-    let totalItems = carouselItems.length;
     let touchStartX = 0;
     let touchEndX = 0;
-    let itemWidth = 0; // Will be calculated
 
-    function calculateItemWidth() {
-        if (carouselItems.length > 0 && teamCarouselViewport) {
-            // For center mode, an item might not be 100% of viewport.
-            // Let's assume on desktop we want to show one main item.
-            // On mobile, one item fills most of the space.
-            if (window.innerWidth <= 768) { // Mobile
-                 itemWidth = teamCarouselViewport.offsetWidth * 0.9; // 90% of viewport
-                 carouselItems.forEach(item => item.style.width = `${itemWidth}px`);
-            } else { // Desktop
-                 itemWidth = teamCarouselViewport.offsetWidth * 0.7; // 70% for center focus, allows peeking
-                 carouselItems.forEach(item => item.style.width = `${itemWidth}px`);
-            }
+    function updateFocusedPlayerInfo(slide) {
+        if (!slide) return;
+        const playerData = {
+            id: slide.dataset.playerId,
+            name: slide.dataset.playerName,
+            skill: slide.dataset.playerSkill,
+            image: slide.dataset.playerImage,
+            bio: slide.dataset.playerBio,
+            gif: slide.dataset.playerGif
+        };
+
+        if (focusedPlayerImage) focusedPlayerImage.src = playerData.image || "https://via.placeholder.com/250x250/cccccc/333333?text=头像";
+        if (focusedPlayerName) focusedPlayerName.textContent = playerData.name || "[蛋仔ID]";
+        if (focusedPlayerSkill) focusedPlayerSkill.textContent = playerData.skill || "[擅长/特点]";
+        if (focusedPlayerBioText) focusedPlayerBioText.textContent = playerData.bio || "[暂无简介]";
+        
+        if (focusedCaptainBadge) {
+            focusedCaptainBadge.style.display = (playerData.id === "shaopianxiang") ? 'inline-block' : 'none';
+        }
+
+        currentFocusedGifUrl = playerData.gif || '';
+        resetFocusedPlayerContentArea(); // Show bio by default
+        isFocusedGifLoading = false;
+        isFocusedGifLoaded = false;
+
+        if (currentFocusedGifUrl) {
+            preloadFocusedGif(currentFocusedGifUrl);
         }
     }
+
+    function resetFocusedPlayerContentArea() {
+        if (!focusedPlayerBioContainer || !focusedGifContainer || !focusedShowTextBtn || !focusedShowGifBtn || !focusedLoadingMessage || !focusedNoGifMessage || !focusedPlayerGif) return;
+
+        focusedPlayerBioContainer.style.display = 'block';
+        focusedGifContainer.style.display = 'none';
+        focusedShowTextBtn.classList.add('active');
+        focusedShowGifBtn.classList.remove('active');
+        focusedShowTextBtn.setAttribute('aria-pressed', 'true');
+        focusedShowGifBtn.setAttribute('aria-pressed', 'false');
+        focusedLoadingMessage.style.display = 'none';
+        focusedNoGifMessage.style.display = 'none';
+        focusedPlayerGif.style.display = 'none';
+        if (focusedPlayerGif) focusedPlayerGif.src = ''; // Clear previous GIF
+    }
+    
+    function preloadFocusedGif(gifUrl) {
+        if (!gifUrl) return;
+        isFocusedGifLoading = true;
+        isFocusedGifLoaded = false;
+        const img = new Image();
+        img.src = gifUrl;
+
+        img.onload = () => {
+            isFocusedGifLoading = false;
+            isFocusedGifLoaded = true;
+            if (focusedShowGifBtn && focusedShowGifBtn.classList.contains('active')) {
+                showFocusedGifContent();
+            }
+        };
+        img.onerror = () => {
+            isFocusedGifLoading = false;
+            isFocusedGifLoaded = false;
+            console.error("Failed to load GIF for focused player:", gifUrl);
+            if (focusedShowGifBtn && focusedShowGifBtn.classList.contains('active')) {
+                showFocusedGifContent();
+            }
+        };
+    }
+
+    function showFocusedTextContent() {
+        resetFocusedPlayerContentArea(); // This already sets text to visible and resets GIF state
+    }
+
+    function showFocusedGifContent() {
+        if (!focusedPlayerBioContainer || !focusedGifContainer || !focusedShowTextBtn || !focusedShowGifBtn || !focusedLoadingMessage || !focusedNoGifMessage || !focusedPlayerGif) return;
+
+        focusedPlayerBioContainer.style.display = 'none';
+        focusedGifContainer.style.display = 'block';
+        focusedShowTextBtn.classList.remove('active');
+        focusedShowGifBtn.classList.add('active');
+        focusedShowTextBtn.setAttribute('aria-pressed', 'false');
+        focusedShowGifBtn.setAttribute('aria-pressed', 'true');
+
+        if (isFocusedGifLoading) {
+            focusedLoadingMessage.style.display = 'block';
+            focusedPlayerGif.style.display = 'none';
+            focusedNoGifMessage.style.display = 'none';
+        } else if (isFocusedGifLoaded && currentFocusedGifUrl) {
+            focusedPlayerGif.src = currentFocusedGifUrl;
+            focusedLoadingMessage.style.display = 'none';
+            focusedPlayerGif.style.display = 'block';
+            focusedNoGifMessage.style.display = 'none';
+        } else {
+            focusedLoadingMessage.style.display = 'none';
+            focusedPlayerGif.style.display = 'none';
+            focusedNoGifMessage.style.display = 'block';
+        }
+    }
+    
+    if (focusedShowTextBtn) focusedShowTextBtn.addEventListener('click', showFocusedTextContent);
+    if (focusedShowGifBtn) focusedShowGifBtn.addEventListener('click', showFocusedGifContent);
 
 
     function updateCarousel() {
-        if (!carouselTrack || !teamCarouselViewport) return;
-        calculateItemWidth(); // Recalculate on update, useful for resize
-
-        const trackWidth = itemWidth * totalItems;
-        carouselTrack.style.width = `${trackWidth}px`;
-
-        // Calculate offset to center the active slide
-        let offsetValue = (teamCarouselViewport.offsetWidth / 2) - (itemWidth / 2) - (currentIndex * itemWidth);
+        if (!carouselSlidesContainer || slides.length === 0) return;
+    
+        const slideWidth = slides[0].offsetWidth;
+        const gap = parseInt(window.getComputedStyle(slides[0]).marginRight) * 2; // Assuming equal left/right margins or use margin-left + margin-right
+        const totalSlideWidth = slideWidth + gap;
+    
+        // Center the active slide. Calculation needs to consider the container's width and slide widths.
+        // This simple translation centers the start of the active slide; centering the middle is more complex with variable # of slides.
+        // For a robust centering, you might calculate offset based on container width / 2 - slideWidth / 2
+        const baseOffset = (carouselSlidesContainer.parentElement.offsetWidth / 2) - (slideWidth / 2);
+        const translateXValue = baseOffset - (currentIndex * totalSlideWidth);
         
-        // On smaller screens, we might want to align to left edge of viewport mostly
-        if (window.innerWidth <= 768) {
-            offsetValue = - (currentIndex * itemWidth) + (teamCarouselViewport.offsetWidth - itemWidth) / 2; // Center it
-        }
-
-
-        carouselTrack.style.transform = `translateX(${offsetValue}px)`;
-
-        carouselItems.forEach((item, index) => {
-            item.classList.remove('active-slide');
+        carouselSlidesContainer.style.transform = `translateX(${translateXValue}px)`;
+    
+        slides.forEach((slide, index) => {
+            slide.classList.remove('active', 'prev-slide', 'next-slide');
             if (index === currentIndex) {
-                item.classList.add('active-slide');
+                slide.classList.add('active');
+            } else if (index === currentIndex - 1) {
+                slide.classList.add('prev-slide');
+            } else if (index === currentIndex + 1) {
+                slide.classList.add('next-slide');
             }
         });
-        updateDots();
-        // Reset content display for non-active slides if needed, or ensure active slide is correctly set up
-        resetAndSetupActiveSlideContent();
+    
+        updateFocusedPlayerInfo(slides[currentIndex]);
     }
     
-    function resetAndSetupActiveSlideContent() {
-        carouselItems.forEach((item, index) => {
-            const bioArea = item.querySelector('.carousel-bio-area');
-            const gifArea = item.querySelector('.carousel-gif-area');
-            const bioToggle = item.querySelector('.toggle-bio');
-            const gifToggle = item.querySelector('.toggle-gif');
-            const gifImg = item.querySelector('.carousel-player-gif-main');
 
-            if (index !== currentIndex) {
-                // Optional: Reset non-active slides to bio, hide GIF to save resources
-                if (bioArea) bioArea.style.display = 'block';
-                if (gifArea) gifArea.style.display = 'none';
-                if (bioToggle) bioToggle.classList.add('active');
-                if (gifToggle) gifToggle.classList.remove('active');
-                if (gifImg) gifImg.src = ''; // Clear GIF src for non-active slides
-            } else {
-                // Ensure the active slide's default (bio) is shown
-                // The toggle buttons will handle if user had selected GIF before slide change
-                if (bioToggle && bioToggle.classList.contains('active')) {
-                    if (bioArea) bioArea.style.display = 'block';
-                    if (gifArea) gifArea.style.display = 'none';
-                } else if (gifToggle && gifToggle.classList.contains('active')) {
-                    if (bioArea) bioArea.style.display = 'none';
-                    if (gifArea) gifArea.style.display = 'block';
-                     // Potentially reload GIF if it was cleared
-                    loadCarouselGif(
-                        gifImg,
-                        gifImg.dataset.gifSrc,
-                        item.querySelector('.loading-message-carousel'),
-                        item.querySelector('.no-gif-message-carousel')
-                    );
+    function goToSlide(index) {
+        if (slides.length === 0) return;
+        currentIndex = (index + slides.length) % slides.length; // Loop
+        updateCarousel();
+    }
+
+    if (slides.length > 0) {
+        if (prevButton) prevButton.addEventListener('click', () => goToSlide(currentIndex - 1));
+        if (nextButton) nextButton.addEventListener('click', () => goToSlide(currentIndex + 1));
+
+        slides.forEach((slide, index) => {
+            slide.addEventListener('click', () => {
+                if (index !== currentIndex) {
+                    goToSlide(index);
                 }
-            }
-        });
-    }
-
-
-    function createDots() {
-        if (!dotsContainer) return;
-        dotsContainer.innerHTML = '';
-        for (let i = 0; i < totalItems; i++) {
-            const dot = document.createElement('button');
-            dot.classList.add('carousel-dot');
-            dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-            dot.addEventListener('click', () => {
-                currentIndex = i;
-                updateCarousel();
             });
-            dotsContainer.appendChild(dot);
-        }
-    }
-
-    function updateDots() {
-        if (!dotsContainer) return;
-        const dots = dotsContainer.querySelectorAll('.carousel-dot');
-        dots.forEach((dot, index) => {
-            dot.classList.remove('active');
-            if (index === currentIndex) {
-                dot.classList.add('active');
-            }
         });
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex + 1) % totalItems;
-        updateCarousel();
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex - 1 + totalItems) % totalItems;
-        updateCarousel();
-    }
-
-    // Swipe functionality
-    function handleTouchStart(event) {
-        touchStartX = event.touches[0].clientX;
-    }
-
-    function handleTouchMove(event) {
-        // Optional: Add visual feedback or prevent vertical scroll if horizontal swipe is significant
-    }
-
-    function handleTouchEnd(event) {
-        touchEndX = event.changedTouches[0].clientX;
-        const swipeThreshold = 50; // Minimum swipe distance
-
-        if (touchStartX - touchEndX > swipeThreshold) {
-            nextSlide();
-        } else if (touchEndX - touchStartX > swipeThreshold) {
-            prevSlide();
-        }
-    }
+        
+        // Swipe functionality
+        if (carouselSlidesContainer) {
+            carouselSlidesContainer.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
     
-    // Bio/GIF toggle logic for each carousel item
-    carouselItems.forEach(item => {
-        const bioToggle = item.querySelector('.toggle-bio');
-        const gifToggle = item.querySelector('.toggle-gif');
-        const bioArea = item.querySelector('.carousel-bio-area');
-        const gifArea = item.querySelector('.carousel-gif-area');
-        const gifImg = item.querySelector('.carousel-player-gif-main');
-        const loadingMsg = item.querySelector('.loading-message-carousel');
-        const noGifMsg = item.querySelector('.no-gif-message-carousel');
-
-        if (bioToggle) {
-            bioToggle.addEventListener('click', () => {
-                if (bioArea) bioArea.style.display = 'block';
-                if (gifArea) gifArea.style.display = 'none';
-                bioToggle.classList.add('active');
-                gifToggle.classList.remove('active');
-                bioToggle.setAttribute('aria-pressed', 'true');
-                gifToggle.setAttribute('aria-pressed', 'false');
+            carouselSlidesContainer.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
             });
         }
-
-        if (gifToggle) {
-            gifToggle.addEventListener('click', () => {
-                if (bioArea) bioArea.style.display = 'none';
-                if (gifArea) gifArea.style.display = 'block';
-                gifToggle.classList.add('active');
-                bioToggle.classList.remove('active');
-                gifToggle.setAttribute('aria-pressed', 'true');
-                bioToggle.setAttribute('aria-pressed', 'false');
-                
-                const gifSrc = gifImg.dataset.gifSrc;
-                loadCarouselGif(gifImg, gifSrc, loadingMsg, noGifMsg);
-            });
-        }
-        // Initial state for each item (show bio)
-        if (bioArea) bioArea.style.display = 'block';
-        if (gifArea) gifArea.style.display = 'none';
-        if (bioToggle) { bioToggle.classList.add('active'); bioToggle.setAttribute('aria-pressed', 'true');}
-        if (gifToggle) { gifToggle.classList.remove('active'); gifToggle.setAttribute('aria-pressed', 'false');}
-    });
-
-    function loadCarouselGif(gifImgElement, gifSrc, loadingMsgElement, noGifMsgElement) {
-        if (!gifImgElement || !loadingMsgElement || !noGifMsgElement) return;
-
-        loadingMsgElement.style.display = 'none';
-        gifImgElement.style.display = 'none';
-        noGifMsgElement.style.display = 'none';
-        gifImgElement.src = ''; // Clear previous src to ensure onload fires if same src is set
-
-        if (!gifSrc) {
-            noGifMsgElement.style.display = 'block';
-            return;
-        }
-
-        loadingMsgElement.style.display = 'block';
-        const img = new Image();
-        img.src = gifSrc;
-
-        img.onload = () => {
-            loadingMsgElement.style.display = 'none';
-            gifImgElement.src = gifSrc;
-            gifImgElement.style.display = 'block';
-        };
-        img.onerror = () => {
-            loadingMsgElement.style.display = 'none';
-            noGifMsgElement.style.display = 'block';
-            console.error("Failed to load carousel GIF:", gifSrc);
-        };
+        
+        // Initial setup
+        goToSlide(0); // Start with the first player
+        window.addEventListener('resize', updateCarousel); // Adjust on resize
     }
 
-    if (totalItems > 0) {
-        if (prevButton) prevButton.addEventListener('click', prevSlide);
-        if (nextButton) nextButton.addEventListener('click', nextSlide);
-        
-        if (teamCarouselViewport) {
-            teamCarouselViewport.addEventListener('touchstart', handleTouchStart, { passive: true });
-            teamCarouselViewport.addEventListener('touchmove', handleTouchMove, { passive: true });
-            teamCarouselViewport.addEventListener('touchend', handleTouchEnd, { passive: true });
+    function handleSwipe() {
+        const swipeThreshold = 50; // Minimum pixels for a swipe
+        if (touchEndX < touchStartX - swipeThreshold) {
+            goToSlide(currentIndex + 1); // Swiped left
+        } else if (touchEndX > touchStartX + swipeThreshold) {
+            goToSlide(currentIndex - 1); // Swiped right
         }
-        
-        window.addEventListener('resize', () => {
-            calculateItemWidth();
-            updateCarousel();
+    }
+
+
+    // --- All Members Modal Logic (remains mostly the same) ---
+    const allMembersModal = document.getElementById('allMembersModal');
+    const allMembersBtn = document.getElementById('viewAllMembersBtn');
+    const allMembersCloseButton = allMembersModal ? allMembersModal.querySelector('.modal-close') : null;
+    const allMembersListContainer = document.getElementById('allMembersListContainer');
+
+    const allMembers = [
+        "白蜡" , "拌龟" , "背化学" , "背化学老公" , "波搜" , "c²" , "纯情天然呆" , "clues" , "dsnv" , "购醉" , "古煲" , "寒炀" , "好坏" , "喝胖猫" , "焦颂" , "jang&unyo" , "卡拉" , "看惯他" , "靠靠我的肩膀" , "Kcir" , "leaky" , "累泪." , "黎安有景行" , "lsta" , "萌妹品味" , "萌妹肢" , "男刁" , "#o要开心" , "陪陪妹" , "拼颖" , "钱蔷" , "青奶皇" , "桑宝好困呀！" , "少偏向" , "售誓" , "夙" , "兔灵篇" , "讨买" , "往屹" , "诬鸦" , "小少爷" , "小驷" , "携诛" , "小妍蝶" , "妍" , "耀忣" , "隐语儿" , "阴郁吻痕" , "以以" , "舆迟" , "争吹" , "🤗"
+    ];
+    const uniqueSortedMembers = [...new Set(allMembers)].sort((a, b) => a.localeCompare(b, 'zh-CN'));
+
+
+    const populateAllMembersList = () => {
+        if (!allMembersListContainer) return;
+        allMembersListContainer.innerHTML = '';
+        uniqueSortedMembers.forEach(memberName => {
+            const item = document.createElement('div');
+            item.className = 'member-item-small';
+            const avatar = document.createElement('div');
+            avatar.className = 'member-avatar-small';
+            const initial = (typeof memberName === 'string' && memberName.length > 0) ? memberName.charAt(0) : '?';
+            avatar.textContent = initial;
+            avatar.title = memberName;
+            const nameDiv = document.createElement('div');
+            nameDiv.className = 'member-name-small';
+            nameDiv.textContent = memberName;
+            item.appendChild(avatar);
+            item.appendChild(nameDiv);
+            allMembersListContainer.appendChild(item);
         });
+    };
 
-        createDots();
-        calculateItemWidth();
-        updateCarousel(); // Initial setup
-    } else {
-        if(teamCarouselViewport) teamCarouselViewport.style.display = 'none'; // Hide carousel if no items
+    const openAllMembersModal = () => {
+        if (!allMembersModal) return;
+        populateAllMembersList();
+        allMembersModal.classList.add('active');
+        body.classList.add('modal-open');
+        if (allMembersCloseButton) allMembersCloseButton.focus();
+    };
+
+    const closeAllMembersModal = () => {
+        if (allMembersModal) allMembersModal.classList.remove('active');
+        // Check if any other modal is active before removing body class
+        if (!document.querySelector('.modal-overlay.active')) {
+            body.classList.remove('modal-open');
+        }
+    };
+
+    if (allMembersBtn) {
+         allMembersBtn.addEventListener('click', openAllMembersModal);
+    }
+    if (allMembersCloseButton) {
+        allMembersCloseButton.addEventListener('click', closeAllMembersModal);
     }
 
-    // Removed Player Modal and All Members Modal logic
 
-    // --- Global Modal Closing Logic (No longer needed for player/allmembers modals) ---
-    // Kept for potential future modals, or can be removed if no other modals exist.
-    /*
+    // --- Global Modal Closing Logic (now only for allMembersModal) ---
     const closeModalsOnClickOutside = (event) => {
-         // ... logic for other modals if any
+         if (allMembersModal && allMembersModal.classList.contains('active') && event.target === allMembersModal) {
+             closeAllMembersModal();
+         }
     };
     document.addEventListener('click', closeModalsOnClickOutside);
 
     const closeModalsOnEscape = (event) => {
         if (event.key === 'Escape') {
-            // ... logic for other modals if any
+            if (allMembersModal && allMembersModal.classList.contains('active')) {
+                closeAllMembersModal();
+            }
         }
     };
     document.addEventListener('keydown', closeModalsOnEscape);
-    */
 
 }); // End DOMContentLoaded
