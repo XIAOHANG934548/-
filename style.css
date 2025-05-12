@@ -437,10 +437,11 @@ footer p { margin-top: 15px; }
 .modal-close:hover { color: var(--primary-color); transform: rotate(90deg); }
 
 #allMembersModal .modal-content {
+    display: flex; /* Ensure it's a flex container */
     flex-direction: column;
     max-width: 900px;
-    max-height: 80vh;
-    overflow: hidden;
+    max-height: 80vh; /* Keep max height for the modal content box */
+    /* overflow: hidden; <- REMOVED to allow internal scrolling */
 }
 #allMembersModal h2 {
      text-align: center;
@@ -449,12 +450,14 @@ footer p { margin-top: 15px; }
      font-size: 2rem;
 }
 .all-members-list-container {
-    overflow-y: auto;
-    padding-right: 15px;
-     margin-top: 10px;
-     display: grid;
-     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-     gap: 20px 15px;
+    overflow-y: auto; /* This will handle the scrolling for the list */
+    padding-right: 15px; /* Space for scrollbar */
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 20px 15px;
+    flex-grow: 1; /* Allow this container to take available vertical space */
+    min-height: 0; /* Crucial for flex children with overflow:auto/scroll */
 }
 .member-item-small {
     display: flex;

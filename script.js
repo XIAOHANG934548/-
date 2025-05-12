@@ -4,11 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Preloader ---
     const preloader = document.querySelector('.preloader');
-     window.addEventListener('load', () => {
-        if(preloader){
+    window.addEventListener('load', () => {
+        if (preloader) {
             preloader.classList.add('hidden');
             preloader.addEventListener('transitionend', () => {
-               if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+                if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
             }, { once: true });
         }
     });
@@ -18,15 +18,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroSection = document.getElementById('hero');
     let headerHeight = 0;
     if (header) {
-         headerHeight = header.offsetHeight;
+        headerHeight = header.offsetHeight;
     }
-     const stickyNav = () => {
-         if (header && heroSection && window.scrollY > heroSection.offsetHeight - headerHeight) {
-             header.classList.add('sticky');
-         } else if (header) {
-             header.classList.remove('sticky');
-         }
-     };
+    const stickyNav = () => {
+        if (header && heroSection && window.scrollY > heroSection.offsetHeight - headerHeight) {
+            header.classList.add('sticky');
+        } else if (header) {
+            header.classList.remove('sticky');
+        }
+    };
     window.addEventListener('scroll', stickyNav);
     stickyNav();
 
@@ -44,56 +44,56 @@ document.addEventListener('DOMContentLoaded', () => {
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 if (navMenu.classList.contains('active')) {
-                     navMenu.classList.remove('active');
-                     menuToggle.textContent = '☰';
-                     menuToggle.setAttribute('aria-expanded', 'false');
-                     body.style.overflow = '';
+                    navMenu.classList.remove('active');
+                    menuToggle.textContent = '☰';
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    body.style.overflow = '';
                 }
             });
         });
-         document.addEventListener('click', (event) => {
-             const isClickInsideNav = navMenu.contains(event.target);
-             const isClickOnToggle = menuToggle.contains(event.target);
-             if (!isClickInsideNav && !isClickOnToggle && navMenu.classList.contains('active')) {
-                  navMenu.classList.remove('active');
-                  menuToggle.textContent = '☰';
-                  menuToggle.setAttribute('aria-expanded', 'false');
-                  body.style.overflow = '';
-             }
-         });
+        document.addEventListener('click', (event) => {
+            const isClickInsideNav = navMenu.contains(event.target);
+            const isClickOnToggle = menuToggle.contains(event.target);
+            if (!isClickInsideNav && !isClickOnToggle && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                menuToggle.textContent = '☰';
+                menuToggle.setAttribute('aria-expanded', 'false');
+                body.style.overflow = '';
+            }
+        });
     }
 
 
     // --- Active Nav Link Highlighting ---
     const sections = document.querySelectorAll('main section[id]');
     const navLinksForHighlight = document.querySelectorAll('.nav-links .nav-link');
-     const highlightNav = () => {
-         let currentSectionId = 'hero';
-         const scrollPosition = window.scrollY;
-         const currentHeaderHeight = header ? header.offsetHeight : 0;
-         const headerOffset = header && header.classList.contains('sticky') ? currentHeaderHeight : 0;
-         const triggerOffset = headerOffset + 80;
+    const highlightNav = () => {
+        let currentSectionId = 'hero';
+        const scrollPosition = window.scrollY;
+        const currentHeaderHeight = header ? header.offsetHeight : 0;
+        const headerOffset = header && header.classList.contains('sticky') ? currentHeaderHeight : 0;
+        const triggerOffset = headerOffset + 80;
 
-         sections.forEach(section => {
+        sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
             if (scrollPosition >= sectionTop - triggerOffset &&
                 scrollPosition < sectionTop + sectionHeight - triggerOffset) {
                 currentSectionId = section.getAttribute('id');
             }
-         });
+        });
 
-         if (heroSection && scrollPosition < heroSection.offsetHeight / 2) {
-             currentSectionId = 'hero';
-         }
+        if (heroSection && scrollPosition < heroSection.offsetHeight / 2) {
+            currentSectionId = 'hero';
+        }
 
-         navLinksForHighlight.forEach(link => {
+        navLinksForHighlight.forEach(link => {
             link.classList.remove('active');
             const href = link.getAttribute('href');
             if (href && href.startsWith('#') && href === `#${currentSectionId}`) {
                 link.classList.add('active');
             }
-         });
+        });
     };
     window.addEventListener('scroll', highlightNav);
     highlightNav();
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Scroll Reveal Animation ---
     const revealElements = document.querySelectorAll('.scroll-reveal');
     if (typeof IntersectionObserver !== 'undefined') {
-         const revealObserver = new IntersectionObserver((entries, observer) => {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
                     entry.target.style.setProperty('--animation-order', index);
@@ -109,12 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     observer.unobserve(entry.target);
                 }
             });
-         }, {
-             threshold: 0.1,
-         });
-         revealElements.forEach(el => {
-             if (el) revealObserver.observe(el);
-         });
+        }, {
+            threshold: 0.1,
+        });
+        revealElements.forEach(el => {
+            if (el) revealObserver.observe(el);
+        });
     } else {
         revealElements.forEach(el => {
             if (el) el.classList.add('visible');
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (focusedPlayerName) focusedPlayerName.textContent = playerData.name || "[蛋仔ID]";
         if (focusedPlayerSkill) focusedPlayerSkill.textContent = playerData.skill || "[擅长/特点]";
         if (focusedPlayerBioText) focusedPlayerBioText.textContent = playerData.bio || "[暂无简介]";
-        
+
         if (focusedCaptainBadge) {
             focusedCaptainBadge.style.display = (playerData.id === "shaopianxiang") ? 'inline-block' : 'none';
         }
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         focusedPlayerGif.style.display = 'none';
         if (focusedPlayerGif) focusedPlayerGif.src = ''; // Clear previous GIF
     }
-    
+
     function preloadFocusedGif(gifUrl) {
         if (!gifUrl) return;
         isFocusedGifLoading = true;
@@ -246,26 +246,26 @@ document.addEventListener('DOMContentLoaded', () => {
             focusedNoGifMessage.style.display = 'block';
         }
     }
-    
+
     if (focusedShowTextBtn) focusedShowTextBtn.addEventListener('click', showFocusedTextContent);
     if (focusedShowGifBtn) focusedShowGifBtn.addEventListener('click', showFocusedGifContent);
 
 
     function updateCarousel() {
         if (!carouselSlidesContainer || slides.length === 0) return;
-    
+
         const slideWidth = slides[0].offsetWidth;
         const gap = parseInt(window.getComputedStyle(slides[0]).marginRight) * 2; // Assuming equal left/right margins or use margin-left + margin-right
         const totalSlideWidth = slideWidth + gap;
-    
+
         // Center the active slide. Calculation needs to consider the container's width and slide widths.
         // This simple translation centers the start of the active slide; centering the middle is more complex with variable # of slides.
         // For a robust centering, you might calculate offset based on container width / 2 - slideWidth / 2
         const baseOffset = (carouselSlidesContainer.parentElement.offsetWidth / 2) - (slideWidth / 2);
         const translateXValue = baseOffset - (currentIndex * totalSlideWidth);
-        
+
         carouselSlidesContainer.style.transform = `translateX(${translateXValue}px)`;
-    
+
         slides.forEach((slide, index) => {
             slide.classList.remove('active', 'prev-slide', 'next-slide');
             if (index === currentIndex) {
@@ -276,10 +276,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 slide.classList.add('next-slide');
             }
         });
-    
+
         updateFocusedPlayerInfo(slides[currentIndex]);
     }
-    
+
 
     function goToSlide(index) {
         if (slides.length === 0) return;
@@ -298,19 +298,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
-        
+
         // Swipe functionality
         if (carouselSlidesContainer) {
             carouselSlidesContainer.addEventListener('touchstart', e => {
                 touchStartX = e.changedTouches[0].screenX;
             }, { passive: true });
-    
+
             carouselSlidesContainer.addEventListener('touchend', e => {
                 touchEndX = e.changedTouches[0].screenX;
                 handleSwipe();
             });
         }
-        
+
         // Initial setup
         goToSlide(0); // Start with the first player
         window.addEventListener('resize', updateCarousel); // Adjust on resize
@@ -333,8 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const allMembersListContainer = document.getElementById('allMembersListContainer');
 
     const allMembers = [
-        "白蜡" , "拌龟" , "背化学" , "背化学老公" , "波搜" , "c²" , "纯情天然呆" , "clues" , "dsnv" , "购醉" , "古煲" , "寒炀" , "好坏" , "喝胖猫" , "焦颂" , "jang&unyo" , "卡拉" , "看惯他" , "靠靠我的肩膀" , "Kcir" , "leaky" , "累泪." , "黎安有景行" , "lsta" , "萌妹品味" , "萌妹肢" , "男刁" , "#o要开心" , "陪陪妹" , "拼颖" , "钱蔷" , "青奶皇" , "桑宝好困呀！" , "少偏向" , "售誓" , "夙" , "兔灵篇" , "讨买" , "往屹" , "诬鸦" , "小少爷" , "小驷" , "携诛" , "小妍蝶" , "妍" , "耀忣" , "隐语儿" , "阴郁吻痕" , "以以" , "舆迟" , "争吹" , "🤗"
-    ];
+        "白蜡", "拌龟", "背化学", "背化学前夫", "波搜", "c²", "缠协", "clues", "dsnv", "寒炀 捂瓜", "好坏", "喝胖猫", "焦颂", "接驾", "卡拉", "看惯他", "靠靠我的肩膀", "Kcir", "leaky", "累泪.", "勒蠡", "黎安有景行", "lsta", "妹儿哟", "萌的罪", "萌妹品味", "萌妹肢", "讴只", "#o要开心", "拼颖", "钱蔷", "青奶皇", "秋庋（要叫小秋奶奶）", "s", "桑宝好困呀！", "嫂子开门，我是我哥", "少偏向（陨落版", "事议", "售誓", "讨买", "体美劳", "偷偷幻想", "T~T", "兔灵篇", "往屹", "诬鸦", "小奩", "小驷", "小妍蝶", "幸运", "携诛", "妍", "隐语儿", "阴郁吻痕", "舆迟", "昱急", "以以", "耀忣", "择鬼", "Zeo", "争吹", "住歪", "ZzzA",];
     const uniqueSortedMembers = [...new Set(allMembers)].sort((a, b) => a.localeCompare(b, 'zh-CN'));
 
 
@@ -375,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (allMembersBtn) {
-         allMembersBtn.addEventListener('click', openAllMembersModal);
+        allMembersBtn.addEventListener('click', openAllMembersModal);
     }
     if (allMembersCloseButton) {
         allMembersCloseButton.addEventListener('click', closeAllMembersModal);
@@ -384,9 +383,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Global Modal Closing Logic (now only for allMembersModal) ---
     const closeModalsOnClickOutside = (event) => {
-         if (allMembersModal && allMembersModal.classList.contains('active') && event.target === allMembersModal) {
-             closeAllMembersModal();
-         }
+        if (allMembersModal && allMembersModal.classList.contains('active') && event.target === allMembersModal) {
+            closeAllMembersModal();
+        }
     };
     document.addEventListener('click', closeModalsOnClickOutside);
 
