@@ -102,7 +102,7 @@ nav .container { display: flex; justify-content: space-between; align-items: cen
 .team-carousel-slides-container {
     overflow: hidden;
     position: relative;
-    height: 280px; /* Adjust as needed for slide height + peek effect */
+    height: 300px; /* Adjust as needed for slide height + peek effect */
     perspective: 1000px; /* For 3D effect on side slides */
 }
 .team-carousel-slides {
